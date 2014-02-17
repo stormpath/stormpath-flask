@@ -10,7 +10,8 @@ we'll just follow Flask conventions and have single file stuff going on.
 from os import environ
 from unittest import TestCase
 
-from flask.ext.stormpath import User
+from flask import Flask
+from flask.ext.stormpath import StormpathManager, User
 
 from stormpath.client import Client
 from stormpath.resources.account import Account
@@ -24,6 +25,16 @@ class TestUser(TestCase):
             id = environ.get('STORMPATH_API_KEY_ID'),
             secret = environ.get('STORMPATH_API_KEY_SECRET'),
         )
+
+        # Try to delete our test application / directory first, this way if we
+        # mess something up while developing test code (like I have many times
+        # now), we won't get issues and have to manually remove these resources.
+        try:
+            self.client.applications.search('flask-stormpath-tests')[0].delete()
+            self.client.directories.search('flask-stormpath-tests')[0].delete()
+        except:
+            pass
+
         self.application = self.client.applications.create({
             'name': 'flask-stormpath-tests',
             'description': 'This application is ONLY used for testing the Flask-Stormpath library. Please do not use this for anything serious.',
@@ -32,9 +43,17 @@ class TestUser(TestCase):
             'given_name': 'Randall',
             'surname': 'Degges',
             'email': 'randall@stormpath.com',
+            'username': 'randall',
             'password': 'woot1LoveCookies!',
         })
         self.user.__class__ = User
+
+        self.app = Flask(__name__)
+        self.app.config['SECRET_KEY'] = 'woot'
+        self.app.config['STORMPATH_API_KEY_ID'] = environ.get('STORMPATH_API_KEY_ID')
+        self.app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
+        self.app.config['STORMPATH_APPLICATION'] = 'flask-stormpath-tests'
+        StormpathManager(self.app)
 
     def test_subclass(self):
         account = Account(client=self.client, properties={
