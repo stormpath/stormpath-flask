@@ -66,7 +66,7 @@ class User(Account):
         A user account is active if, and only if, their account status is
         'ENABLED'.
         """
-        return True if self.status == 'ENABLED' else False
+        return self.status == 'ENABLED'
 
     def is_anonymous(self):
         """
