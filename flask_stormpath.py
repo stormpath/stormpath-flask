@@ -54,6 +54,9 @@ class User(Account):
     This can be used as described in the Stormpath Python SDK documentation:
     https://github.com/stormpath/stormpath-sdk-python
     """
+    def __repr__(self):
+        return u'User <"%s" ("%s")>' % (self.username or self.email, self.href)
+
     def get_id(self):
         """
         Return the unique user identifier (in our case, the Stormpath resource
