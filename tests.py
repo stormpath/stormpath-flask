@@ -74,6 +74,8 @@ class TestUser(TestCase):
     def test_is_active(self):
         self.assertEqual(self.user.is_active(), self.user.status == 'ENABLED')
 
+    def test_is_anonymous(self):
+        self.assertEqual(self.user.is_anonymous(), False)
     def tearDown(self):
         self.application.delete()
         self.client.directories.search('flask-stormpath-tests')[0].delete()
