@@ -160,6 +160,13 @@ class TestStormpathManager(TestCase):
         with self.app.app_context():
             self.assertIsInstance(self.app.stormpath_manager.client, Client)
 
+    def test_login_view(self):
+        def test_view():
+            return 'hi'
+
+        with self.app.app_context():
+            self.app.stormpath_manager.login_view = test_view
+
     def tearDown(self):
         self.application.delete()
         self.client.directories.search('flask-stormpath-tests')[0].delete()
