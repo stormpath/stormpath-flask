@@ -184,7 +184,7 @@ Without doing anything special!
 Lastly, you can easily log users out of their accounts by calling the
 `logout_user` helper:
 
-```
+```python
 @app.route('/logout')
 @login_required
 def logout():
