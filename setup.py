@@ -12,12 +12,10 @@ https://github.com/stormpath/stormpath-flask
 
 from setuptools import setup
 
-from flask_stormpath import __version__ as version
-
 
 setup(
     name = 'Flask-Stormpath',
-    version = version,
+    version = '0.0.1',
     url = 'https://github.com/stormpath/stormpath-flask',
     license = 'Apache',
     author = 'Stormpath, Inc.',
