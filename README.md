@@ -219,7 +219,7 @@ developers to add user authentication to their projects without the complication
 that comes along with it.
 
 If you have features or suggestions, please let me know!
-[randalL@stormpath.com](mailto:randall@stormpath.com)
+[randall@stormpath.com](mailto:randall@stormpath.com)
 
 
 ## Changelog
