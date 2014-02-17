@@ -29,6 +29,7 @@ setup(
     install_requires = [
         'Flask',
         'Flask-Login',
+        'stormpath',
     ],
     classifiers = [
         'Environment :: Web Environment',
