@@ -55,6 +55,9 @@ class TestUser(TestCase):
         self.app.config['STORMPATH_APPLICATION'] = 'flask-stormpath-tests'
         StormpathManager(self.app)
 
+    def test_repr(self):
+        self.assertTrue('randall' in self.user.__repr__())
+
     def test_subclass(self):
         account = Account(client=self.client, properties={
             'given_name': 'Randall',
@@ -76,6 +79,9 @@ class TestUser(TestCase):
 
     def test_is_anonymous(self):
         self.assertEqual(self.user.is_anonymous(), False)
+
+    def test_is_authenticated(self):
+        self.assertEqual(self.user.is_authenticated(), True)
 
     def test_from_login(self):
         with self.app.app_context():
