@@ -76,6 +76,21 @@ class TestUser(TestCase):
 
     def test_is_anonymous(self):
         self.assertEqual(self.user.is_anonymous(), False)
+
+    def test_from_login(self):
+        with self.app.app_context():
+            user = User.from_login(
+                'randall@stormpath.com',
+                'woot1LoveCookies!',
+            )
+            self.assertEqual(user.href, self.user.href)
+
+            user = User.from_login(
+                'randall',
+                'woot1LoveCookies!',
+            )
+            self.assertEqual(user.href, self.user.href)
+
     def tearDown(self):
         self.application.delete()
         self.client.directories.search('flask-stormpath-tests')[0].delete()
