@@ -156,6 +156,10 @@ class TestStormpathManager(TestCase):
         StormpathManager(self.app)
         self.assertEqual(self.app.login_manager.session_protection, 'strong')
 
+    def test_client(self):
+        with self.app.app_context():
+            self.assertIsInstance(self.app.stormpath_manager.client, Client)
+
     def tearDown(self):
         self.application.delete()
         self.client.directories.search('flask-stormpath-tests')[0].delete()
