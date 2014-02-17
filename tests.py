@@ -11,7 +11,12 @@ from os import environ
 from unittest import TestCase
 
 from flask import Flask
-from flask.ext.stormpath import StormpathManager, User
+from flask.ext.stormpath import (
+    StormpathManager,
+    User,
+    _user_context_processor,
+    login_user,
+)
 
 from stormpath.client import Client
 from stormpath.resources.account import Account
@@ -96,6 +101,56 @@ class TestUser(TestCase):
                 'woot1LoveCookies!',
             )
             self.assertEqual(user.href, self.user.href)
+
+    def tearDown(self):
+        self.application.delete()
+        self.client.directories.search('flask-stormpath-tests')[0].delete()
+
+
+class TestStormpathManager(TestCase):
+    """Our StormpathManager test suite."""
+
+    def setUp(self):
+        self.client = Client(
+            id = environ.get('STORMPATH_API_KEY_ID'),
+            secret = environ.get('STORMPATH_API_KEY_SECRET'),
+        )
+
+        # Try to delete our test application / directory first, this way if we
+        # mess something up while developing test code (like I have many times
+        # now), we won't get issues and have to manually remove these resources.
+        try:
+            self.client.applications.search('flask-stormpath-tests')[0].delete()
+            self.client.directories.search('flask-stormpath-tests')[0].delete()
+        except:
+            pass
+
+        self.application = self.client.applications.create({
+            'name': 'flask-stormpath-tests',
+            'description': 'This application is ONLY used for testing the Flask-Stormpath library. Please do not use this for anything serious.',
+        }, create_directory=True)
+        self.user = self.application.accounts.create({
+            'given_name': 'Randall',
+            'surname': 'Degges',
+            'email': 'randall@stormpath.com',
+            'username': 'randall',
+            'password': 'woot1LoveCookies!',
+        })
+        self.user.__class__ = User
+
+        self.app = Flask(__name__)
+        self.app.config['SECRET_KEY'] = 'woot'
+        self.app.config['STORMPATH_API_KEY_ID'] = environ.get('STORMPATH_API_KEY_ID')
+        self.app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
+        self.app.config['STORMPATH_APPLICATION'] = 'flask-stormpath-tests'
+        StormpathManager(self.app)
+
+    def test_init(self):
+        sm = StormpathManager()
+        self.assertEqual(sm.app, None)
+
+        sm = StormpathManager(self.app)
+        self.assertEqual(sm.app, self.app)
 
     def tearDown(self):
         self.application.delete()
