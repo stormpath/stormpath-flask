@@ -138,8 +138,8 @@ You can either configure it with your Flask app directly::
     app = Flask(__name__)
     stormpath_manager = StormpathManager(app)
 
-Or you can create lazily initialize your `StormpathManager` (this is useful if
-you have a factory function creating your Flask application)::
+Or you can lazily initialize your `StormpathManager` (this is useful if you
+have a factory function creating your Flask application)::
 
     from flask.ext.stormpath import StormpathManager
 
