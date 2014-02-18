@@ -96,8 +96,8 @@ Now that you've create an Application, you're completely ready to move on to
 plugging Flask-Stormpath into your project!
 
 
-Installing Flask-Stormpath
---------------------------
+Installation
+------------
 
 To install Flask-Stormpath, you'll need `pip
 <http://pip.readthedocs.org/en/latest/>`_.  You can install (or upgrade)
