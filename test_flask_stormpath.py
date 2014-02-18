@@ -9,6 +9,7 @@ we'll just follow Flask conventions and have single file stuff going on.
 
 from os import environ
 from unittest import TestCase
+from uuid import uuid4
 
 from flask import Flask
 from flask.ext.stormpath import (
@@ -30,18 +31,19 @@ class TestUser(TestCase):
             id = environ.get('STORMPATH_API_KEY_ID'),
             secret = environ.get('STORMPATH_API_KEY_SECRET'),
         )
+        self.application_name = 'flask-stormpath-tests-%s' % uuid4().hex
 
         # Try to delete our test application / directory first, this way if we
         # mess something up while developing test code (like I have many times
         # now), we won't get issues and have to manually remove these resources.
         try:
-            self.client.applications.search('flask-stormpath-tests')[0].delete()
-            self.client.directories.search('flask-stormpath-tests')[0].delete()
+            self.client.applications.search(self.application_name)[0].delete()
+            self.client.directories.search(self.application_name)[0].delete()
         except:
             pass
 
         self.application = self.client.applications.create({
-            'name': 'flask-stormpath-tests',
+            'name': self.application_name,
             'description': 'This application is ONLY used for testing the Flask-Stormpath library. Please do not use this for anything serious.',
         }, create_directory=True)
         self.user = self.application.accounts.create({
@@ -57,7 +59,7 @@ class TestUser(TestCase):
         self.app.config['SECRET_KEY'] = 'woot'
         self.app.config['STORMPATH_API_KEY_ID'] = environ.get('STORMPATH_API_KEY_ID')
         self.app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
-        self.app.config['STORMPATH_APPLICATION'] = 'flask-stormpath-tests'
+        self.app.config['STORMPATH_APPLICATION'] = self.application_name
         StormpathManager(self.app)
 
     def test_repr(self):
@@ -104,7 +106,7 @@ class TestUser(TestCase):
 
     def tearDown(self):
         self.application.delete()
-        self.client.directories.search('flask-stormpath-tests')[0].delete()
+        self.client.directories.search(self.application_name)[0].delete()
 
 
 class TestStormpathManager(TestCase):
@@ -115,18 +117,19 @@ class TestStormpathManager(TestCase):
             id = environ.get('STORMPATH_API_KEY_ID'),
             secret = environ.get('STORMPATH_API_KEY_SECRET'),
         )
+        self.application_name = 'flask-stormpath-tests-%s' % uuid4().hex
 
         # Try to delete our test application / directory first, this way if we
         # mess something up while developing test code (like I have many times
         # now), we won't get issues and have to manually remove these resources.
         try:
-            self.client.applications.search('flask-stormpath-tests')[0].delete()
-            self.client.directories.search('flask-stormpath-tests')[0].delete()
+            self.client.applications.search(self.application_name)[0].delete()
+            self.client.directories.search(self.application_name)[0].delete()
         except:
             pass
 
         self.application = self.client.applications.create({
-            'name': 'flask-stormpath-tests',
+            'name': self.application_name,
             'description': 'This application is ONLY used for testing the Flask-Stormpath library. Please do not use this for anything serious.',
         }, create_directory=True)
         self.user = self.application.accounts.create({
@@ -142,7 +145,7 @@ class TestStormpathManager(TestCase):
         self.app.config['SECRET_KEY'] = 'woot'
         self.app.config['STORMPATH_API_KEY_ID'] = environ.get('STORMPATH_API_KEY_ID')
         self.app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
-        self.app.config['STORMPATH_APPLICATION'] = 'flask-stormpath-tests'
+        self.app.config['STORMPATH_APPLICATION'] = self.application_name
         StormpathManager(self.app)
 
     def test_init(self):
@@ -169,4 +172,4 @@ class TestStormpathManager(TestCase):
 
     def tearDown(self):
         self.application.delete()
-        self.client.directories.search('flask-stormpath-tests')[0].delete()
+        self.client.directories.search(self.application_name)[0].delete()
