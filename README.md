@@ -9,7 +9,7 @@ Build simple, secure web applications with Stormpath and Flask!
 features, and only handles basic use cases.  We're working on adding lots of
 cool stuff to the library which will improve it's general usefulness.  If you
 have feedback, please get in touch and share your thoughts!
-[randall@stormpath.com](mailto:randall@stormpath.com)
+[python@stormpath.com](mailto:python@stormpath.com)
 
 
 ## What is Stormpath?
@@ -219,7 +219,7 @@ developers to add user authentication to their projects without the complication
 that comes along with it.
 
 If you have features or suggestions, please let me know!
-[randall@stormpath.com](mailto:randall@stormpath.com)
+[python@stormpath.com](mailto:python@stormpath.com)
 
 
 ## Changelog
