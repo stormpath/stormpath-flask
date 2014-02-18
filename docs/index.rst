@@ -125,6 +125,30 @@ configure your existing Flask application to work with it.
     sample application at: https://github.com/stormpath/stormpath-flask-sample
 
 
+Step 1: Create a StormpathManager
+.................................
+
+The base of all Flask-Stormpath configuration is the `StormpathManager` class.
+You can initialize this in one of two ways:
+
+You can either configure it with your Flask app directly::
+
+    from flask.ext.stormpath import StormpathManager
+
+    app = Flask(__name__)
+    stormpath_manager = StormpathManager(app)
+
+Or you can create lazily initialize your `StormpathManager` (this is useful if
+you have a factory function creating your Flask application)::
+
+    from flask.ext.stormpath import StormpathManager
+
+    stormpath_manager = StormpathManager()
+
+    # some code which creates your app
+    stormpath_manager.init_app(app)
+
+
 Table of Contents
 
 .. toctree::
