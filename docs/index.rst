@@ -149,6 +149,49 @@ you have a factory function creating your Flask application)::
     stormpath_manager.init_app(app)
 
 
+Step 2: Create a User Registration Template
+...........................................
+
+The next step (for most people) is to build a user registration template, which
+allows new users to sign up for your website.  In the example below, I'll show
+you a simple, standalone HTML template which allows users to register for your
+website by specifying a few fields:
+
+- First Name
+- Last Name
+- Email
+- Password
+
+Here's the code (this file should be saved as `register.html` and placed inside
+the `templates` directory in your Flask application)::
+
+    <html>
+      <head>
+        <title>Create an Account</title>
+      </head>
+      <body>
+        <form action="" method="post">
+          <fieldset>
+            <legend>Create an Account</legend>
+            <label for="first-name">First Name</label>
+            <input type="text" name="first-name" placeholder="First Name">
+            <label for="last-name">Last Name</label>
+            <input type="text" name="last-name" placeholder="Last Name">
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="Email">
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Password">
+            <input type="submit" name="Register">
+          </fieldset>
+        </form>
+      </body>
+    </html>
+
+This simple template allows you to collect several pieces of user data that
+we'll use in the next step to create a new user account.
+
+
+
 Table of Contents
 
 .. toctree::
