@@ -62,6 +62,38 @@ behind the scenes to handle sessions).
 Want to use Stormpath?  OK, great!  Let's get started!
 
 
+Getting Started with Stormpath
+------------------------------
+
+Now that you've decided to use Stormpath, the first thing you'll want to use is
+create a new Stormpath account: https://api.stormpath.com/register
+
+Once you've created a new account, create a new API key pair by logging into
+your dashboard and clicking the 'Create an API Key' button.  This will generate
+a new API key for you, and prompt you to download your keypair.
+
+.. note::
+    Please keep the API keypair file you just downloaded safe!  These two keys
+    allow you to make Stormpath API requests, and should be properly protected,
+    backed up, etc.
+
+Next, you'll want to create a new Stormpath Application.
+
+Stormpath allows you to provision any number of 'Applications'.  The general
+rule is that you should create one Application per website.  In this case,
+you'll want to create a single Application.
+
+To do this, click the 'Applications' tab in the Stormpath dashboard, then click
+'Register an Application' and follow the on-screen instructions.
+
+.. note::
+    Use the default options when creating an Application, this way you'll be
+    able to create users in your new Application without issue.
+
+Now that you've create an Application, you're completely ready to move on to
+plugging Flask-Stormpath into your project!
+
+
 Table of Contents
 
 .. toctree::
