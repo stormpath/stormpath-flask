@@ -442,9 +442,23 @@ As new versions of this library are released, we'll be updating this
 documentation to demonstrate how to use the latest and greatest features.
 
 
-Indices and tables
-==================
+API Documentation
+=================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+This documentation is automatically generated from Flask-Stormpath's source
+code.
+
+.. autoclass:: StormpathManager
+
+    .. automethod:: client
+    .. automethod:: application
+    .. automethod:: login_view
+    .. automethod:: load_user
+
+.. autoclass:: User
+
+    .. automethod:: get_id
+    .. automethod:: is_active
+    .. automethod:: is_anonymous
+    .. automethod:: is_authenticated
+    .. automethod:: from_login
