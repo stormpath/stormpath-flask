@@ -10,7 +10,7 @@ Flask-Stormpath
 .. currentmodule:: flask.ext.stormpath
 
 
-*User management made easy.*
+*User management and authentication made easy.*
 
 Hi there, and thanks for checking out Flask-Stormpath!
 
