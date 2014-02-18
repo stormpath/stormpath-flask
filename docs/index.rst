@@ -148,6 +148,33 @@ have a factory function creating your Flask application)::
     # some code which creates your app
     stormpath_manager.init_app(app)
 
+Now that you have your manager configured, you need to supply some basic
+Stormpath configuration variables to make things work::
+
+    app.config['SECRET_KEY'] = 'someprivatestringhere'
+    app.config['STORMPATH_API_KEY_ID'] = 'your_stormpath_key_id'
+    app.config['STORMPATH_API_KEY_SECRET'] = 'your_stormpath_secret_key'
+    app.config['STORMPATH_APPLICATION'] = 'your_stormpath_application_namek'
+
+The `STORMPATH_API_KEY_ID` and `STORMPATH_API_KEY_SECRET` variables can be found
+in the `apiKey.properties` file you downloaded in the previous step.
+
+The `STORMPATH_APPLICATION` variable should be the name of your Stormpath
+application you created above.
+
+.. note::
+    Please don't hardcode your API key information into your source code!  To
+    keep your credentials safe and secret, we recommend storing these
+    credentials in environment variables.
+
+    You can make use of environment variables by doing something like the
+    following::
+
+        from os import environ
+
+        app.config['STORMPATH_API_KEY_ID'] = environ.get('STORMPATH_API_KEY_ID')
+        app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
+
 
 Step 2: Create a User Registration Template
 ...........................................
