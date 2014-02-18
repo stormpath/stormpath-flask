@@ -28,8 +28,8 @@ setup(
     platforms = 'any',
     install_requires = [
         'Flask',
-        'Flask-Login',
-        'stormpath',
+        'Flask-Login==0.2.9',
+        'stormpath==1.0.1',
     ],
     classifiers = [
         'Environment :: Web Environment',
