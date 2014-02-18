@@ -42,8 +42,10 @@ You might want to use Stormpath if:
   (email, password).
 - You would like to have automatic email verification for new user accounts.
 - You would like to configure and customize password strength rules.
-- You'd like to keep your user data separate from your other application to
+- You'd like to keep your user data separate from your other applications to
   increase platform stability / availability.
+- You are building a service oriented application, in which multiple
+  independent services need access to the same user data.
 - You are a big organization who would like to use Stormpath, but need to host
   it yourself (Stormpath has an on-premise system you can use internally).
 
