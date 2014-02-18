@@ -284,6 +284,10 @@ There are a few things to note here:
   Want more information on a User object?  See the official Stormpath Python SDK
   documentation: https://github.com/stormpath/stormpath-sdk-python
 
+- If a public visitor tries to access the dashboard page directly, they'll be
+  redirected to the login page where they'll be prompted for their credentials
+  (more on this later).
+
 
 Table of Contents
 
