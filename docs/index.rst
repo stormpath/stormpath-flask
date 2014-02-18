@@ -107,10 +107,22 @@ Flask-Stormpath by running::
 
 This will automatically install all project dependencies.
 
-
 .. note::
     Flask-Stormpath is currently *only* compatible with Python 2.7.  We will be
     adding Python 3 support in the near future.
+
+
+Configuration
+-------------
+
+Once you've got Flask-Stormpath installed, the next thing you need to do is
+configure your existing Flask application to work with it.
+
+.. note::
+    If you'd like to skip ahead, we've built an entire sample application you
+    can download and play with which includes all of the configuration /
+    integration we'll be covering throughout this guide.  You can find our
+    sample application at: https://github.com/stormpath/stormpath-flask-sample
 
 
 Table of Contents
