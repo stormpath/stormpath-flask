@@ -113,6 +113,7 @@ pygments_style = 'sphinx'
 # documentation.
 html_theme_options = {
     'github_fork': 'stormpath/stormpath-flask',
+    'index_logo': False,
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
