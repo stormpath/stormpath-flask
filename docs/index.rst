@@ -415,6 +415,15 @@ log into your account, view the dashboard page, and try visiting the logout page
 Not bad, right?
 
 
+Future Features
+---------------
+
+In the future, Flask-Stormpath will support a great deal more functionality,
+including multi-tenant applications, groups of users ('admins', 'superusers',
+etc.), and all sorts of complex user authentication use cases.
+
+As new versions of this library are released, we'll be updating this
+documentation to demonstrate how to use the latest and greatest features.
 
 
 Indices and tables
