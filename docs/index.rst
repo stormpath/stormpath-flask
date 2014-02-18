@@ -238,6 +238,10 @@ new account, and send them to a dashboard page (which we have yet to code!)::
         login_user(_user, remember=True)
         return redirect(url_for('.dashboard'))
 
+.. note::
+    In future versions of Flask-Stormpath, user creation will be greatly
+    simplified.  This is still an early release.
+
 
 Table of Contents
 
