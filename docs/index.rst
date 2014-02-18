@@ -321,7 +321,7 @@ Below is a simple `login.html` template you can use as a reference::
       </body>
     </html>
 
-Here's a matching login view you can use, which handle the login process
+Here's a matching login view you can use, which handles the login process
 seamlessly::
 
     @app.route('/login', methods=['GET', 'POST'])
