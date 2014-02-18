@@ -10,7 +10,29 @@ https://github.com/stormpath/stormpath-flask
 """
 
 
-from setuptools import setup
+from subprocess import call
+
+from setuptools import (
+    Command,
+    setup,
+)
+
+
+class RunTests(Command):
+    """Run our unit / integration tests."""
+    description = 'run tests'
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        """Run our tests!"""
+        errno = call(['py.test'])
+        raise SystemExit(errno)
 
 
 setup(
@@ -23,6 +45,7 @@ setup(
     description = 'Simple and secure user authentication for Flask via Stormpath.',
     long_description = __doc__,
     py_modules = ['flask_stormpath'],
+    cmdclass = {'test': RunTests},
     zip_safe = False,
     include_package_data = True,
     platforms = 'any',
