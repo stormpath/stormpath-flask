@@ -4,7 +4,7 @@ python:
 install:
   - pip install -r requirements.txt
   - python setup.py develop
-script: py.test
+script: python setup.py test
 env:
   global:
   - secure: Ab7W+Wul7pYVFm+8vrVYSS89mNuVaQmCJnY4e4rWlDK4cQr0OEDaUcAeDUkpUtfMWTl9cIK16/TxflvTIwY51sD/dhrgc4pQbceS4SKimY9XlXNYoLfp27/ASvRt8qbZHF78Gy0pEpsk+8gzwgxuUG+TJtxcPP8WbLk9sNe3PJE=
