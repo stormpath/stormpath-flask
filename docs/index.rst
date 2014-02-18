@@ -341,7 +341,7 @@ seamlessly::
         return redirect(request.args.get('next') or url_for('.dashboard'))
 
 If the user logs in successfully, they'll be redirected to either the page they
-were trying to get to, or do the dashboard page (default).
+were trying to get to, or the dashboard page (default).
 
 
 Table of Contents
