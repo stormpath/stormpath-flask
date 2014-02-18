@@ -52,8 +52,6 @@ setup(
     install_requires = [
         'Flask',
         'Flask-Login==0.2.9',
-        # ordereddict is required for Python 2.6 compatibility.
-        'ordereddict==1.1',
         'stormpath==1.0.1',
     ],
     classifiers = [
