@@ -375,6 +375,35 @@ After the user has been logged out, we'll redirect the user to the index page of
 the website (which we have yet to create).
 
 
+Step 7: Create a Home Page
+..........................
+
+The last thing we'll want to do create a simple home page for our website.
+Below is a simple `index.html` template which provides links to the registration
+and login pages::
+
+    <html>
+      <head>
+        <title>Home</title>
+      </head>
+      <body>
+        <h1>Welcome!</h1>
+        <a href="{{ url_for('.register') }}">Register</a><br />
+        <a href="{{ url_for('.login') }}">Login</a>
+      </body>
+    </html>
+
+And of course, here's a simple index Flask view you can use to render this
+page::
+
+    @app.route('/')
+    def index():
+        """Render the home page."""
+        return render_template('index.html')
+
+That's it!
+
+
 
 
 Indices and tables
