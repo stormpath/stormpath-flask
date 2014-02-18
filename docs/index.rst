@@ -18,7 +18,7 @@ Flask-Stormpath is a library which aims to make it incredibly easy to add user
 management, authentication, and authorization into your Flask web applications
 with very little work!
 
-If you're not already familiar with `Stormpath <https://stormpath.com>` you
+If you're not already familiar with `Stormpath <https://stormpath.com>`_ you
 might want to visit their site and get acquainted with them.
 
 Stormpath is an API company which securely handles user accounts (and custom
@@ -58,7 +58,7 @@ You might **NOT** want to use Stormpath if:
 - You want to roll your own custom user authentication.
 
 If you don't need Stormpath, you might want to check out `Flask-Login
-<http://flask-login.readthedocs.org/en/latest/>` (which Flask-Stormpath uses
+<http://flask-login.readthedocs.org/en/latest/>`_ (which Flask-Stormpath uses
 behind the scenes to handle sessions).
 
 Want to use Stormpath?  OK, great!  Let's get started!
