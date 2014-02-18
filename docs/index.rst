@@ -289,6 +289,61 @@ There are a few things to note here:
   (more on this later).
 
 
+Step 5: Create a Login Page
+...........................
+
+Now that we've got a registration page and dashboard page, let's go ahead and
+create a simple login page for existing users.
+
+What we'll do here is ask for a user's email and password, then securely log
+this user in with Stormpath behind the scenes.
+
+Below is a simple `login.html` template you can use as a reference::
+
+    <html>
+      <head>
+        <title>Login</title>
+      </head>
+      <body>
+        {% if error %}
+          <p>{{ error }}</p>
+        {% endif %}
+        <form action="" method="post">
+          <fieldset>
+            <legend>Login</legend>
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="Email">
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Password">
+            <input type="submit" name="Login">
+          </fieldset>
+        </form>
+      </body>
+    </html>
+
+Here's a matching login view you can use, which handle the login process
+seamlessly::
+
+    @app.route('/login', methods=['GET', 'POST'])
+    def login():
+        """Allow users to log into the site."""
+        if request.method == 'GET':
+            return render_template('login.html')
+
+        try:
+            _user = User.from_login(
+                request.form.get('email'),
+                request.form.get('password')
+        except StormpathError, err:
+            return render_template('login.html', error=err.message)
+
+        login_user(_user, remember=True)
+        return redirect(request.args.get('next') or url_for('.dashboard'))
+
+If the user logs in successfully, they'll be redirected to either the page they
+were trying to get to, or do the dashboard page (default).
+
+
 Table of Contents
 
 .. toctree::
