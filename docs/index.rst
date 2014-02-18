@@ -324,6 +324,11 @@ Below is a simple `login.html` template you can use as a reference::
 Here's a matching login view you can use, which handles the login process
 seamlessly::
 
+    # ...
+
+    # Map our custom login view to Flask-Stormpath.
+    stormpath_manager.login_view = login
+
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         """Allow users to log into the site."""
@@ -342,6 +347,10 @@ seamlessly::
 
 If the user logs in successfully, they'll be redirected to either the page they
 were trying to get to, or the dashboard page (default).
+
+By assigning our login view to `stormpath_manager.login_view`, we're telling
+Flask-Stormpath to use this view we just created to log users into their
+accounts.
 
 
 Table of Contents
