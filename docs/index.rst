@@ -170,6 +170,9 @@ the `templates` directory in your Flask application)::
         <title>Create an Account</title>
       </head>
       <body>
+        {% if error %}
+          <p>{{ error }}</p>
+        {% endif %}
         <form action="" method="post">
           <fieldset>
             <legend>Create an Account</legend>
@@ -190,6 +193,50 @@ the `templates` directory in your Flask application)::
 This simple template allows you to collect several pieces of user data that
 we'll use in the next step to create a new user account.
 
+
+Step 3: Create a Registration View
+..................................
+
+Now that you have a registration template, let's write our Flask view!
+
+The example code below shows a simple `register` view which renders the
+`register.html` template we created in the previous step, then uses the
+user-supplied form data to create a new Stormpath user, log this user into their
+new account, and send them to a dashboard page (which we have yet to code!)::
+
+    from flask import (
+        redirect,
+        render_template,
+        url_for,
+    )
+
+    from flask.ext.stormpath import (
+        StormpathError,
+        User,
+        login_user,
+    )
+
+    # ...
+
+    @app.route('/register', methods=['GET', 'POST'])
+    def register():
+        """Allow users to register for the site."""
+        if request.method == 'GET':
+            return render_template('register.html')
+
+        try:
+            _user = stormpath_manager.applications.accounts.create({
+                'first_name': request.form.get('first-name'),
+                'last_name': request.form.get('last-name'),
+                'email': request.form.get('email'),
+                'password': request.form.get('password'),
+            })
+            _user.__class__ = User
+        except StormpathError, err:
+            return render_template('register.html', error=err.message)
+
+        login_user(_user, remember=True)
+        return redirect(url_for('.dashboard'))
 
 
 Table of Contents
