@@ -258,13 +258,17 @@ Below is a simple HTML template, `dashboard.html`, you can use as reference::
       <body>
         <p>Hello {{ user.given_name }} {{ user.surname }}!</p>
         <p>Your email address is: {{ user.email }}.</p>
+        <p>Your favorite web framework is: {{ user.custom_data['favorite_web_framework'] }}.</p
       </body>
     </html>
 
 We'll also create a simple Flask view which renders this template, and restricts
 access to this page to logged in users::
 
-    from flask.ext.stormpath import login_required
+    from flask.ext.stormpath import (
+        login_required,
+        user,
+    )
 
     # ...
 
@@ -272,6 +276,11 @@ access to this page to logged in users::
     @login_required
     def dashboard():
         """Render a dashboard page for logged in users."""
+
+        # Store some custom data in our user's account.
+        user.custom_data['favorite_web_framework'] = 'Flask'
+        user.save()
+
         return render_template('dashboard.html')
 
 There are a few things to note here:
@@ -287,6 +296,13 @@ There are a few things to note here:
 - If a public visitor tries to access the dashboard page directly, they'll be
   redirected to the login page where they'll be prompted for their credentials
   (more on this later).
+
+- We're storing custom data with this user account using Stormpath's custom data
+  feature.  Stormpath allows you to store up to 10MB of data per user account.
+
+- Stormpath's custom data is a key-value store behind the scenes (Cassandra),
+  which allows you to store any type of data (including complex nested JSON
+  documents).
 
 
 Step 5: Create a Login Page
