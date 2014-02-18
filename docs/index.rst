@@ -353,10 +353,28 @@ Flask-Stormpath to use this view we just created to log users into their
 accounts.
 
 
-Table of Contents
+Step 6: Create a Logout View
+............................
 
-.. toctree::
-   :maxdepth: 2
+Now that we've handled registration, login, and dashboard functionality, let's
+go ahead and build a logout view that users can use to log out of your website.
+
+Below is an example Flask view which does just this::
+
+    from flask.ext.stormpath import logout_user
+
+    # ...
+
+    @app.route('/logout')
+    def logout():
+        """Log a user out of their account."""
+        logout_user()
+        return redirect(url_for('.index'))
+
+After the user has been logged out, we'll redirect the user to the index page of
+the website (which we have yet to create).
+
+
 
 
 Indices and tables
