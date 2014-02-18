@@ -10,3 +10,7 @@ env:
   global:
   - secure: Ab7W+Wul7pYVFm+8vrVYSS89mNuVaQmCJnY4e4rWlDK4cQr0OEDaUcAeDUkpUtfMWTl9cIK16/TxflvTIwY51sD/dhrgc4pQbceS4SKimY9XlXNYoLfp27/ASvRt8qbZHF78Gy0pEpsk+8gzwgxuUG+TJtxcPP8WbLk9sNe3PJE=
   - secure: NIvBcgOg1ah4D84jhDv/A1YyOe0Mg4kavwpHB2fhdglzIzN6z0K2KnnBnzCO8kc0gyehPehGgWXxMcoxnz/KCIn2/lJXda9hBE/kvxSq8cXaVCfNKiH154huViFlncgKFmZpDnT+l+3wMpCiCwoPTNVz9j6UmbP2WxwKuCPtimc=
+git:
+  submodules: false
+before_install:
+  - git submodule update --init --recursive
