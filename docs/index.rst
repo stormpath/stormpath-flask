@@ -404,6 +404,17 @@ page::
 That's it!
 
 
+Testing Things Out
+..................
+
+Now that you've integrated Flask-Stormpath into your application, give it a try!
+Run your Flask development server, visit the index page, create a new account,
+log into your account, view the dashboard page, and try visiting the logout page
+(`/logout`).
+
+Not bad, right?
+
+
 
 
 Indices and tables
