@@ -243,6 +243,48 @@ new account, and send them to a dashboard page (which we have yet to code!)::
     simplified.  This is still an early release.
 
 
+Step 4: Create a Dashboard Page
+...............................
+
+Now that we have a registration view, let's go ahead and build a simple
+dashboard page for logged in users.
+
+Below is a simple HTML template, `dashboard.html`, you can use as reference::
+
+    <html>
+      <head>
+        <title>Dashboard</title>
+      </head>
+      <body>
+        <p>Hello {{ user.given_name }} {{ user.surname }}!</p>
+        <p>Your email address is: {{ user.email }}.</p>
+      </body>
+    </html>
+
+We'll also create a simple Flask view which renders this template, and restricts
+access to this page to logged in users::
+
+    from flask.ext.stormpath import login_required
+
+    # ...
+
+    @app.route('/dashboard')
+    @login_required
+    def dashboard():
+        """Render a dashboard page for logged in users."""
+        return render_template('dashboard.html')
+
+There are a few things to note here:
+
+- You can use the `login_required` decorator to ensure that only logged in users
+  can view a page.
+
+- Your templates will automatically have access to a special `user` variable.
+  This variable allows you to access the current user's User object directly.
+  Want more information on a User object?  See the official Stormpath Python SDK
+  documentation: https://github.com/stormpath/stormpath-sdk-python
+
+
 Table of Contents
 
 .. toctree::
