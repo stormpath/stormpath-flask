@@ -160,6 +160,12 @@ Now that you have your manager configured, you need to supply some basic
 Stormpath configuration variables to make things work::
 
     app.config['SECRET_KEY'] = 'someprivatestringhere'
+    app.config['STORMPATH_API_KEYFILE'] = '/path/to/apiKey.properties'
+
+Or, if you prefer to use environment variables to specify your credentials, you
+can do that easily as well::
+
+    app.config['SECRET_KEY'] = 'someprivatestringhere'
     app.config['STORMPATH_API_KEY_ID'] = 'your_stormpath_key_id'
     app.config['STORMPATH_API_KEY_SECRET'] = 'your_stormpath_secret_key'
     app.config['STORMPATH_APPLICATION'] = 'your_stormpath_application_name'
