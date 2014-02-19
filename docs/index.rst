@@ -79,6 +79,14 @@ a new API key for you, and prompt you to download your keypair.
     allow you to make Stormpath API requests, and should be properly protected,
     backed up, etc.
 
+Once you've downloaded your `apiKey.properties` file, save it in your home
+directory in a file named `~/.stormpath/apiKey.properties`.  To ensure no other
+users on your system can access the file, you'll also want to run:
+
+```bash
+$ chmod go-rwx ~/.stormpath/apiKey.properties
+```
+
 Next, you'll want to create a new Stormpath Application.
 
 Stormpath allows you to provision any number of 'Applications'.  The general
