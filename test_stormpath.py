@@ -145,8 +145,8 @@ class TestStormpathManager(TestCase):
         self.user.__class__ = User
 
         keyfile = open('apiKey.properties', 'wb')
-        keyfile.write('apiKey.id = %s' % environ.get('STORMPATH_API_KEY_ID'))
-        keyfile.write('apiKey.secret = %s' % environ.get('STORMPATH_API_KEY_SECRET'))
+        keyfile.write('apiKey.id = %s\n' % environ.get('STORMPATH_API_KEY_ID'))
+        keyfile.write('apiKey.secret = %s\n' % environ.get('STORMPATH_API_KEY_SECRET'))
         keyfile.close()
 
         self.app = Flask(__name__)
