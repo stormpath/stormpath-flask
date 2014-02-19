@@ -5,8 +5,8 @@ Flask-Stormpath
 The simplest and most secure way to handle user authentication and
 authorization with Flask, via Stormpath (https://stormpath.com).
 
-For documentation, visit our GitHub repostiory:
-https://github.com/stormpath/stormpath-flask
+Flask-Stormpath on GitHub: https://github.com/stormpath/stormpath-flask
+Documentation on RTFD: http://flask-stormpath.readthedocs.org/en/latest/
 """
 
 
