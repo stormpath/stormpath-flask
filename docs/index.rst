@@ -154,7 +154,7 @@ Stormpath configuration variables to make things work::
     app.config['SECRET_KEY'] = 'someprivatestringhere'
     app.config['STORMPATH_API_KEY_ID'] = 'your_stormpath_key_id'
     app.config['STORMPATH_API_KEY_SECRET'] = 'your_stormpath_secret_key'
-    app.config['STORMPATH_APPLICATION'] = 'your_stormpath_application_namek'
+    app.config['STORMPATH_APPLICATION'] = 'your_stormpath_application_name'
 
 The `STORMPATH_API_KEY_ID` and `STORMPATH_API_KEY_SECRET` variables can be found
 in the `apiKey.properties` file you downloaded in the previous step.
