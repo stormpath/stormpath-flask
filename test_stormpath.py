@@ -7,7 +7,10 @@ we'll just follow Flask conventions and have single file stuff going on.
 """
 
 
-from os import environ
+from os import (
+    environ,
+    remove,
+)
 from unittest import TestCase
 from uuid import uuid4
 
@@ -141,10 +144,14 @@ class TestStormpathManager(TestCase):
         })
         self.user.__class__ = User
 
+        keyfile = open('apiKey.properties', 'wb')
+        keyfile.write('apiKey.id =', environ.get('STORMPATH_API_KEY_ID'))
+        keyfile.write('apiKey.secret =', environ.get('STORMPATH_API_KEY_SECRET'))
+        keyfile.close()
+
         self.app = Flask(__name__)
         self.app.config['SECRET_KEY'] = 'woot'
-        self.app.config['STORMPATH_API_KEY_ID'] = environ.get('STORMPATH_API_KEY_ID')
-        self.app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
+        self.app.config['STORMPATH_API_KEYFILE'] = 'apiKey.properties'
         self.app.config['STORMPATH_APPLICATION'] = self.application_name
         StormpathManager(self.app)
 
@@ -171,5 +178,6 @@ class TestStormpathManager(TestCase):
             self.app.stormpath_manager.login_view = test_view
 
     def tearDown(self):
+        remove('apiKey.properties')
         self.application.delete()
         self.client.directories.search(self.application_name)[0].delete()
