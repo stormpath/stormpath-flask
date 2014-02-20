@@ -266,13 +266,12 @@ new account, and send them to a dashboard page (which we have yet to code!)::
             return render_template('register.html')
 
         try:
-            _user = stormpath_manager.applications.accounts.create({
-                'first_name': request.form.get('first-name'),
-                'last_name': request.form.get('last-name'),
-                'email': request.form.get('email'),
-                'password': request.form.get('password'),
+            _user = User.create(
+                email = request.form.get('email'),
+                password = request.form.get('password'),
+                first_name = request.form.get('first-name'),
+                last_name = request.form.get('last-name'),
             })
-            _user.__class__ = User
         except StormpathError, err:
             return render_template('register.html', error=err.message)
 
