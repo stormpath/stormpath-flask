@@ -93,6 +93,18 @@ class TestUser(TestCase):
     def test_is_authenticated(self):
         self.assertEqual(self.user.is_authenticated(), True)
 
+    def test_create(self):
+        with self.app.app_context():
+            user = User.create(
+                email = 'woot@lol.com',
+                password = 'Ilovec00kies!!',
+                first_name = 'Cookie',
+                last_name = 'Monster',
+            )
+            self.assertEqual(user.email, 'woot@lol.com')
+            self.assertEqual(user.first_name, 'Cookie')
+            self.assertEqual(user.last_name, 'Monster')
+
     def test_from_login(self):
         with self.app.app_context():
             user = User.from_login(
