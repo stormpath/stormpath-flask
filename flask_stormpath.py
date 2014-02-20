@@ -84,6 +84,20 @@ class User(Account):
         """
         return True
 
+    @property
+    def first_name(self):
+        """
+        Return this user's first name.
+        """
+        return self.given_name
+
+    @property
+    def last_name(self):
+        """
+        Return this user's last name.
+        """
+        return self.surname
+
     @classmethod
     def create(self, email, password, first_name='John', last_name='Doe'):
         """
