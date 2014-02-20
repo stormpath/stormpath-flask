@@ -85,6 +85,25 @@ class User(Account):
         return True
 
     @classmethod
+    def create(self, email, password, first_name='John', last_name='Doe'):
+        """
+        Create a new User given an email address, password, and optionally a
+        first and last name.
+
+        If something goes wrong we'll raise an exception -- most likely -- a
+        StormpathError (flask.ext.stormpath.StormpathError).
+        """
+        _user = current_app.stormpath_manager.application.accounts.create({
+            'email': email,
+            'password': password,
+            'given_name': first_name,
+            'surname': last_name,
+        })
+        _user.__class__ = User
+
+        return _user
+
+    @classmethod
     def from_login(self, login, password):
         """
         Create a new User class given a login (email address or username), and
