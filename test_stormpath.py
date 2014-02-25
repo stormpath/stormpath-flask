@@ -110,6 +110,19 @@ class TestUser(TestCase):
             self.assertEqual(user.middle_name, None)
             self.assertEqual(dict(user.custom_data), {})
 
+            # Ensure we can the middle name and username fields to custom
+            # entities.
+            user = User.create(
+                username = 'powerful',
+                email = 'woot@lolcakes.com',
+                password = 'Ilovec00kies!!',
+                given_name = 'Austin',
+                surname = 'Powers',
+                middle_name = 'Danger',
+            )
+            self.assertEqual(user.username, 'omghax')
+            self.assertEqual(user.middle_name, 'Danger')
+
     def test_from_login(self):
         with self.app.app_context():
             user = User.from_login(
