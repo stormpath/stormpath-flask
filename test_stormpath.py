@@ -95,22 +95,20 @@ class TestUser(TestCase):
 
     def test_create(self):
         with self.app.app_context():
+
+            # Ensure all defaults fields are properly set.
             user = User.create(
                 email = 'woot@lol.com',
                 password = 'Ilovec00kies!!',
-                first_name = 'Cookie',
-                last_name = 'Monster',
+                given_name = 'Cookie',
+                surname = 'Monster',
             )
             self.assertEqual(user.email, 'woot@lol.com')
-            self.assertEqual(user.first_name, 'Cookie')
-            self.assertEqual(user.last_name, 'Monster')
-
-            user = User.create(
-                email = 'woot2@lol.com',
-                password = 'Ilovec00kies!!',
-            )
-            self.assertEqual(user.first_name, 'John')
-            self.assertEqual(user.last_name, 'Doe')
+            self.assertEqual(user.given_name, 'Cookie')
+            self.assertEqual(user.surname, 'Monster')
+            self.assertEqual(user.username, 'woot@lol.com')
+            self.assertEqual(user.middle_name, None)
+            self.assertEqual(user.custom_data, None)
 
     def test_from_login(self):
         with self.app.app_context():
