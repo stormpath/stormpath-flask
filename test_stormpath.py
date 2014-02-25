@@ -120,7 +120,7 @@ class TestUser(TestCase):
                 surname = 'Powers',
                 middle_name = 'Danger',
             )
-            self.assertEqual(user.username, 'omghax')
+            self.assertEqual(user.username, 'powerful')
             self.assertEqual(user.middle_name, 'Danger')
 
             # Ensure we can set custom data when we create a user.
