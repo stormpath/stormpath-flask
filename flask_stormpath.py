@@ -99,10 +99,29 @@ class User(Account):
         return self.surname
 
     @classmethod
-    def create(self, email, password, first_name='John', last_name='Doe'):
+    def create(self, email, password, given_name, surname, username=None, middle_name=None, custom_data=None):
         """
-        Create a new User given an email address, password, and optionally a
-        first and last name.
+        Create a new User.
+
+        Required Params
+        ---------------
+
+        :param str email: This user's unique email address.
+        :param str password: This user's password, in plain text.
+        :param str given_name: This user's first name (Randall).
+        :param str surname: This user's last name (Degges).
+
+        Optional Params
+        ---------------
+
+        :param str username: If no username is supplied, it will default to the
+            user's email address.  Stormpath users can log in with either an
+            email or username (both are interchangable).
+
+        :param str middle_name: This user's middle name (Clark).
+        0
+        :param dict custom_data: Any custom JSON data you'd like stored with
+            this user.  Must be 10MB or less.
 
         If something goes wrong we'll raise an exception -- most likely -- a
         StormpathError (flask.ext.stormpath.StormpathError).
@@ -110,8 +129,8 @@ class User(Account):
         _user = current_app.stormpath_manager.application.accounts.create({
             'email': email,
             'password': password,
-            'given_name': first_name,
-            'surname': last_name,
+            'given_name': given_name,
+            'surname': surname,
         })
         _user.__class__ = User
 
