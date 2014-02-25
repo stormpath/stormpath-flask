@@ -108,7 +108,7 @@ class TestUser(TestCase):
             self.assertEqual(user.surname, 'Monster')
             self.assertEqual(user.username, 'woot@lol.com')
             self.assertEqual(user.middle_name, None)
-            self.assertEqual(user.custom_data, None)
+            self.assertEqual(dict(user.custom_data), {})
 
     def test_from_login(self):
         with self.app.app_context():
