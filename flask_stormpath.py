@@ -119,7 +119,7 @@ class User(Account):
             email or username (both are interchangable).
 
         :param str middle_name: This user's middle name (Clark).
-        0
+
         :param dict custom_data: Any custom JSON data you'd like stored with
             this user.  Must be 10MB or less.
 
@@ -131,6 +131,9 @@ class User(Account):
             'password': password,
             'given_name': given_name,
             'surname': surname,
+            'username': username,
+            'middle_name': middle_name,
+            'custom_data': custom_data,
         })
         _user.__class__ = User
 
