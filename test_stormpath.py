@@ -123,6 +123,40 @@ class TestUser(TestCase):
             self.assertEqual(user.username, 'omghax')
             self.assertEqual(user.middle_name, 'Danger')
 
+            # Ensure we can set custom data when we create a user.
+            user = User.create(
+                email = 'snoop.dogg@snoopyrecords.com',
+                password = 'Rast4F4rian!4LIFE',
+                given_name = 'Snoop',
+                surname = 'Dogg',
+                custom_data = {
+                    'favorite_state': 'California',
+                    'favorite_genre': 'reggae',
+                    'bank_details': {
+                        'name': 'Bank of America',
+                        'amount': 9999999.99,
+                        'branch': {
+                            'Bank of America',
+                            '111 9th Street',
+                            'Venice, CA',
+                        },
+                    },
+                },
+            )
+            self.assertEqual(dict(user.custom_data), {
+                'favorite_state': 'California',
+                'favorite_genre': 'reggae',
+                'bank_details': {
+                    'name': 'Bank of America',
+                    'amount': 9999999.99,
+                    'branch': {
+                        'Bank of America',
+                        '111 9th Street',
+                        'Venice, CA',
+                    },
+                },
+            })
+
     def test_from_login(self):
         with self.app.app_context():
             user = User.from_login(
