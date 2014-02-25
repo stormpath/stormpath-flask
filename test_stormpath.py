@@ -136,9 +136,10 @@ class TestUser(TestCase):
                         'name': 'Bank of America',
                         'amount': 9999999.99,
                         'branch': {
-                            'Bank of America',
-                            '111 9th Street',
-                            'Venice, CA',
+                            'name': 'Bank of Venice',
+                            'address': '111 9th Street',
+                            'city': 'Venice',
+                            'state': 'CA',
                         },
                     },
                 },
@@ -150,9 +151,10 @@ class TestUser(TestCase):
                     'name': 'Bank of America',
                     'amount': 9999999.99,
                     'branch': {
-                        'Bank of America',
-                        '111 9th Street',
-                        'Venice, CA',
+                        'name': 'Bank of Venice',
+                        'address': '111 9th Street',
+                        'city': 'Venice',
+                        'state': 'CA',
                     },
                 },
             })
