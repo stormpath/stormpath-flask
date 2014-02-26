@@ -23,6 +23,8 @@ __license__ = 'Apache'
 __copyright__ = '(c) 2012 - 2014 Stormpath, Inc.'
 
 
+from functools import wraps
+
 from flask import (
     _app_ctx_stack as stack,
     current_app,
@@ -30,6 +32,7 @@ from flask import (
 
 from flask.ext.login import (
     LoginManager,
+    current_user,
     _get_user,
     login_required,
     login_user,
@@ -163,6 +166,40 @@ def _user_context_processor():
     https://github.com/stormpath/stormpath-sdk-python
     """
     return {'user': _get_user()}
+
+
+def groups_required(groups=None):
+    """
+    This decorator requires that a user be part of one or more Groups before
+    they are granted access.
+
+    :param list groups: A list of Groups to restrict access to.
+
+    Usage::
+
+        @groups_required(['admins', 'developers'])
+        def private_view():
+            return 'hi!'
+    """
+    def decorator(func):
+
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            if current_app.login_manager._login_disabled:
+                return func(*args, **kwargs)
+            elif not current_user.is_authenticated():
+                return current_app.login_manager.unauthorized()
+
+            user_groups = [group.name for group in current_user.groups]
+            for group in groups:
+                if not group in user_groups:
+                    return current_app.login_manager.unauthorized()
+
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
 
 
 class StormpathManager(object):
