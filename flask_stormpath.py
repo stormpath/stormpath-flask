@@ -168,12 +168,22 @@ def _user_context_processor():
     return {'user': _get_user()}
 
 
-def groups_required(groups=None):
+def groups_required(groups=None, all=True):
     """
     This decorator requires that a user be part of one or more Groups before
     they are granted access.
 
-    :param list groups: A list of Groups to restrict access to.
+    :param list groups: A list of Groups to restrict access to.  A group can
+        be:
+
+        - A Group object.
+        - A Group name (as a string).
+        - A Group href (as a string).
+
+    :param bool all: Should we ensure the user is a member of every group
+        listed?  Default: True.  If this is set to False, we'll let the user
+        into the view if the user is part of at least one of the specified
+        groups.
 
     Usage::
 
