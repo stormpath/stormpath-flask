@@ -187,7 +187,7 @@ def groups_required(groups=None, all=True):
 
     Usage::
 
-        @groups_required(['admins', 'developers'])
+        @groups_required(['admins', 'developers'], all=True)
         def private_view():
             return 'hi!'
     """
