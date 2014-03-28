@@ -37,7 +37,7 @@ class RunTests(Command):
 
 setup(
     name = 'Flask-Stormpath',
-    version = '0.0.1',
+    version = '0.1.0',
     url = 'https://github.com/stormpath/stormpath-flask',
     license = 'Apache',
     author = 'Stormpath, Inc.',
@@ -52,7 +52,7 @@ setup(
     install_requires = [
         'Flask',
         'Flask-Login==0.2.9',
-        'stormpath==1.0.1',
+        'stormpath==1.1.0',
     ],
     classifiers = [
         'Environment :: Web Environment',
