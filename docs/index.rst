@@ -471,6 +471,57 @@ log into your account, view the dashboard page, and try visiting the logout page
 Not bad, right?
 
 
+How Do I ... ?
+--------------
+
+This section covers common questions that come up.
+
+
+Require a User to be in a Group
+...............................
+
+If you'd like to force a user to be a member of a group (or groups) before the
+user is allowed to access a view, you can do so using the `groups_required`
+decorator::
+
+    from flask.ext.stormpath import groups_requied
+
+    # ...
+
+    @app.route('/admins_only')
+    @groups_required(['admins'])
+    def admins_only():
+        """A top-secret view only accessible to admins."""
+        # ...
+
+If you'd like to force a user to be a member of multiple groups, just list all
+the groups::
+
+    from flask.ext.stormpath import groups_requied
+
+    # ...
+
+    @app.route('/admins_only')
+    @groups_required(['admins', 'super_admins'])
+    def admins_only():
+        """A top-secret view only accessible to admins (and super-admins)."""
+        # ...
+
+Lastly, if you'd like to just make sure a user is a member of at least ONE type
+of group, you can also do that by setting the optional `all` parameter to
+false::
+
+    from flask.ext.stormpath import groups_requied
+
+    # ...
+
+    @app.route('/dashboard')
+    @groups_required(['free-users', 'paid-users', 'admins'], all=False)
+    def dashboard():
+        """A user dashboard viewable by free users, paid users, or admins."""
+        # ...
+
+
 Future Features
 ---------------
 
