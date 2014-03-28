@@ -200,10 +200,10 @@ def groups_required(groups=None, all=True):
             elif not current_user.is_authenticated():
                 return current_app.login_manager.unauthorized()
 
-            user_groups = [group.name for group in current_user.groups]
-            for group in groups:
-                if not group in user_groups:
-                    return current_app.login_manager.unauthorized()
+            if all and not current_user.has_groups(groups):
+                return current_app.login_manager.unauthorized()
+            elif not current_user.has_groups(groups, all=False):
+                return current_app.login_manager.unauthorized()
 
             return func(*args, **kwargs)
 
