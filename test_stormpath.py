@@ -324,7 +324,7 @@ class TestGroupsRequired(TestCase):
                 return 'logged in'
 
             @self.app.route('/')
-            @groups_required(['admins'])
+            @groups_required(['admins', 'developers'])
             def test_view():
                 return 'hi'
 
@@ -334,6 +334,9 @@ class TestGroupsRequired(TestCase):
             ))
             self.assertEqual(resp.status_code, 200)
 
+            self.assertEqual(c.get('/').status_code, 401)
+
+            self.user.add_group('developers')
             self.assertEqual(c.get('/').status_code, 401)
 
     def test_authorized(self):
@@ -353,17 +356,17 @@ class TestGroupsRequired(TestCase):
                 logout_user()
 
             @self.app.route('/')
-            @groups_required(['admins'])
+            @groups_required([
+                self.admin_group.href,
+                self.developers_group
+            ], all=False)
             def test_view():
                 return 'hi'
 
             @self.app.route('/another_test')
-            @groups_required(['admins', 'developers'])
+            @groups_required(['admins', 'developers'], all=True)
             def another_test_view():
                 return 'hi'
-
-            # Add the user to the developers group.
-            self.developers_group.add_account(self.user)
 
             resp = c.post('/login', data=dict(
                 email = self.user.email,
@@ -374,20 +377,14 @@ class TestGroupsRequired(TestCase):
             self.assertEqual(c.get('/').status_code, 401)
             self.assertEqual(c.get('/another_test').status_code, 401)
 
-            # Force a logout to clear the user's data.
-            c.get('/logout')
-
             # Add the user to the admins group.
-            self.admin_group.add_account(self.user)
-
-            # Force a login to reset the user.
-            resp = c.post('/login', data=dict(
-                email = self.user.email,
-                password = 'woot1LoveCookies!',
-            ))
-            self.assertEqual(resp.status_code, 200)
+            self.user.add_group('admins')
 
             self.assertEqual(c.get('/').status_code, 200)
+            self.assertEqual(c.get('/another_test').status_code, 401)
+
+            # Add the user to the developers group.
+            self.user.add_group('developers')
             self.assertEqual(c.get('/another_test').status_code, 200)
 
     def tearDown(self):
