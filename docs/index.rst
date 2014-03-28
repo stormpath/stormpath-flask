@@ -502,3 +502,5 @@ code.
     .. automethod:: is_anonymous
     .. automethod:: is_authenticated
     .. automethod:: from_login
+
+ .. autofunction:: groups_required
