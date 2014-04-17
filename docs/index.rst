@@ -165,9 +165,11 @@ Stormpath configuration variables to make things work::
 Or, if you prefer to use environment variables to specify your credentials, you
 can do that easily as well::
 
+    from os import environ
+
     app.config['SECRET_KEY'] = 'someprivatestringhere'
-    app.config['STORMPATH_API_KEY_ID'] = 'your_stormpath_key_id'
-    app.config['STORMPATH_API_KEY_SECRET'] = 'your_stormpath_secret_key'
+    app.config['STORMPATH_API_KEY_ID'] = environ.get('STORMPATH_API_KEY_ID')
+    app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
     app.config['STORMPATH_APPLICATION'] = 'your_stormpath_application_name'
 
 The `STORMPATH_API_KEY_ID` and `STORMPATH_API_KEY_SECRET` variables can be found
@@ -180,14 +182,6 @@ application you created above.
     Please don't hardcode your API key information into your source code!  To
     keep your credentials safe and secret, we recommend storing these
     credentials in environment variables.
-
-    You can make use of environment variables by doing something like the
-    following::
-
-        from os import environ
-
-        app.config['STORMPATH_API_KEY_ID'] = environ.get('STORMPATH_API_KEY_ID')
-        app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
 
 
 Step 2: Create a User Registration Template
@@ -269,8 +263,8 @@ new account, and send them to a dashboard page (which we have yet to code!)::
             _user = User.create(
                 email = request.form.get('email'),
                 password = request.form.get('password'),
-                first_name = request.form.get('first-name'),
-                last_name = request.form.get('last-name'),
+                given_name = request.form.get('first-name'),
+                surname = request.form.get('last-name'),
             })
         except StormpathError, err:
             return render_template('register.html', error=err.message)
