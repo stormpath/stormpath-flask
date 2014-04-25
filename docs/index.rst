@@ -88,8 +88,8 @@ users on your system can access the file, you'll also want to run::
 Next, you'll want to create a new Stormpath Application.
 
 Stormpath allows you to provision any number of "Applications".  The general
-rule is that you should create one Application per website.  In this case,
-you'll want to create a single Application.
+rule is that you should create one Application per website (or project).  In
+this case, you'll want to create a single Application.
 
 To do this, click the 'Applications' tab in the Stormpath dashboard, then click
 'Register an Application' and follow the on-screen instructions.
