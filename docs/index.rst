@@ -424,7 +424,7 @@ Below is an example Flask view which does just this::
         logout_user()
         return redirect(url_for('.index'))
 
-After the user has been logged out, we'll redirect the user to the index page of
+After the user has been logged out, we'll redirect the user to the home page of
 the website (which we have yet to create).
 
 
