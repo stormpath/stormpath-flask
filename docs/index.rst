@@ -83,9 +83,8 @@ Once you've downloaded your `apiKey.properties` file, save it in your home
 directory in a file named `~/.stormpath/apiKey.properties`.  To ensure no other
 users on your system can access the file, you'll also want to run:
 
-```bash
-$ chmod go-rwx ~/.stormpath/apiKey.properties
-```
+.. code-block: console
+    $ chmod go-rwx ~/.stormpath/apiKey.properties
 
 Next, you'll want to create a new Stormpath Application.
 
