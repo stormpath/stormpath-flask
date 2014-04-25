@@ -98,7 +98,7 @@ To do this, click the "Applications" tab in the Stormpath dashboard, then click
     Use the default options when creating an Application, this way you'll be
     able to create users in your new Application without issue.
 
-Now that you've create an Application, you're ready to plug Flask-Stormpath
+Now that you've created an Application, you're ready to plug Flask-Stormpath
 into your project!
 
 
