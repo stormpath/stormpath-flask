@@ -238,13 +238,16 @@ user-supplied form data to create a new Stormpath user, log this user into their
 new account, and send them to a dashboard page (which we have yet to code!)::
 
     from flask import (
+        Flask,
         redirect,
         render_template,
+        request,
         url_for,
     )
 
     from flask.ext.stormpath import (
         StormpathError,
+        StormpathManager,
         User,
         login_user,
     )
@@ -263,7 +266,7 @@ new account, and send them to a dashboard page (which we have yet to code!)::
                 password = request.form.get('password'),
                 given_name = request.form.get('first-name'),
                 surname = request.form.get('last-name'),
-            })
+            )
         except StormpathError, err:
             return render_template('register.html', error=err.message)
 
