@@ -378,7 +378,7 @@ seamlessly::
     # ...
 
     # Map our custom login view to Flask-Stormpath.
-    stormpath_manager.login_view = login
+    stormpath_manager.login_view = 'login'
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():
