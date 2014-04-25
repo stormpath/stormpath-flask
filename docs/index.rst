@@ -389,7 +389,8 @@ seamlessly::
         try:
             _user = User.from_login(
                 request.form.get('email'),
-                request.form.get('password')
+                request.form.get('password'),
+            )
         except StormpathError, err:
             return render_template('login.html', error=err.message)
 
@@ -401,7 +402,8 @@ were trying to get to, or the dashboard page (default).
 
 By assigning our login view to `stormpath_manager.login_view`, we're telling
 Flask-Stormpath to use this view we just created to log users into their
-accounts.
+accounts.  This way, if a user tries to visit a page that requires login, the
+user will be redirected to `/login` automatically.
 
 
 Step 6: Create a Logout View
