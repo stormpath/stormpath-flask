@@ -446,8 +446,7 @@ and login pages::
       </body>
     </html>
 
-And of course, here's a simple index Flask view you can use to render this
-page::
+And of course, here's a simple Flask view you can use to render this page::
 
     @app.route('/')
     def index():
