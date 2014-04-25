@@ -174,7 +174,7 @@ The `STORMPATH_API_KEY_ID` and `STORMPATH_API_KEY_SECRET` variables can be found
 in the `apiKey.properties` file you downloaded in the previous step.
 
 The `STORMPATH_APPLICATION` variable should be the name of your Stormpath
-application you created above.
+application created above.
 
 .. note::
     Please don't hardcode your API key information into your source code!  To
