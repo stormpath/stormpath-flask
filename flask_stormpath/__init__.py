@@ -39,7 +39,6 @@ from flask.ext.login import (
 
 from stormpath.client import Client
 from stormpath.error import Error as StormpathError
-from stormpath.resources.account import Account
 
 from werkzeug.local import LocalProxy
 
