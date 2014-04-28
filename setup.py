@@ -44,7 +44,7 @@ setup(
     author_email = 'python@stormpath.com',
     description = 'Simple and secure user authentication for Flask via Stormpath.',
     long_description = __doc__,
-    py_modules = ['flask_stormpath'],
+    packages = ['flask_stormpath'],
     cmdclass = {'test': RunTests},
     zip_safe = False,
     include_package_data = True,
