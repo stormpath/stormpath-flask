@@ -23,8 +23,6 @@ __license__ = 'Apache'
 __copyright__ = '(c) 2012 - 2014 Stormpath, Inc.'
 
 
-from functools import wraps
-
 from flask import (
     _app_ctx_stack as stack,
     current_app,
