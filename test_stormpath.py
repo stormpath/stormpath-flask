@@ -222,7 +222,7 @@ class TestStormpathManager(TestCase):
 
         self.app = Flask(__name__)
         self.app.config['SECRET_KEY'] = 'woot'
-        self.app.config['STORMPATH_API_KEYFILE'] = 'apiKey.properties'
+        self.app.config['STORMPATH_API_KEY_FILE'] = 'apiKey.properties'
         self.app.config['STORMPATH_APPLICATION'] = self.application_name
         StormpathManager(self.app)
 
