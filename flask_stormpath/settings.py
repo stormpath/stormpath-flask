@@ -1,3 +1,6 @@
+"""Helper functions for dealing with Flask-Stormpath settings."""
+
+
 def setup(config):
     """
     Initialize the Flask-Stormpath settings.
@@ -44,19 +47,19 @@ def setup(config):
     config.setdefault('STORMPATH_REGISTRATION_URL', '/register')
     config.setdefault('STORMPATH_LOGIN_URL', '/login')
     config.setdefault('STORMPATH_LOGOUT_URL', '/logout')
-    config.setdefault('STORMPATH_FORGOT_PASSWORD_URL', True)
-    config.setdefault('STORMPATH_SETTINGS_URL', True)
+    config.setdefault('STORMPATH_FORGOT_PASSWORD_URL', '/forgot')
+    config.setdefault('STORMPATH_SETTINGS_URL', '/settings')
 
     # After a successful login, where should users be redirected?
     config.setdefault('STORMPATH_REDIRECT_URL', '/')
 
     # Configure templates.  These template settings control which templates are
     # used to render the Flask-Stormpath views.
-    config.setdefault('STORMPATH_ENABLE_REGISTRATION', True)
-    config.setdefault('STORMPATH_ENABLE_LOGIN', True)
-    config.setdefault('STORMPATH_ENABLE_LOGOUT', True)
-    config.setdefault('STORMPATH_ENABLE_FORGOT_PASSWORD', True)
-    config.setdefault('STORMPATH_ENABLE_SETTINGS', True)
+    config.setdefault('STORMPATH_ENABLE_REGISTRATION', 'register.html')
+    config.setdefault('STORMPATH_ENABLE_LOGIN', 'login.html')
+    config.setdefault('STORMPATH_ENABLE_LOGOUT', 'logout.html')
+    config.setdefault('STORMPATH_ENABLE_FORGOT_PASSWORD', 'forgot.html')
+    config.setdefault('STORMPATH_ENABLE_SETTINGS', 'settings.html')
 
     # Social login configuration.
     config.setdefault('STORMPATH_SOCIAL', {})
