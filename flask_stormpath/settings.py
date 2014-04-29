@@ -13,15 +13,24 @@ def setup(config):
     config.setdefault('STORMPATH_API_KEY_FILE', None)
     config.setdefault('STORMPATH_APPLICATION', None)
 
-    # Which fields should be used to register new users?
-    config.setdefault('STORMPATH_FACEBOOK', False)
-    config.setdefault('STORMPATH_GOOGLE', False)
-    config.setdefault('STORMPATH_EMAIL', True)  # If this is diabled, only
-                                                # social login can be used.
-    config.setdefault('STORMPATH_USERNAME', False)
-    config.setdefault('STORMPATH_GIVEN_NAME', True)
-    config.setdefault('STORMPATH_MIDDLE_NAME', True)
-    config.setdefault('STORMPATH_SURNAME', True)
+    # Which fields should be displayed when registering new users?
+    config.setdefault('STORMPATH_ENABLE_FACEBOOK', False)
+    config.setdefault('STORMPATH_ENABLE_GOOGLE', False)
+    config.setdefault('STORMPATH_ENABLE_EMAIL', True)  # If this is diabled,
+                                                       # only social login can
+                                                       # be used.
+    config.setdefault('STORMPATH_ENABLE_USERNAME', False)
+    config.setdefault('STORMPATH_ENABLE_GIVEN_NAME', True)
+    config.setdefault('STORMPATH_ENABLE_MIDDLE_NAME', True)
+    config.setdefault('STORMPATH_ENABLE_SURNAME', True)
+
+    # If the user attempts to create a non-social account, which fields should
+    # we require?  (Email and password are always required, so those are not
+    # mentioned below.)
+    config.setdefault('STORMPATH_REQUIRE_USERNAME', True)
+    config.setdefault('STORMPATH_REQUIRE_GIVEN_NAME', True)
+    config.setdefault('STORMPATH_REQUIRE_MIDDLE_NAME', False)
+    config.setdefault('STORMPATH_REQUIRE_SURNAME', False)
 
     # If this is set to True, users will be required to specify their password
     # twice when creating a new account.  If this is set to False (default),
