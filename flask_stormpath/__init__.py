@@ -45,6 +45,7 @@ from werkzeug.local import LocalProxy
 from .context_processors import _user_context_processor
 from .decorators import groups_required
 from .models import User
+from .settings import setup
 
 
 # A proxy for the current user.
@@ -70,8 +71,17 @@ class StormpathManager(object):
         """
         Initialize this application.
 
-        We'll use this opportunity to configure Flask-Login.
+        This method will handle:
+
+            - Configuring application settings.
+            - Configuring Flask-Stormpath.
+            - Adding ourself to the user's app (so the user can reference this
+              extension later on, if they want).
         """
+        # Initialize all of the Flask-Stormpath configuration variables and
+        # settings.
+        setup(app.config)
+
         app.login_manager = LoginManager(app)
         app.login_manager.session_protection = 'strong'
         app.login_manager.user_callback = self.load_user
