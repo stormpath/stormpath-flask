@@ -104,9 +104,9 @@ class StormpathManager(object):
 
                 # If the user is specifying their credentials via a file path,
                 # we'll use this.
-                if self.app.config.get('STORMPATH_API_KEYFILE'):
+                if self.app.config['STORMPATH_API_KEY_FILE']:
                     ctx.stormpath_client = Client(
-                        api_key_file_location = self.app.config.get('STORMPATH_API_KEYFILE'),
+                        api_key_file_location = self.app.config['STORMPATH_API_KEY_FILE'],
                     )
 
                 # If the user isn't specifying their credentials via a file
@@ -114,8 +114,8 @@ class StormpathManager(object):
                 # try to grab those values.
                 else:
                     ctx.stormpath_client = Client(
-                        id = self.app.config.get('STORMPATH_API_KEY_ID'),
-                        secret = self.app.config.get('STORMPATH_API_KEY_SECRET'),
+                        id = self.app.config['STORMPATH_API_KEY_ID'],
+                        secret = self.app.config['STORMPATH_API_KEY_SECRET'],
                     )
 
             return ctx.stormpath_client
@@ -146,7 +146,7 @@ class StormpathManager(object):
             if not hasattr(ctx, 'stormpath_application'):
                 #ctx.stormpath_application = ctx.stormpath_client.applications.search(
                 ctx.stormpath_application = self.client.applications.search(
-                    self.app.config.get('STORMPATH_APPLICATION')
+                    self.app.config['STORMPATH_APPLICATION']
                 )[0]
 
             return ctx.stormpath_application
