@@ -47,6 +47,7 @@ from .context_processors import _user_context_processor
 from .decorators import groups_required
 from .models import User
 from .settings import setup
+from .views import register
 
 
 # A proxy for the current user.
@@ -90,6 +91,14 @@ class StormpathManager(object):
 
         blueprint = Blueprint('flask_stormpath', 'flask_stormpath', template_folder='templates')
         app.register_blueprint(blueprint)
+
+        if app.config['STORMPATH_ENABLE_REGISTRATION']:
+            app.add_url_rule(
+                app.config['STORMPATH_REGISTRATION_URL'],
+                'stormpath.register',
+                register,
+                methods = ['GET', 'POST'],
+            )
 
         # Ensure the 'user' context is available in templates.
         app.context_processor(_user_context_processor)
