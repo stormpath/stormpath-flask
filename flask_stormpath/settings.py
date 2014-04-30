@@ -36,11 +36,6 @@ def setup(config):
     config.setdefault('STORMPATH_REQUIRE_MIDDLE_NAME', False)
     config.setdefault('STORMPATH_REQUIRE_SURNAME', False)
 
-    # If this is set to True, users will be required to specify their password
-    # twice when creating a new account.  If this is set to False (default),
-    # users will only be prompted to enter their password once.
-    config.setdefault('STORMPATH_PASSWORD_TWICE', False)
-
     # Will new users be required to verify new accounts via email before
     # they're made active?
     config.setdefault('STORMPATH_VERIFY_EMAIL', False)
