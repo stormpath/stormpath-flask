@@ -20,6 +20,8 @@ def setup(config):
                                                        # only social login can
                                                        # be used.
     config.setdefault('STORMPATH_ENABLE_USERNAME', False)
+    config.setdefault('STORMPATH_ENABLE_EMAIL', True)     # This MUST be True!
+    config.setdefault('STORMPATH_ENABLE_PASSWORD', True)  # This MUST be True!
     config.setdefault('STORMPATH_ENABLE_GIVEN_NAME', True)
     config.setdefault('STORMPATH_ENABLE_MIDDLE_NAME', True)
     config.setdefault('STORMPATH_ENABLE_SURNAME', True)
