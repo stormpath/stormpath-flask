@@ -24,6 +24,7 @@ __copyright__ = '(c) 2012 - 2014 Stormpath, Inc.'
 
 
 from flask import (
+    Blueprint,
     _app_ctx_stack as stack,
     current_app,
 )
@@ -86,6 +87,9 @@ class StormpathManager(object):
         app.login_manager.session_protection = 'strong'
         app.login_manager.user_callback = self.load_user
         app.stormpath_manager = self
+
+        blueprint = Blueprint('flask_stormpath', 'flask_stormpath', template_folder='templates')
+        app.register_blueprint(blueprint)
 
         # Ensure the 'user' context is available in templates.
         app.context_processor(_user_context_processor)
