@@ -40,8 +40,8 @@ def groups_required(groups=None, all=True):
             elif not current_user.is_authenticated():
                 return current_app.login_manager.unauthorized()
 
-            # If the user authenticated, and the all flag is set, we need to see
-            # if the user is a member of *ALL* groups.
+            # If the user authenticated, and the all flag is set, we need to
+            # see if the user is a member of *ALL* groups.
             if all and not current_user.has_groups(groups):
                 return current_app.login_manager.unauthorized()
 
