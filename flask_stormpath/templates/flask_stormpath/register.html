@@ -1,0 +1,41 @@
+<html> <head>
+    <title>Create an Account</title>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form action="" method="post">
+      <fieldset>
+        <legend>Create an Account</legend>
+        {% if config['STORMPATH_ENABLE_USERNAME'] %}
+          <label for="username">Username</label>
+          <input type="text" name="username" placeholder="Username">
+        {% endif %}
+        {% if config['STORMPATH_ENABLE_GIVEN_NAME'] %}
+          <label for="given_name">First Name</label>
+          <input type="text" name="given_name" placeholder="First Name">
+        {% endif %}
+        {% if config['STORMPATH_ENABLE_MIDDLE_NAME'] %}
+          <label for="middle_name">Middle Name</label>
+          <input type="text" name="middle_name" placeholder="Middle Name">
+        {% endif %}
+        {% if config['STORMPATH_ENABLE_SURNAME'] %}
+          <label for="surname">Last Name</label>
+          <input type="text" name="surname" placeholder="Last Name">
+        {% endif %}
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="Email">
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" name="Register">
+      </fieldset>
+    </form>
+  </body>
+</html>
