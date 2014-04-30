@@ -30,6 +30,8 @@ def setup(config):
     # we require?  (Email and password are always required, so those are not
     # mentioned below.)
     config.setdefault('STORMPATH_REQUIRE_USERNAME', True)
+    config.setdefault('STORMPATH_REQUIRE_EMAIL', True)     # This MUST be True!
+    config.setdefault('STORMPATH_REQUIRE_PASSWORD', True)  # This MUST be True!
     config.setdefault('STORMPATH_REQUIRE_GIVEN_NAME', True)
     config.setdefault('STORMPATH_REQUIRE_MIDDLE_NAME', False)
     config.setdefault('STORMPATH_REQUIRE_SURNAME', False)
