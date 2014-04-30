@@ -63,11 +63,11 @@ def setup(config):
 
     # Configure templates.  These template settings control which templates are
     # used to render the Flask-Stormpath views.
-    config.setdefault('STORMPATH_REGISTRATION_TEMPLATE', 'register.html')
-    config.setdefault('STORMPATH_LOGIN_TEMPLATE', 'login.html')
-    config.setdefault('STORMPATH_LOGOUT_TEMPLATE', 'logout.html')
-    config.setdefault('STORMPATH_FORGOT_PASSWORD_TEMPLATE', 'forgot.html')
-    config.setdefault('STORMPATH_SETTINGS_TEMPLATE', 'settings.html')
+    config.setdefault('STORMPATH_REGISTRATION_TEMPLATE', 'flask_stormpath/register.html')
+    config.setdefault('STORMPATH_LOGIN_TEMPLATE', 'flask_stormpath/login.html')
+    config.setdefault('STORMPATH_LOGOUT_TEMPLATE', 'flask_stormpath/logout.html')
+    config.setdefault('STORMPATH_FORGOT_PASSWORD_TEMPLATE', 'flask_stormpath/forgot.html')
+    config.setdefault('STORMPATH_SETTINGS_TEMPLATE', 'flask_stormpath/settings.html')
 
     # Social login configuration.
     config.setdefault('STORMPATH_SOCIAL', {})
