@@ -31,16 +31,27 @@ def groups_required(groups=None, all=True):
 
         @wraps(func)
         def wrapper(*args, **kwargs):
+
+            # If authentication stuff is disabled, do nothing.
             if current_app.login_manager._login_disabled:
                 return func(*args, **kwargs)
+
+            # If the user is NOT authenticated, this user is unauthorized.
             elif not current_user.is_authenticated():
                 return current_app.login_manager.unauthorized()
 
+            # If the user authenticated, and the all flag is set, we need to see
+            # if the user is a member of *ALL* groups.
             if all and not current_user.has_groups(groups):
                 return current_app.login_manager.unauthorized()
+
+            # If the all flag is NOT set, we need to make sure the user is a
+            # member of at least one group.
             elif not current_user.has_groups(groups, all=False):
                 return current_app.login_manager.unauthorized()
 
+            # Lastly, if the user has successfully passsed all authentication /
+            # authorization challenges, we'll allow them in.
             return func(*args, **kwargs)
 
         return wrapper
