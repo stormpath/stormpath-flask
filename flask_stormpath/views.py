@@ -61,11 +61,11 @@ def register():
 
                 # If we're able to successfully create the user's account,
                 # we'll log the user in (creating a secure session using
-                # Flask-Login), then redirect the user to the ?next=<url>
-                # query parameter, or the STORMPATH_REDIRECT_URL setting.
+                # Flask-Login), then redirect the user to the
+                # STORMPATH_REDIRECT_URL setting.
                 login_user(account, remember=True)
 
-                return redirect(request.args.get('next') or current_app.config['STORMPATH_REDIRECT_URL'])
+                return redirect(current_app.config['STORMPATH_REDIRECT_URL'])
             except StormpathError, err:
                 flash(err.user_message)
 
