@@ -1,5 +1,6 @@
 from flask import current_app
 from stormpath.resources.account import Account
+from stormpath.resources.provider import Provider
 
 
 class User(Account):
@@ -93,6 +94,22 @@ class User(Account):
             login,
             password,
         ).account
+        _user.__class__ = User
+
+        return _user
+
+    @classmethod
+    def from_facebook(self, access_token):
+        """
+        Create a new User class given a Facebook user's access token.
+
+        If something goes wrong, this will raise an exception -- most likely --
+        a StormpathError (flask.ext.stormpath.StormpathError).
+        """
+        _user = current_app.stormpath_manager.application.get_provider_account(
+            provider = Provider.FACEBOOK,
+            access_token = access_token,
+        )
         _user.__class__ = User
 
         return _user
