@@ -48,6 +48,7 @@ from .models import User
 from .settings import setup
 from .views import (
     login,
+    logout,
     register,
 )
 
@@ -151,6 +152,13 @@ class StormpathManager(object):
                 'stormpath.login',
                 login,
                 methods = ['GET', 'POST'],
+            )
+
+        if app.config['STORMPATH_ENABLE_LOGOUT']:
+            app.add_url_rule(
+                app.config['STORMPATH_LOGOUT_URL'],
+                'stormpath.logout',
+                logout,
             )
 
     @property
