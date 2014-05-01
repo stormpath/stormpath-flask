@@ -86,9 +86,8 @@ class StormpathManager(object):
         # settings.
         setup(app.config)
 
-        app.login_manager = LoginManager(app)
-        app.login_manager.user_callback = self.load_user
-        app.stormpath_manager = self
+        # Initialize the Flask-Login extension.
+        self.init_login(app)
 
         blueprint = Blueprint('flask_stormpath', 'flask_stormpath', template_folder='templates')
         app.register_blueprint(blueprint)
@@ -113,6 +112,17 @@ class StormpathManager(object):
         app.context_processor(_user_context_processor)
 
         self.app = app
+
+    def init_login(self, app):
+        """
+        Initialize the Flask-Login extension.
+
+        We use Flask-Login for managing sessions (primarily), so setting it up
+        is necessary.
+        """
+        app.login_manager = LoginManager(app)
+        app.login_manager.user_callback = self.load_user
+        app.stormpath_manager = self
 
     @property
     def client(self):
