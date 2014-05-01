@@ -97,7 +97,7 @@ def login():
         try:
             # Try to fetch the user's account from Stormpath.  If this
             # fails, an exception will be raised.
-            account = User.from_login(form.login.data)
+            account = User.from_login(form.login.data, form.password.data)
 
             # If we're able to successfully retrieve the user's account,
             # we'll log the user in (creating a secure session using
