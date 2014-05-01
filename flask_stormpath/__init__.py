@@ -101,6 +101,8 @@ class StormpathManager(object):
         # templates.
         app.context_processor(user_context_processor)
 
+        # Store a reference to the Flask app so we can use it later if
+        # necessary!
         self.app = app
 
     def init_login(self, app):
