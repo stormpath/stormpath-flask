@@ -8,7 +8,7 @@
         function redirectIfLoginSuccessful() {
           FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
-              window.location.replace('{{ config['STORMPATH_REDIRECT_URL'] }}');
+              window.location.replace('{{ config['STORMPATH_FACEBOOK_LOGIN_URL'] }}');
             }
           });
         }
