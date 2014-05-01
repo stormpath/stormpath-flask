@@ -11,7 +11,10 @@ from flask import (
 from flask.ext.login import login_user
 
 from . import StormpathError
-from .forms import RegistrationForm
+from .forms import (
+    LoginForm,
+    RegistrationForm,
+)
 from .models import User
 
 
@@ -71,5 +74,42 @@ def register():
 
     return render_template(
         current_app.config['STORMPATH_REGISTRATION_TEMPLATE'],
+        form = form,
+    )
+
+
+def login():
+    """
+    Log in an existing Stormpath user.
+
+    This view will render a login template, then redirect the user to the next
+    page (if authentication is successful).
+
+    The fields that are asked for, the URL this view is bound to, and the
+    template that is used to render this page can all be controlled via
+    Flask-Stormpath settings.
+    """
+    form = LoginForm()
+
+    # If we received a POST request with valid information, we'll continue
+    # processing.
+    if form.validate_on_submit():
+        try:
+            # Try to fetch the user's account from Stormpath.  If this
+            # fails, an exception will be raised.
+            account = User.from_login(form.login.data)
+
+            # If we're able to successfully retrieve the user's account,
+            # we'll log the user in (creating a secure session using
+            # Flask-Login), then redirect the user to the ?next=<url>
+            # query parameter, or the STORMPATH_REDIRECT_URL setting.
+            login_user(account, remember=True)
+
+            return redirect(request.args.get('next') or current_app.config['STORMPATH_REDIRECT_URL'])
+        except StormpathError, err:
+            flash(err.user_message)
+
+    return render_template(
+        current_app.config['STORMPATH_LOGIN_TEMPLATE'],
         form = form,
     )
