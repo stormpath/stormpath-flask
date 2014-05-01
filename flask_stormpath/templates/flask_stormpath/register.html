@@ -19,39 +19,39 @@
         {% if config['STORMPATH_ENABLE_USERNAME'] %}
           {{ form.username.label }}
           {% if config['STORMPATH_REQUIRE_USERNAME'] %}
-            {{ form.username(size=255, placeholder='Username', required) }}
+            {{ form.username(placeholder='Username', required='true') }}
           {% else %}
-            {{ form.username(size=255, placeholder='Username') }}
+            {{ form.username(placeholder='Username') }}
           {% endif %}
         {% endif %}
         {% if config['STORMPATH_ENABLE_GIVEN_NAME'] %}
           {{ form.given_name.label }}
           {% if config['STORMPATH_REQUIRE_GIVEN_NAME'] %}
-            {{ form.given_name(size=255, placeholder='First Name', required) }}
+            {{ form.given_name(placeholder='First Name', required='true') }}
           {% else %}
-            {{ form.given_name(size=255, placeholder='First Name') }}
+            {{ form.given_name(placeholder='First Name') }}
           {% endif %}
         {% endif %}
         {% if config['STORMPATH_ENABLE_MIDDLE_NAME'] %}
           {{ form.middle_name.label }}
           {% if config['STORMPATH_REQUIRE_MIDDLE_NAME'] %}
-            {{ form.middle_name(size=255, placeholder='Middle Name', required) }}
+            {{ form.middle_name(placeholder='Middle Name', required='true') }}
           {% else %}
-            {{ form.middle_name(size=255, placeholder='Middle Name') }}
+            {{ form.middle_name(placeholder='Middle Name') }}
           {% endif %}
         {% endif %}
         {% if config['STORMPATH_ENABLE_SURNAME'] %}
           {{ form.surname.label }}
           {% if config['STORMPATH_REQUIRE_MIDDLE_NAME'] %}
-            {{ form.surname(size=255, placeholder='Last Name', required) }}
+            {{ form.surname(placeholder='Last Name', required='true') }}
           {% else %}
-            {{ form.surname(size=255, placeholder='Last Name') }}
+            {{ form.surname(placeholder='Last Name') }}
           {% endif %}
         {% endif %}
         {{ form.email.label }}
-        {{ form.email(size=255, placeholder='Email', required) }}
+        {{ form.email(placeholder='Email', required='true') }}
         {{ form.password.label }}
-        {{ form.password(size=255, placeholder='Password', required) }}
+        {{ form.password(placeholder='Password', required='true') }}
         <input type="submit" name="Register">
       </fieldset>
     </form>
