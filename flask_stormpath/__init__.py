@@ -47,7 +47,10 @@ from .context_processors import _user_context_processor
 from .decorators import groups_required
 from .models import User
 from .settings import setup
-from .views import register
+from .views import (
+    login,
+    register,
+)
 
 
 # A proxy for the current user.
@@ -96,6 +99,14 @@ class StormpathManager(object):
                 app.config['STORMPATH_REGISTRATION_URL'],
                 'stormpath.register',
                 register,
+                methods = ['GET', 'POST'],
+            )
+
+        if app.config['STORMPATH_ENABLE_LOGIN']:
+            app.add_url_rule(
+                app.config['STORMPATH_LOGIN_URL'],
+                'stormpath.login',
+                login,
                 methods = ['GET', 'POST'],
             )
 
