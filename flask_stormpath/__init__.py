@@ -64,6 +64,11 @@ class StormpathManager(object):
     then bind it to your app in a factory function.
     """
     def __init__(self, app=None):
+        """
+        Initialize this extension.
+
+        :param obj app: (optional) The Flask app.
+        """
         self.app = app
 
         # If the user specifies an app, let's configure Flask-Login with our
@@ -81,6 +86,8 @@ class StormpathManager(object):
             - Configuring Flask-Stormpath.
             - Adding ourself to the user's app (so the user can reference this
               extension later on, if they want).
+
+        :param obj app: The Flask app.
         """
         # Initialize all of the Flask-Stormpath configuration variables and
         # settings.
@@ -111,6 +118,8 @@ class StormpathManager(object):
 
         We use Flask-Login for managing sessions (primarily), so setting it up
         is necessary.
+
+        :param obj app: The Flask app.
         """
         app.login_manager = LoginManager(app)
         app.login_manager.user_callback = self.load_user
@@ -124,6 +133,8 @@ class StormpathManager(object):
         enabled here.
 
         This behavior is fully customizable in the user's settings.
+
+        :param obj app: The Flask app.
         """
         if app.config['STORMPATH_ENABLE_REGISTRATION']:
             app.add_url_rule(
