@@ -52,6 +52,7 @@ setup(
     install_requires = [
         'Flask',
         'Flask-Login==0.2.9',
+        'facebook-sdk==0.4.0',
         'stormpath==1.1.0',
     ],
     classifiers = [
