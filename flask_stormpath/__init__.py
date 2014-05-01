@@ -89,12 +89,12 @@ class StormpathManager(object):
         # Initialize the Flask-Login extension.
         self.init_login(app)
 
+        # Initialize all URL routes / views.
+        self.init_routes(app)
+
         # Initialize our blueprint.  This lets us do cool template stuff.
         blueprint = Blueprint('flask_stormpath', 'flask_stormpath', template_folder='templates')
         app.register_blueprint(blueprint)
-
-        # Initialize all URL routes / views.
-        self.init_routes(app)
 
         # Ensure the 'user' context is available in templates.  This makes it
         # really easy for developers to grab user data for display purposes in
