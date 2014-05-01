@@ -11,6 +11,7 @@ from flask import (
 from flask.ext.login import login_user
 
 from . import StormpathError
+from .forms import RegistrationForm
 from .models import User
 
 
@@ -25,48 +26,50 @@ def register():
     template that is used to render this page can all be controlled via
     Flask-Stormpath settings.
     """
-    data = {
-        'username': None,
-        'email': None,
-        'password': None,
-        'given_name': None,
-        'middle_name': None,
-        'surname': None,
-    }
+    form = RegistrationForm()
 
-    # If we receive a POST request, it means a user is attempting to register
-    # on our site.
-    if request.method == 'POST':
+    # If we received a POST request with valid information, we'll continue
+    # processing.
+    if form.validate_on_submit():
+        fail = False
 
         # Iterate through all fields, grabbing the necessary form data and
         # flashing error messages if required.
+        data = form.data
         for field in data.keys():
             if current_app.config['STORMPATH_ENABLE_%s' % field.upper()]:
-                data[field] = request.form.get(field)
                 if current_app.config['STORMPATH_REQUIRE_%s' % field.upper()] and not data[field]:
+                    fail = True
                     flash('%s is required.' % field.replace('_', ' ').title())
 
-        # Attempt to create the user's account on Stormpath.
-        try:
+        # If there are no missing fields (per our settings), continue.
+        if not fail:
 
-            # Since Stormpath requires both the given_name and surname fields
-            # be set, we'll just set the both to 'Anonymous' if the user has
-            # explicitly said they don't want to collect those fields.
-            data['given_name'] = data['given_name'] or 'Anonymous'
-            data['surname'] = data['given_name'] or 'Anonymous'
+            # Attempt to create the user's account on Stormpath.
+            try:
 
-            # Create the user account on Stormpath.  If this fails, an
-            # exception will be raised.
-            account = User.create(**data)
+                # Since Stormpath requires both the given_name and surname
+                # fields be set, we'll just set the both to 'Anonymous' if
+                # the user has # explicitly said they don't want to collect
+                # those fields.
+                data['given_name'] = data['given_name'] or 'Anonymous'
+                data['surname'] = data['given_name'] or 'Anonymous'
 
-            # If we're able to successfully create the user's account, we'll
-            # log the user in (creating a secure session using Flask-Login),
-            # then redirect the user to the ?next=<url> query parameter, or the
-            # STORMPATH_REDIRECT_URL setting.
-            login_user(account, remember=True)
+                # Create the user account on Stormpath.  If this fails, an
+                # exception will be raised.
+                account = User.create(**data)
 
-            return redirect(request.args.get('next') or current_app.config['STORMPATH_REDIRECT_URL'])
-        except StormpathError, err:
-            flash(err.user_message)
+                # If we're able to successfully create the user's account,
+                # we'll log the user in (creating a secure session using
+                # Flask-Login), then redirect the user to the ?next=<url>
+                # query parameter, or the STORMPATH_REDIRECT_URL setting.
+                login_user(account, remember=True)
 
-    return render_template(current_app.config['STORMPATH_REGISTRATION_TEMPLATE'])
+                return redirect(request.args.get('next') or current_app.config['STORMPATH_REDIRECT_URL'])
+            except StormpathError, err:
+                flash(err.user_message)
+
+    return render_template(
+        current_app.config['STORMPATH_REGISTRATION_TEMPLATE'],
+        form = form,
+    )
