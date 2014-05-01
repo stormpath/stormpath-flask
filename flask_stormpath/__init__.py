@@ -47,6 +47,7 @@ from .decorators import groups_required
 from .models import User
 from .settings import setup
 from .views import (
+    facebook_login,
     login,
     logout,
     register,
@@ -159,6 +160,13 @@ class StormpathManager(object):
                 app.config['STORMPATH_LOGOUT_URL'],
                 'stormpath.logout',
                 logout,
+            )
+
+        if app.config['STORMPATH_ENABLE_FACEBOOK']:
+            app.add_url_rule(
+                app.config['STORMPATH_FACEBOOK_LOGIN_URL'],
+                'stormpath.facebook_login',
+                facebook_login,
             )
 
     @property
