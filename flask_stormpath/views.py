@@ -10,7 +10,10 @@ from flask import (
 )
 from flask.ext.login import login_user
 
-from . import StormpathError
+from . import (
+    StormpathError,
+    logout_user,
+)
 from .forms import (
     LoginForm,
     RegistrationForm,
@@ -113,3 +116,14 @@ def login():
         current_app.config['STORMPATH_LOGIN_TEMPLATE'],
         form = form,
     )
+
+
+def logout():
+    """
+    Log a user out of their account.
+
+    This view will log a user out of their account (destroying their session),
+    then redirect the user to the home page of the site.
+   """
+    logout_user()
+    return redirect('/')
