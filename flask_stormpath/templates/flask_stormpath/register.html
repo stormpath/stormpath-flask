@@ -12,28 +12,29 @@
       {% endif %}
     {% endwith %}
     <form action="" method="post">
+      {{ form.hidden_tag() }}
       <fieldset>
         <legend>Create an Account</legend>
         {% if config['STORMPATH_ENABLE_USERNAME'] %}
-          <label for="username">Username</label>
-          <input type="text" name="username" placeholder="Username">
+          {{ form.username.label }}
+          {{ form.username(size=255, placeholder='Username') }}
         {% endif %}
         {% if config['STORMPATH_ENABLE_GIVEN_NAME'] %}
-          <label for="given_name">First Name</label>
-          <input type="text" name="given_name" placeholder="First Name">
+          {{ form.given_name.label }}
+          {{ form.given_name(size=255, placeholder='First Name') }}
         {% endif %}
         {% if config['STORMPATH_ENABLE_MIDDLE_NAME'] %}
-          <label for="middle_name">Middle Name</label>
-          <input type="text" name="middle_name" placeholder="Middle Name">
+          {{ form.middle_name.label }}
+          {{ form.middle_name(size=255, placeholder='Middle Name') }}
         {% endif %}
         {% if config['STORMPATH_ENABLE_SURNAME'] %}
-          <label for="surname">Last Name</label>
-          <input type="text" name="surname" placeholder="Last Name">
+          {{ form.surname.label }}
+          {{ form.surname(size=255, placeholder='Last Name') }}
         {% endif %}
-        <label for="email">Email</label>
-        <input type="email" name="email" placeholder="Email">
-        <label for="password">Password</label>
-        <input type="password" name="password" placeholder="Password">
+        {{ form.email.label }}
+        {{ form.email(size=255, placeholder='Email') }}
+        {{ form.password.label }}
+        {{ form.password(size=255, placeholder='Password') }}
         <input type="submit" name="Register">
       </fieldset>
     </form>
