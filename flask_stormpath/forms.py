@@ -6,10 +6,7 @@ from wtforms.fields import (
     PasswordField,
     StringField,
 )
-from wtforms.validators import (
-    InputRequired,
-    ValidationError,
-)
+from wtforms.validators import InputRequired
 
 
 class RegistrationForm(Form):
@@ -52,14 +49,5 @@ class LoginForm(Form):
         Since social login stuff is handled separately (login happens through
         Javascript) we don't need to have a form for logging in users that way.
     """
-    username = StringField('Username')
-    email = StringField('Email')
+    login = StringField('Login', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
-
-    def validate_email(self, form, field):
-        if (not field.data) and (not form.username.data):
-            raise ValidationError('Either username or email must be specified.')
-
-    def validate_username(self, form, field):
-        if (not field.data) and (not form.email.data):
-            raise ValidationError('Either username or email must be specified.')
