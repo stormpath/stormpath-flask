@@ -85,7 +85,6 @@ class StormpathManager(object):
         setup(app.config)
 
         app.login_manager = LoginManager(app)
-        app.login_manager.session_protection = 'strong'
         app.login_manager.user_callback = self.load_user
         app.stormpath_manager = self
 
