@@ -1,4 +1,5 @@
-<html> <head>
+<html>
+  <head>
     <title>Create an Account</title>
   </head>
   <body>
@@ -17,24 +18,40 @@
         <legend>Create an Account</legend>
         {% if config['STORMPATH_ENABLE_USERNAME'] %}
           {{ form.username.label }}
-          {{ form.username(size=255, placeholder='Username') }}
+          {% if config['STORMPATH_REQUIRE_USERNAME'] %}
+            {{ form.username(size=255, placeholder='Username', required) }}
+          {% else %}
+            {{ form.username(size=255, placeholder='Username') }}
+          {% endif %}
         {% endif %}
         {% if config['STORMPATH_ENABLE_GIVEN_NAME'] %}
           {{ form.given_name.label }}
-          {{ form.given_name(size=255, placeholder='First Name') }}
+          {% if config['STORMPATH_REQUIRE_GIVEN_NAME'] %}
+            {{ form.given_name(size=255, placeholder='First Name', required) }}
+          {% else %}
+            {{ form.given_name(size=255, placeholder='First Name') }}
+          {% endif %}
         {% endif %}
         {% if config['STORMPATH_ENABLE_MIDDLE_NAME'] %}
           {{ form.middle_name.label }}
-          {{ form.middle_name(size=255, placeholder='Middle Name') }}
+          {% if config['STORMPATH_REQUIRE_MIDDLE_NAME'] %}
+            {{ form.middle_name(size=255, placeholder='Middle Name', required) }}
+          {% else %}
+            {{ form.middle_name(size=255, placeholder='Middle Name') }}
+          {% endif %}
         {% endif %}
         {% if config['STORMPATH_ENABLE_SURNAME'] %}
           {{ form.surname.label }}
-          {{ form.surname(size=255, placeholder='Last Name') }}
+          {% if config['STORMPATH_REQUIRE_MIDDLE_NAME'] %}
+            {{ form.surname(size=255, placeholder='Last Name', required) }}
+          {% else %}
+            {{ form.surname(size=255, placeholder='Last Name') }}
+          {% endif %}
         {% endif %}
         {{ form.email.label }}
-        {{ form.email(size=255, placeholder='Email') }}
+        {{ form.email(size=255, placeholder='Email', required) }}
         {{ form.password.label }}
-        {{ form.password(size=255, placeholder='Password') }}
+        {{ form.password(size=255, placeholder='Password', required) }}
         <input type="submit" name="Register">
       </fieldset>
     </form>
