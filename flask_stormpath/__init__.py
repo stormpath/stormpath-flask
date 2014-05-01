@@ -93,21 +93,8 @@ class StormpathManager(object):
         blueprint = Blueprint('flask_stormpath', 'flask_stormpath', template_folder='templates')
         app.register_blueprint(blueprint)
 
-        if app.config['STORMPATH_ENABLE_REGISTRATION']:
-            app.add_url_rule(
-                app.config['STORMPATH_REGISTRATION_URL'],
-                'stormpath.register',
-                register,
-                methods = ['GET', 'POST'],
-            )
-
-        if app.config['STORMPATH_ENABLE_LOGIN']:
-            app.add_url_rule(
-                app.config['STORMPATH_LOGIN_URL'],
-                'stormpath.login',
-                login,
-                methods = ['GET', 'POST'],
-            )
+        # Initialize all URL routes / views.
+        self.init_routes(app)
 
         # Ensure the 'user' context is available in templates.
         app.context_processor(_user_context_processor)
@@ -124,6 +111,31 @@ class StormpathManager(object):
         app.login_manager = LoginManager(app)
         app.login_manager.user_callback = self.load_user
         app.stormpath_manager = self
+
+    def init_routes(self, app):
+        """
+        Initialize our built-in routes.
+
+        If the user has enabled the built-in views / routes, they will be
+        enabled here.
+
+        This behavior is fully customizable in the user's settings.
+        """
+        if app.config['STORMPATH_ENABLE_REGISTRATION']:
+            app.add_url_rule(
+                app.config['STORMPATH_REGISTRATION_URL'],
+                'stormpath.register',
+                register,
+                methods = ['GET', 'POST'],
+            )
+
+        if app.config['STORMPATH_ENABLE_LOGIN']:
+            app.add_url_rule(
+                app.config['STORMPATH_LOGIN_URL'],
+                'stormpath.login',
+                login,
+                methods = ['GET', 'POST'],
+            )
 
     @property
     def client(self):
