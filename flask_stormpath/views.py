@@ -1,6 +1,7 @@
 """Our pluggable views."""
 
 
+from facebook import get_user_from_cookie
 from flask import (
     current_app,
     flash,
@@ -9,6 +10,7 @@ from flask import (
     request,
 )
 from flask.ext.login import login_user
+from stormpath.resources.provider import Provider
 
 from . import (
     StormpathError,
@@ -116,6 +118,51 @@ def login():
         current_app.config['STORMPATH_LOGIN_TEMPLATE'],
         form = form,
     )
+
+
+def facebook_login():
+    """
+    Handle Facebook login.
+
+    When a user logs in with Facebook, all of the authentication happens on the
+    client side with Javascript.  Since all authentication happens with
+    Javascript, we *need* to force a newly created and / or logged in Facebook
+    user to redirect to this view.
+
+    What this view does is:
+
+        - Read the user's session using the Facebook SDK, extracting the user's
+          Facebook access token.
+        - Once we have the user's access token, we send it to Stormpath, so that
+          we can either create (or update) the user on Stormpath's side.
+        - Then we retrieve the Stormpath account object for the user, and log
+          them in using our normal session support (powered by Flask-Login).
+
+    Although this is slighly complicated, this gives us the power to then treat
+    Facebook users like any other normal Stormpath user -- we can assert group
+    permissions, authentication, etc.
+
+    The location this view redirects users to can be configured via
+    Flask-Stormpath settings.
+    """
+    # First, we'll try to grab the Facebook user's data by accessing their
+    # session data.
+    facebook_user = get_user_from_cookie(
+        request.cookies,
+        current_app.config['STORMPATH_SOCIAL']['FACEBOOK']['app_id'],
+        current_app.config['STORMPATH_SOCIAL']['FACEBOOK']['app_secret'],
+    )
+
+    # Now, we'll try to have Stormpath either create or update this user's
+    # Stormpath account, by automatically handling the Facebook Graph API stuff
+    # for us.
+    account = User.from_facebook(facebook_user['access_token'])
+
+    # Now we'll log the new user into their account.  From this point on, this
+    # Facebook user will be treated exactly like a normal Stormpath user!
+    login_user(account, remember=True)
+
+    return redirect(request.args.get('next') or current_app.config['STORMPATH_REDIRECT_URL'])
 
 
 def logout():
