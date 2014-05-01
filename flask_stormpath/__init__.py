@@ -42,7 +42,7 @@ from stormpath.error import Error as StormpathError
 
 from werkzeug.local import LocalProxy
 
-from .context_processors import _user_context_processor
+from .context_processors import user_context_processor
 from .decorators import groups_required
 from .models import User
 from .settings import setup
@@ -96,8 +96,10 @@ class StormpathManager(object):
         # Initialize all URL routes / views.
         self.init_routes(app)
 
-        # Ensure the 'user' context is available in templates.
-        app.context_processor(_user_context_processor)
+        # Ensure the 'user' context is available in templates.  This makes it
+        # really easy for developers to grab user data for display purposes in
+        # templates.
+        app.context_processor(user_context_processor)
 
         self.app = app
 

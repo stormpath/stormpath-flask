@@ -1,7 +1,7 @@
 from flask.ext.login import _get_user
 
 
-def _user_context_processor():
+def user_context_processor():
     """
     Insert a special variable named `user` into all templates.
 
