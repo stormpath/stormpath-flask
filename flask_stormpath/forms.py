@@ -29,12 +29,12 @@ class RegistrationForm(Form):
         through Javascript) we don't need to have a form for registering users
         that way.
     """
-    username = StringField()
-    given_name = StringField()
-    middle_name = StringField()
-    surname = StringField()
-    email = StringField(validators=[InputRequired()])
-    password = PasswordField(validators=[InputRequired()])
+    username = StringField('Username')
+    given_name = StringField('First Name')
+    middle_name = StringField('Middle Name')
+    surname = StringField('Last Name')
+    email = StringField('Email', validators=[InputRequired()])
+    password = PasswordField('Password', validators=[InputRequired()])
 
 
 class LoginForm(Form):
@@ -52,9 +52,9 @@ class LoginForm(Form):
         Since social login stuff is handled separately (login happens through
         Javascript) we don't need to have a form for logging in users that way.
     """
-    username = StringField()
-    email = StringField()
-    password = PasswordField(validators=[InputRequired()])
+    username = StringField('Username')
+    email = StringField('Email')
+    password = PasswordField('Password', validators=[InputRequired()])
 
     def validate_email(self, form, field):
         if (not field.data) and (not form.username.data):
