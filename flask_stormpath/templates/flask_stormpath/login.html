@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Login</title>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form action="" method="post">
+      {{ form.hidden_tag() }}
+      <fieldset>
+        <legend>Login</legend>
+        {% if config['STORMPATH_ENABLE_USERNAME'] %}
+          <label for="login">Username or Email</label>
+          {{ form.login(placeholder="Username or Email") }}
+        {% else %}
+          <label for="login">Email</label>
+          {{ form.login(placeholder="Email") }}
+        {% endif %}
+        {{ form.password.label }}
+        {{ form.password(placeholder='Password', required='true') }}
+        <input type="submit" name="Login">
+      </fieldset>
+    </form>
+  </body>
+</html>
