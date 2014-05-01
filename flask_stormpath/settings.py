@@ -34,7 +34,7 @@ def setup(config):
     config.setdefault('STORMPATH_REQUIRE_PASSWORD', True)  # This MUST be True!
     config.setdefault('STORMPATH_REQUIRE_GIVEN_NAME', True)
     config.setdefault('STORMPATH_REQUIRE_MIDDLE_NAME', False)
-    config.setdefault('STORMPATH_REQUIRE_SURNAME', False)
+    config.setdefault('STORMPATH_REQUIRE_SURNAME', True)
 
     # Will new users be required to verify new accounts via email before
     # they're made active?
