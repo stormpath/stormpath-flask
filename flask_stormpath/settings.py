@@ -4,11 +4,13 @@
 from .errors import ConfigurationError
 
 
-def setup(config):
+def init_settings(config):
     """
     Initialize the Flask-Stormpath settings.
 
     This function sets all default configuration values.
+
+    :param dict config: The Flask app config.
     """
     # Basic Stormpath credentials and configuration.
     config.setdefault('STORMPATH_API_KEY_ID', None)

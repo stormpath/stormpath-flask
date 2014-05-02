@@ -47,7 +47,7 @@ from .decorators import groups_required
 from .models import User
 from .settings import (
     check_settings,
-    setup,
+    init_settings,
 )
 from .views import (
     google_login,
@@ -97,7 +97,7 @@ class StormpathManager(object):
         """
         # Initialize all of the Flask-Stormpath configuration variables and
         # settings.
-        setup(app.config)
+        init_settings(app.config)
 
         # Check our user defined settings to ensure Flask-Stormpath is properly
         # configured.
