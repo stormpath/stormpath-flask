@@ -47,6 +47,7 @@ from .decorators import groups_required
 from .models import User
 from .settings import setup
 from .views import (
+    google_login,
     facebook_login,
     login,
     logout,
@@ -160,6 +161,13 @@ class StormpathManager(object):
                 app.config['STORMPATH_LOGOUT_URL'],
                 'stormpath.logout',
                 logout,
+            )
+
+        if app.config['STORMPATH_ENABLE_GOOGLE']:
+            app.add_url_rule(
+                app.config['STORMPATH_GOOGLE_LOGIN_URL'],
+                'stormpath.google_login',
+                google_login,
             )
 
         if app.config['STORMPATH_ENABLE_FACEBOOK']:
