@@ -1,6 +1,9 @@
 """Helper functions for dealing with Flask-Stormpath settings."""
 
 
+from .errors import ConfigurationError
+
+
 def setup(config):
     """
     Initialize the Flask-Stormpath settings.
@@ -72,3 +75,24 @@ def setup(config):
 
     # Social login configuration.
     config.setdefault('STORMPATH_SOCIAL', {})
+
+
+def check_settings(self, app):
+    """
+    Ensure the user-specified settings are valid.
+
+    This will raise a ConfigurationError if anything mandatory is not
+    specified.
+
+    :param obj app: The Flask app.
+    """
+    if not (
+        all(
+            app.config['STORMPATH_API_KEY_ID'],
+            app.config['STORMPATH_API_KEY_SECRET'],
+        ) or app.config['STORMPATH_API_KEY_FILE']
+    ):
+        raise ConfigurationError('You must define your Stormpath credentials.')
+
+    if not app.config['STORMPATH_APPLICATION']:
+        raise ConfigurationError('You must define your Stormpath application.')
