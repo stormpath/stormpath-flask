@@ -123,8 +123,8 @@ class User(Account):
         a StormpathError (flask.ext.stormpath.StormpathError).
         """
         _user = current_app.stormpath_manager.application.get_provider_account(
-            provider = Provider.FACEBOOK,
             access_token = access_token,
+            provider = Provider.FACEBOOK,
         )
         _user.__class__ = User
 
