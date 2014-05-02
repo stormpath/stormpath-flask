@@ -57,6 +57,7 @@ def setup(config):
     config.setdefault('STORMPATH_LOGOUT_URL', '/logout')
     config.setdefault('STORMPATH_FORGOT_PASSWORD_URL', '/forgot')
     config.setdefault('STORMPATH_SETTINGS_URL', '/settings')
+    config.setdefault('STORMPATH_GOOGLE_LOGIN_URL', '/google')
     config.setdefault('STORMPATH_FACEBOOK_LOGIN_URL', '/facebook')
 
     # After a successful login, where should users be redirected?
