@@ -45,7 +45,10 @@ from werkzeug.local import LocalProxy
 from .context_processors import user_context_processor
 from .decorators import groups_required
 from .models import User
-from .settings import setup
+from .settings import (
+    check_settings,
+    setup,
+)
 from .views import (
     google_login,
     facebook_login,
@@ -95,6 +98,10 @@ class StormpathManager(object):
         # Initialize all of the Flask-Stormpath configuration variables and
         # settings.
         setup(app.config)
+
+        # Check our user defined settings to ensure Flask-Stormpath is properly
+        # configured.
+        check_settings(app.config)
 
         # Initialize the Flask-Login extension.
         self.init_login(app)
