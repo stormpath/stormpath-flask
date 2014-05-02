@@ -51,7 +51,7 @@ def register():
 
                     # Manually override the terms for first / last name to make
                     # errors more user friendly.
-                    if field == 'given_name'
+                    if field == 'given_name':
                         field = 'first name'
 
                     elif field == 'surname':
