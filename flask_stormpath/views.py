@@ -48,6 +48,15 @@ def register():
             if current_app.config['STORMPATH_ENABLE_%s' % field.upper()]:
                 if current_app.config['STORMPATH_REQUIRE_%s' % field.upper()] and not data[field]:
                     fail = True
+
+                    # Manually override the terms for first / last name to make
+                    # errors more user friendly.
+                    if field == 'given_name'
+                        field = 'first name'
+
+                    elif field == 'surname':
+                        field = 'last name'
+
                     flash('%s is required.' % field.replace('_', ' ').title())
 
         # If there are no missing fields (per our settings), continue.
