@@ -79,7 +79,7 @@ def init_settings(config):
     config.setdefault('STORMPATH_SOCIAL', {})
 
 
-def check_settings(self, config):
+def check_settings(config):
     """
     Ensure the user-specified settings are valid.
 
@@ -89,12 +89,34 @@ def check_settings(self, config):
     :param dict config: The Flask app config.
     """
     if not (
-        all(
+        all([
             config['STORMPATH_API_KEY_ID'],
             config['STORMPATH_API_KEY_SECRET'],
-        ) or config['STORMPATH_API_KEY_FILE']
+        ]) or config['STORMPATH_API_KEY_FILE']
     ):
         raise ConfigurationError('You must define your Stormpath credentials.')
 
     if not config['STORMPATH_APPLICATION']:
         raise ConfigurationError('You must define your Stormpath application.')
+
+    if config['STORMPATH_ENABLE_GOOGLE']:
+        google_config = config['STORMPATH_SOCIAL'].get('GOOGLE')
+
+        if not all([
+            google_config,
+            google_config.get('client_id'),
+            google_config.get('client_secret'),
+            google_config.get('scopes'),
+        ]):
+            raise ConfigurationError('You must define your Google app settings.')
+
+    if config['STORMPATH_ENABLE_FACEBOOK']:
+        facebook_config = config['STORMPATH_SOCIAL'].get('FACEBOOK')
+
+        if not all([
+            facebook_config,
+            facebook_config.get('app_id'),
+            facebook_config.get('app_secret'),
+            facebook_config.get('scopes'),
+        ]):
+            raise ConfigurationError('You must define your Facebook app settings.')
