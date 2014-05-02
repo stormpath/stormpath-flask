@@ -99,6 +99,22 @@ class User(Account):
         return _user
 
     @classmethod
+    def from_google(self, code):
+        """
+        Create a new User class given a Google user's access code.
+
+        If something goes wrong, this will raise an exception -- most likely --
+        a StormpathError (flask.ext.stormpath.StormpathError).
+        """
+        _user = current_app.stormpath_manager.application.get_provider_account(
+            code = code,
+            provider = Provider.GOOGLE,
+        )
+        _user.__class__ = User
+
+        return _user
+
+    @classmethod
     def from_facebook(self, access_token):
         """
         Create a new User class given a Facebook user's access token.
