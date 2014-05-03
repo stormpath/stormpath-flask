@@ -1,0 +1,34 @@
+{% if config['STORMPATH_ENABLE_FACEBOOK'] %}
+  <script>
+    function redirectIfLoginSuccessful() {
+      FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+          var queryStr = window.location.search.replace('?', '');
+          if (queryStr) {
+            window.location.replace('{{ config['STORMPATH_FACEBOOK_LOGIN_URL'] }}?' + queryStr);
+          } else {
+            window.location.replace('{{ config['STORMPATH_FACEBOOK_LOGIN_URL'] }}');
+          }
+        }
+      });
+    }
+
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '{{ config['STORMPATH_SOCIAL']['FACEBOOK']['app_id'] }}',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v2.0'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <fb:login-button scope="email" onlogin="redirectIfLoginSuccessful();"></fb:login-button>
+{% endif %}
