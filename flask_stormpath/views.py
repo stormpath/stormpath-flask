@@ -273,7 +273,7 @@ def google_login():
             'provider': {
                 'client_id': current_app.config['STORMPATH_SOCIAL']['GOOGLE']['client_id'],
                 'client_secret': current_app.config['STORMPATH_SOCIAL']['GOOGLE']['client_secret'],
-                'redirect_uri': current_app.config['STORMPATH_GOOGLE_LOGIN_URL'],
+                'redirect_uri': request.url_root[:-1] + current_app.config['STORMPATH_GOOGLE_LOGIN_URL'],
                 'provider_id': Provider.GOOGLE,
             },
         })
