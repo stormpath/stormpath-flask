@@ -1,10 +1,13 @@
-<html>
-  <head>
-    <title>Create an Account</title>
-  </head>
-  <body>
-    {% include "flask_stormpath/google_login_form.html" %}
-    {% include "flask_stormpath/facebook_login_form.html" %}
+{% extends "flask_stormpath/base.html" %}
+
+
+{% block title %}Create an Account {% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="page-header text-center" style="margin-bottom:6em;">
+      <h1>Create an Account</h2>
+    </div>
 
     {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -16,48 +19,65 @@
       {% endif %}
     {% endwith %}
 
-    <form action="" method="post">
-      {{ form.hidden_tag() }}
-      <fieldset>
-        <legend>Create an Account</legend>
-        {% if config['STORMPATH_ENABLE_USERNAME'] %}
-          {{ form.username.label }}
-          {% if config['STORMPATH_REQUIRE_USERNAME'] %}
-            {{ form.username(placeholder='Username', required='true') }}
-          {% else %}
-            {{ form.username(placeholder='Username') }}
-          {% endif %}
+    <div class="row">
+      <div class="col-sm-3 col-sm-offset-2">
+        <form action="" method="post" role="form">
+          {{ form.hidden_tag() }}
+            {% if config['STORMPATH_ENABLE_USERNAME'] %}
+              <div class="form-group">
+                {% if config['STORMPATH_REQUIRE_USERNAME'] %}
+                  {{ form.username(class='form-control', placeholder='Username', required='true') }}
+                {% else %}
+                  {{ form.username(class='form-control', placeholder='Username') }}
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if config['STORMPATH_ENABLE_GIVEN_NAME'] %}
+              <div class="form-group">
+                {% if config['STORMPATH_REQUIRE_GIVEN_NAME'] %}
+                  {{ form.given_name(class='form-control', placeholder='First Name', required='true') }}
+                {% else %}
+                  {{ form.given_name(class='form-control', placeholder='First Name') }}
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if config['STORMPATH_ENABLE_MIDDLE_NAME'] %}
+              <div class="form-group">
+                {% if config['STORMPATH_REQUIRE_MIDDLE_NAME'] %}
+                  {{ form.middle_name(class='form-control', placeholder='Middle Name', required='true') }}
+                {% else %}
+                  {{ form.middle_name(class='form-control', placeholder='Middle Name') }}
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if config['STORMPATH_ENABLE_SURNAME'] %}
+              <div class="form-group">
+                {% if config['STORMPATH_REQUIRE_MIDDLE_NAME'] %}
+                  {{ form.surname(class='form-control', placeholder='Last Name', required='true') }}
+                {% else %}
+                  {{ form.surname(class='form-control', placeholder='Last Name') }}
+                {% endif %}
+              </div>
+            {% endif %}
+            <div class="form-group">
+              {{ form.email(class='form-control', placeholder='Email', required='true', type="email") }}
+            </div>
+            <div class="form-group">
+              {{ form.password(class='form-control', placeholder='Password', required='true') }}
+            </div>
+            <button type="submit" class="btn btn-default center-block">Register</button>
+        </form>
+      </div>
+      <div class="col-sm-2">
+        {% if config['STORMPATH_ENABLE_GOOGLE'] or config['STORMPATH_ENABLE_FACEBOOK'] %}
+          <p class="text-center" style="margin-top: 2em; font-size: 2em;">Or...</p>
         {% endif %}
-        {% if config['STORMPATH_ENABLE_GIVEN_NAME'] %}
-          {{ form.given_name.label }}
-          {% if config['STORMPATH_REQUIRE_GIVEN_NAME'] %}
-            {{ form.given_name(placeholder='First Name', required='true') }}
-          {% else %}
-            {{ form.given_name(placeholder='First Name') }}
-          {% endif %}
-        {% endif %}
-        {% if config['STORMPATH_ENABLE_MIDDLE_NAME'] %}
-          {{ form.middle_name.label }}
-          {% if config['STORMPATH_REQUIRE_MIDDLE_NAME'] %}
-            {{ form.middle_name(placeholder='Middle Name', required='true') }}
-          {% else %}
-            {{ form.middle_name(placeholder='Middle Name') }}
-          {% endif %}
-        {% endif %}
-        {% if config['STORMPATH_ENABLE_SURNAME'] %}
-          {{ form.surname.label }}
-          {% if config['STORMPATH_REQUIRE_MIDDLE_NAME'] %}
-            {{ form.surname(placeholder='Last Name', required='true') }}
-          {% else %}
-            {{ form.surname(placeholder='Last Name') }}
-          {% endif %}
-        {% endif %}
-        {{ form.email.label }}
-        {{ form.email(placeholder='Email', required='true', type="email") }}
-        {{ form.password.label }}
-        {{ form.password(placeholder='Password', required='true') }}
-        <input type="submit" name="Register">
-      </fieldset>
-    </form>
-  </body>
-</html>
+      </div>
+      <div class="col-sm-2">
+        {% include "flask_stormpath/google_login_form.html" %}
+        {% include "flask_stormpath/facebook_login_form.html" %}
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
