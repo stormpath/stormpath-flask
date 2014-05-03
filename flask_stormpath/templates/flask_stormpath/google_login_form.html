@@ -1,7 +1,8 @@
 {% if config['STORMPATH_ENABLE_GOOGLE'] %}
-  <button id="google" onclick="googleLogin()">Log in With Google</button>
+  <a class="btn btn-block btn-social btn-md btn-google-plus"
+    onclick="googleLogin()" style="margin-bottom: 2em; width: 8.3em;"> <i class="fa fa-google-plus"></i>&nbsp;&nbsp;&nbsp;Log In
+  </a>
   <script>
-    // Log a user in with Google OAuth.
     function googleLogin() {
       window.location.replace('https://accounts.google.com/o/oauth2/auth?response_type=code&client_id={{ config['STORMPATH_SOCIAL']['GOOGLE']['client_id'] }}&scope=email&include_granted_scopes=true&redirect_uri={{ (request.url_root[:-1] + config['STORMPATH_GOOGLE_LOGIN_URL'])|urlencode }}');
     }
