@@ -1,10 +1,12 @@
-<html>
-  <head>
-    <title>Login</title>
-  </head>
-  <body>
-    {% include "flask_stormpath/google_login_form.html" %}
-    {% include "flask_stormpath/facebook_login_form.html" %}
+{% extends "flask_stormpath/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="page-header text-center" style="margin-bottom:6em;">
+      <h1>Login</h2>
+    </div>
 
     {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -15,21 +17,33 @@
         </ul>
       {% endif %}
     {% endwith %}
-    <form action="" method="post">
-      {{ form.hidden_tag() }}
-      <fieldset>
-        <legend>Login</legend>
-        {% if config['STORMPATH_ENABLE_USERNAME'] %}
-          <label for="login">Username or Email</label>
-          {{ form.login(placeholder="Username or Email") }}
-        {% else %}
-          <label for="login">Email</label>
-          {{ form.login(placeholder="Email") }}
+
+    <div class="row">
+      <div class="col-sm-3 col-sm-offset-2">
+        <form action="" method="post" role="form">
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+            {% if config['STORMPATH_ENABLE_USERNAME'] %}
+              {{ form.login(class='form-control', placeholder="Username or Email") }}
+            {% else %}
+              {{ form.login(class='form-control', placeholder="Email") }}
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{ form.password(class='form-control', placeholder='Password', required='true') }}
+          </div>
+          <button type="submit" class="btn btn-default center-block">Login</button>
+        </form>
+      </div>
+      <div class="col-sm-2">
+        {% if config['STORMPATH_ENABLE_GOOGLE'] or config['STORMPATH_ENABLE_FACEBOOK'] %}
+          <p class="text-center" style="margin-top: 2em; font-size: 2em;">Or...</p>
         {% endif %}
-        {{ form.password.label }}
-        {{ form.password(placeholder='Password', required='true') }}
-        <input type="submit" name="Login">
-      </fieldset>
-    </form>
-  </body>
-</html>
+      </div>
+      <div class="col-sm-2">
+        {% include "flask_stormpath/google_login_form.html" %}
+        {% include "flask_stormpath/facebook_login_form.html" %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
