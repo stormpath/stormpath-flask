@@ -141,7 +141,17 @@ class TestUser(TestCase):
             self.assertEqual(user.is_anonymous(), False)
 
     def test_is_authenticated(self):
-        self.assertEqual(self.user.is_authenticated(), True)
+        with self.app.app_context():
+
+            # This should always return true.  If a user account can be
+            # fetched, that means it must be authenticated.
+            user = User.create(
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+                given_name = 'Randall',
+                surname = 'Degges',
+            )
+            self.assertEqual(user.is_authenticated(), True)
 
     def test_create(self):
         with self.app.app_context():
