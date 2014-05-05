@@ -105,7 +105,26 @@ class TestUser(TestCase):
             self.assertEqual(user.get_id(), self.user.href)
 
     def test_is_active(self):
-        self.assertEqual(self.user.is_active(), self.user.status == 'ENABLED')
+        with self.app.app_context():
+
+            # Ensure users are active by default.
+            user = User.create(
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+                given_name = 'Randall',
+                surname = 'Degges',
+            )
+            self.assertEqual(user.is_active(), True)
+
+            # Ensure users who have their accounts explicitly disabled actually
+            # return a proper status when `is_active` is called.
+            user.status = User.STATUS_DISABLED
+            self.assertEqual(user.is_active(), False)
+
+            # Ensure users who have not verified their accounts return a proper
+            # status when `is_active` is called.
+            user.status = User.STATUS_UNVERIFIED
+            self.assertEqual(user.is_active(), False)
 
     def test_is_anonymous(self):
         self.assertEqual(self.user.is_anonymous(), False)
