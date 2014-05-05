@@ -14,14 +14,8 @@ from flask.ext.login import login_user
 from oauth2client.client import OAuth2WebServerFlow
 from stormpath.resources.provider import Provider
 
-from . import (
-    StormpathError,
-    logout_user,
-)
-from .forms import (
-    LoginForm,
-    RegistrationForm,
-)
+from . import StormpathError, logout_user
+from .forms import LoginForm, RegistrationForm
 from .models import User
 
 
