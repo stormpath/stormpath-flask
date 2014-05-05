@@ -3,6 +3,21 @@
 All library changes, in descending order.
 
 
+## Version 0.2.0
+
+Not yet released.
+
+- Adding customizable user settings.
+- Adding support for social login via Gacebook.
+- Adding support for social login via Facebook.
+- Adding an automatic logout view.
+- Adding an automatic login view.
+- Adding an automatic registration view.
+- Adding built-in routes for logout / login / register.
+- Adding customizable registration / login pages.
+- Adding built in templates for registration and login (with social included).
+
+
 ## Version 0.1.0
 
 Released on March 26, 2014.
