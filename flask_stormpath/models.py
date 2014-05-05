@@ -1,3 +1,6 @@
+"""Custom data models."""
+
+
 from flask import current_app
 from stormpath.resources.account import Account
 from stormpath.resources.provider import Provider
