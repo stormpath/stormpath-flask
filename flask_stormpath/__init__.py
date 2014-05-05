@@ -113,7 +113,7 @@ class StormpathManager(object):
         blueprint = Blueprint('flask_stormpath', 'flask_stormpath', template_folder='templates')
         app.register_blueprint(blueprint)
 
-        # Ensure the 'user' context is available in templates.  This makes it
+        # Ensure the `user` context is available in templates.  This makes it
         # really easy for developers to grab user data for display purposes in
         # templates.
         app.context_processor(user_context_processor)
