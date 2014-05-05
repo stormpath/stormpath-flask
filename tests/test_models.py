@@ -95,7 +95,14 @@ class TestUser(TestCase):
             self.assertTrue(user.href in user.__repr__())
 
     def test_get_id(self):
-        self.assertEqual(self.user.get_id(), self.user.href)
+        with self.app.app_context():
+            user = User.create(
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+                given_name = 'Randall',
+                surname = 'Degges',
+            )
+            self.assertEqual(user.get_id(), self.user.href)
 
     def test_is_active(self):
         self.assertEqual(self.user.is_active(), self.user.status == 'ENABLED')
