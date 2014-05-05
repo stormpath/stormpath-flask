@@ -77,8 +77,8 @@ class StormpathManager(object):
         """
         self.app = app
 
-        # If the user specifies an app, let's configure Flask-Login with our
-        # desired settings.
+        # If the user specifies an app, let's configure go ahead and handle all
+        # configuration stuff for the user's app.
         if app is not None:
             self.init_app(app)
 
