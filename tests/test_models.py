@@ -35,15 +35,6 @@ class TestUser(TestCase):
             'name': self.application_name,
             'description': 'This application is ONLY used for testing the Flask-Stormpath library. Please do not use this for anything serious.',
         }, create_directory=True)
-        self.user = self.application.accounts.create({
-            'given_name': 'Randall',
-            'middle_name': 'Clark',
-            'surname': 'Degges',
-            'email': 'randall@stormpath.com',
-            'username': 'randall',
-            'password': 'woot1LoveCookies!',
-        })
-        self.user.__class__ = User
 
         self.app = Flask(__name__)
         self.app.config['SECRET_KEY'] = 'woot'
