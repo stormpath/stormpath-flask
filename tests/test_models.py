@@ -53,7 +53,14 @@ class TestUser(TestCase):
         StormpathManager(self.app)
 
     def test_repr(self):
-        self.assertTrue('randall' in self.user.__repr__())
+        with self.app.app_context():
+            user = User.create(
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+                given_name = 'Randall',
+                surname = 'Degges',
+            )
+            self.assertTrue('randall' in user.__repr__())
 
     def test_subclass(self):
         account = Account(client=self.client, properties={
