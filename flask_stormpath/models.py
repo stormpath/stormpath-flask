@@ -90,7 +90,7 @@ class User(Account):
         password.
 
         If something goes wrong, this will raise an exception -- most likely --
-        a StormpathError (flask.ext.stormpath.StormpathError).
+        a `StormpathError` (flask.ext.stormpath.StormpathError).
         """
         _user = current_app.stormpath_manager.application.authenticate_account(
             login,
