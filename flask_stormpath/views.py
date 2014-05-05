@@ -11,7 +11,6 @@ from flask import (
     request,
 )
 from flask.ext.login import login_user
-from oauth2client.client import OAuth2WebServerFlow
 from stormpath.resources.provider import Provider
 
 from . import StormpathError, logout_user
