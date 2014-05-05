@@ -156,7 +156,7 @@ class TestUser(TestCase):
     def test_create(self):
         with self.app.app_context():
 
-            # Ensure all defaults fields are properly set.
+            # Ensure all requied fields are properly set.
             user = User.create(
                 email = 'woot@lol.com',
                 password = 'Ilovec00kies!!',
@@ -170,51 +170,38 @@ class TestUser(TestCase):
             self.assertEqual(user.middle_name, None)
             self.assertEqual(dict(user.custom_data), {})
 
-            # Ensure we can the middle name and username fields to custom
-            # entities.
+            # Ensure all optional parameters are properly set.
             user = User.create(
-                username = 'powerful',
                 email = 'woot@lolcakes.com',
                 password = 'Ilovec00kies!!',
                 given_name = 'Austin',
                 surname = 'Powers',
+                username = 'apowers',
                 middle_name = 'Danger',
-            )
-            self.assertEqual(user.username, 'powerful')
-            self.assertEqual(user.middle_name, 'Danger')
-
-            # Ensure we can set custom data when we create a user.
-            user = User.create(
-                email = 'snoop.dogg@snoopyrecords.com',
-                password = 'Rast4F4rian!4LIFE',
-                given_name = 'Snoop',
-                surname = 'Dogg',
                 custom_data = {
-                    'favorite_state': 'California',
-                    'favorite_genre': 'reggae',
-                    'bank_details': {
-                        'name': 'Bank of America',
-                        'amount': 9999999.99,
-                        'branch': {
-                            'name': 'Bank of Venice',
-                            'address': '111 9th Street',
-                            'city': 'Venice',
-                            'state': 'CA',
+                    'favorite_decade': 'The 70s',
+                    'friends': ['The British Government', 'Britney Spears'],
+                    'enemies': {
+                        'first_name': 'Doctor',
+                        'last_name': 'Evil',
+                        'occupation': {
+                            'title': 'Evil Genius',
+                            'annual_income': 1000000,
                         },
                     },
                 },
             )
+            self.assertEqual(user.username, 'powerful')
+            self.assertEqual(user.middle_name, 'Danger')
             self.assertEqual(dict(user.custom_data), {
-                'favorite_state': 'California',
-                'favorite_genre': 'reggae',
-                'bank_details': {
-                    'name': 'Bank of America',
-                    'amount': 9999999.99,
-                    'branch': {
-                        'name': 'Bank of Venice',
-                        'address': '111 9th Street',
-                        'city': 'Venice',
-                        'state': 'CA',
+                'favorite_decade': 'The 70s',
+                'friends': ['The British Government', 'Britney Spears'],
+                'enemies': {
+                    'first_name': 'Doctor',
+                    'last_name': 'Evil',
+                    'occupation': {
+                        'title': 'Evil Genius',
+                        'annual_income': 1000000,
                     },
                 },
             })
