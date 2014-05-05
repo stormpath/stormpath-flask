@@ -127,7 +127,18 @@ class TestUser(TestCase):
             self.assertEqual(user.is_active(), False)
 
     def test_is_anonymous(self):
-        self.assertEqual(self.user.is_anonymous(), False)
+        with self.app.app_context():
+
+            # There is no way we can be anonymous, as Stormpath doesn't support
+            # anonymous users (that is a job better suited for a cache or
+            # something).
+            user = User.create(
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+                given_name = 'Randall',
+                surname = 'Degges',
+            )
+            self.assertEqual(user.is_anonymous(), False)
 
     def test_is_authenticated(self):
         self.assertEqual(self.user.is_authenticated(), True)
