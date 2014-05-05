@@ -2,10 +2,7 @@
 
 
 from flask.ext.wtf import Form
-from wtforms.fields import (
-    PasswordField,
-    StringField,
-)
+from wtforms.fields import PasswordField, StringField
 from wtforms.validators import InputRequired
 
 
