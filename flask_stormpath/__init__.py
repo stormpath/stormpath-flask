@@ -22,11 +22,7 @@ __license__ = 'Apache'
 __copyright__ = '(c) 2012 - 2014 Stormpath, Inc.'
 
 
-from flask import (
-    Blueprint,
-    _app_ctx_stack as stack,
-    current_app,
-)
+from flask import Blueprint, _app_ctx_stack as stack, current_app
 
 from flask.ext.login import (
     LoginManager,
@@ -45,17 +41,8 @@ from werkzeug.local import LocalProxy
 from .context_processors import user_context_processor
 from .decorators import groups_required
 from .models import User
-from .settings import (
-    check_settings,
-    init_settings,
-)
-from .views import (
-    google_login,
-    facebook_login,
-    login,
-    logout,
-    register,
-)
+from .settings import check_settings, init_settings
+from .views import google_login, facebook_login, login, logout, register
 
 
 # A proxy for the current user.
