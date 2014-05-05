@@ -86,7 +86,7 @@ class User(Account):
     @classmethod
     def from_login(self, login, password):
         """
-        Create a new User class given a login (email address or username), and
+        Create a new User class given a login (`email` or `username`), and
         password.
 
         If something goes wrong, this will raise an exception -- most likely --
