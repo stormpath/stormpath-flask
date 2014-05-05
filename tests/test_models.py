@@ -158,51 +158,47 @@ class TestUser(TestCase):
 
             # Ensure all requied fields are properly set.
             user = User.create(
-                email = 'woot@lol.com',
-                password = 'Ilovec00kies!!',
-                given_name = 'Cookie',
-                surname = 'Monster',
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+                given_name = 'Randall',
+                surname = 'Degges',
             )
-            self.assertEqual(user.email, 'woot@lol.com')
-            self.assertEqual(user.given_name, 'Cookie')
-            self.assertEqual(user.surname, 'Monster')
-            self.assertEqual(user.username, 'woot@lol.com')
+            self.assertEqual(user.email, 'r@rdegges.com')
+            self.assertEqual(user.given_name, 'Randalll')
+            self.assertEqual(user.surname, 'Degges')
+            self.assertEqual(user.username, 'r@rdegges.com')
             self.assertEqual(user.middle_name, None)
             self.assertEqual(dict(user.custom_data), {})
 
             # Ensure all optional parameters are properly set.
             user = User.create(
-                email = 'woot@lolcakes.com',
-                password = 'Ilovec00kies!!',
-                given_name = 'Austin',
-                surname = 'Powers',
-                username = 'apowers',
-                middle_name = 'Danger',
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+                given_name = 'Randall',
+                surname = 'Degges',
+                username = 'rdegges',
+                middle_name = 'Clark',
                 custom_data = {
-                    'favorite_decade': 'The 70s',
-                    'friends': ['The British Government', 'Britney Spears'],
-                    'enemies': {
-                        'first_name': 'Doctor',
-                        'last_name': 'Evil',
-                        'occupation': {
-                            'title': 'Evil Genius',
-                            'annual_income': 1000000,
-                        },
+                    'favorite_shows': ['Code Monkeys', 'The IT Crowd'],
+                    'friends': ['Sami', 'Alven'],
+                    'favorite_place': {
+                        'city': 'Santa Cruz',
+                        'state': 'California',
+                        'reason': 'Beautiful landscape.',
+                        'amount_of_likage': 99.9999,
                     },
                 },
             )
-            self.assertEqual(user.username, 'powerful')
-            self.assertEqual(user.middle_name, 'Danger')
+            self.assertEqual(user.username, 'rdegges')
+            self.assertEqual(user.middle_name, 'Clark')
             self.assertEqual(dict(user.custom_data), {
-                'favorite_decade': 'The 70s',
-                'friends': ['The British Government', 'Britney Spears'],
-                'enemies': {
-                    'first_name': 'Doctor',
-                    'last_name': 'Evil',
-                    'occupation': {
-                        'title': 'Evil Genius',
-                        'annual_income': 1000000,
-                    },
+                'favorite_shows': ['Code Monkeys', 'The IT Crowd'],
+                'friends': ['Sami', 'Alven'],
+                'favorite_place': {
+                    'city': 'Santa Cruz',
+                    'state': 'California',
+                    'reason': 'Beautiful landscape.',
+                    'amount_of_likage': 99.9999,
                 },
             })
 
