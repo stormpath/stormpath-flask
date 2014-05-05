@@ -20,16 +20,12 @@ class TestUser(TestCase):
             id = environ.get('STORMPATH_API_KEY_ID'),
             secret = environ.get('STORMPATH_API_KEY_SECRET'),
         )
-        self.application_name = 'flask-stormpath-tests-%s' % uuid4().hex
 
-        # Try to delete our test application / directory first, this way if we
-        # mess something up while developing test code (like I have many times
-        # now), we won't get issues and have to manually remove these resources.
-        try:
-            self.client.applications.search(self.application_name)[0].delete()
-            self.client.directories.search(self.application_name)[0].delete()
-        except:
-            pass
+        # Reserve a globally unique Application name that all test data will be
+        # created under.  This is made random to prevent test collisions where
+        # a test suite is running concurrently, and destroying test data
+        # unexpectedly.
+        self.application_name = 'flask-stormpath-tests-%s' % uuid4().hex
 
         self.application = self.client.applications.create({
             'name': self.application_name,
