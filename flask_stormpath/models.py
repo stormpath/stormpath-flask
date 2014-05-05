@@ -100,10 +100,13 @@ class User(Account):
     @classmethod
     def from_google(self, code):
         """
-        Create a new User class given a Google user's access code.
+        Create a new User class given a Google access code.
+
+        Access codes must be retrieved from Google's OAuth service (Google
+        Login).
 
         If something goes wrong, this will raise an exception -- most likely --
-        a StormpathError (flask.ext.stormpath.StormpathError).
+        a `StormpathError` (flask.ext.stormpath.StormpathError).
         """
         _user = current_app.stormpath_manager.application.get_provider_account(
             code = code,
@@ -118,8 +121,11 @@ class User(Account):
         """
         Create a new User class given a Facebook user's access token.
 
+        Access tokens must be retrieved from Facebooks's OAuth service (Facebook
+        Login).
+
         If something goes wrong, this will raise an exception -- most likely --
-        a StormpathError (flask.ext.stormpath.StormpathError).
+        a `StormpathError` (flask.ext.stormpath.StormpathError).
         """
         _user = current_app.stormpath_manager.application.get_provider_account(
             access_token = access_token,
