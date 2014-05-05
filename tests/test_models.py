@@ -208,17 +208,32 @@ class TestUser(TestCase):
 
     def test_from_login(self):
         with self.app.app_context():
+
+            # First we'll create a user.
+            user = User.create(
+                email = 'woot@lol.com',
+                password = 'Ilovec00kies!!',
+                given_name = 'Cookie',
+                surname = 'Monster',
+                username = 'cm',
+            )
+            original_href = user.hrf
+
+            # Now we'll try to retrieve that user by specifing the user's
+            # `email` and `password`.
             user = User.from_login(
                 'randall@stormpath.com',
                 'woot1LoveCookies!',
             )
-            self.assertEqual(user.href, self.user.href)
+            self.assertEqual(user.href, original_href)
 
+            # Now we'll try to retrieve that user by specifying the user's
+            # `username` and `password`.
             user = User.from_login(
-                'randall',
+                'cm',
                 'woot1LoveCookies!',
             )
-            self.assertEqual(user.href, self.user.href)
+            self.assertEqual(user.href, original_href)
 
     def tearDown(self):
         self.application.delete()
