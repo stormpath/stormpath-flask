@@ -1,3 +1,9 @@
+"""
+Custom decorators to make handling authentication and authorization
+simpler.
+"""
+
+
 from functools import wraps
 
 from flask import current_app
