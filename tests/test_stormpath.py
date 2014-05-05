@@ -7,17 +7,11 @@ we'll just follow Flask conventions and have single file stuff going on.
 """
 
 
-from os import (
-    environ,
-    remove,
-)
+from os import environ, remove
 from unittest import TestCase
 from uuid import uuid4
 
-from flask import (
-    Flask,
-    request,
-)
+from flask import Flask, request
 from flask.ext.stormpath import (
     StormpathManager,
     User,
@@ -25,7 +19,6 @@ from flask.ext.stormpath import (
     login_user,
     logout_user,
 )
-
 from stormpath.client import Client
 
 
