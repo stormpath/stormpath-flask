@@ -52,6 +52,22 @@ class TestUser(TestCase):
         self.app.config['STORMPATH_APPLICATION'] = self.application_name
         StormpathManager(self.app)
 
+    def test_subclass(self):
+        with self.app.app_context():
+            user = User.create(
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+                given_name = 'Randall',
+                surname = 'Degges',
+            )
+
+            # Ensure that our lazy construction of the subclass works as
+            # expected for users (a `User` should be a valid Stormpath
+            # `Account`.
+            self.assertTrue(user.writable_attrs)
+            self.assertIsInstance(user, Account)
+            self.assertIsInstance(user, User)
+
     def test_repr(self):
         with self.app.app_context():
 
@@ -77,19 +93,6 @@ class TestUser(TestCase):
 
             # Ensure Stormpath `href` is shown in the output.
             self.assertTrue(user.href in user.__repr__())
-
-    def test_subclass(self):
-        account = Account(client=self.client, properties={
-            'given_name': 'Randall',
-            'surname': 'Degges',
-            'email': 'randall@stormpath.com',
-            'password': 'woot1LoveCookies!',
-        })
-        self.assertEqual(type(account), Account)
-
-        user = account
-        user.__class__ = User
-        self.assertTrue(user.writable_attrs)
 
     def test_get_id(self):
         self.assertEqual(self.user.get_id(), self.user.href)
