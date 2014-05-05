@@ -48,28 +48,27 @@ class User(Account):
         """
         Create a new User.
 
-        Required Params
-        ---------------
+        Required Parameters
+        -------------------
 
         :param str email: This user's unique email address.
         :param str password: This user's password, in plain text.
         :param str given_name: This user's first name (Randall).
         :param str surname: This user's last name (Degges).
 
-        Optional Params
-        ---------------
+        Optional Parameters
+        -------------------
 
-        :param str username: If no username is supplied, it will default to the
-            user's email address.  Stormpath users can log in with either an
-            email or username (both are interchangable).
-
-        :param str middle_name: This user's middle name (Clark).
-
+        :param str username: If no `username` is supplied, the `username` field
+            will be set to the user's email address automatically.  Stormpath
+            users can log in with either an `email` or `username` (both are
+            interchangeable).
+        :param str middle_name: This user's middle name ('Clark').
         :param dict custom_data: Any custom JSON data you'd like stored with
-            this user.  Must be 10MB or less.
+            this user.  Must be <= 10MB.
 
         If something goes wrong we'll raise an exception -- most likely -- a
-        StormpathError (flask.ext.stormpath.StormpathError).
+        `StormpathError` (flask.ext.stormpath.StormpathError).
         """
         _user = current_app.stormpath_manager.application.accounts.create({
             'email': email,
