@@ -54,13 +54,29 @@ class TestUser(TestCase):
 
     def test_repr(self):
         with self.app.app_context():
+
+            # Ensure `email` is shown in the output if no `username` is
+            # specified.
             user = User.create(
                 email = 'r@rdegges.com',
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
             )
-            self.assertTrue('randall' in user.__repr__())
+            self.assertTrue(user.email in user.__repr__())
+
+            # Ensure `username` is shown in the output if specified.
+            user = User.create(
+                username = 'omgrandall',
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+                given_name = 'Randall',
+                surname = 'Degges',
+            )
+            self.assertTrue(user.username in user.__repr__())
+
+            # Ensure Stormpath `href` is shown in the output.
+            self.assertTrue(user.href in user.__repr__())
 
     def test_subclass(self):
         account = Account(client=self.client, properties={
