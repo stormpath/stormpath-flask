@@ -16,6 +16,8 @@ class TestUser(TestCase):
     """Our User test suite."""
 
     def setUp(self):
+        """Generate some useful test data to make running our tests easier."""
+        # Create a Stormpath Client so we can provision necessary resources.
         self.client = Client(
             id = environ.get('STORMPATH_API_KEY_ID'),
             secret = environ.get('STORMPATH_API_KEY_SECRET'),
@@ -27,16 +29,20 @@ class TestUser(TestCase):
         # unexpectedly.
         self.application_name = 'flask-stormpath-tests-%s' % uuid4().hex
 
+        # Create an Application that will be used to run all tests.
         self.application = self.client.applications.create({
             'name': self.application_name,
             'description': 'This application is ONLY used for testing the Flask-Stormpath library. Please do not use this for anything serious.',
         }, create_directory=True)
 
+        # Initialize a Flask application.
         self.app = Flask(__name__)
         self.app.config['SECRET_KEY'] = 'woot'
         self.app.config['STORMPATH_API_KEY_ID'] = environ.get('STORMPATH_API_KEY_ID')
         self.app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
         self.app.config['STORMPATH_APPLICATION'] = self.application_name
+
+        # Initialize Flask-Stormpath.
         StormpathManager(self.app)
 
     def test_subclass(self):
@@ -218,5 +224,6 @@ class TestUser(TestCase):
             self.assertEqual(user.href, original_href)
 
     def tearDown(self):
+        """Destroy all data created during tests."""
         self.application.delete()
         self.client.directories.search(self.application_name)[0].delete()
