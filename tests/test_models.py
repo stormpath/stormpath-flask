@@ -207,18 +207,17 @@ class TestUser(TestCase):
 
             # First we'll create a user.
             user = User.create(
-                email = 'woot@lol.com',
-                password = 'Ilovec00kies!!',
-                given_name = 'Cookie',
-                surname = 'Monster',
-                username = 'cm',
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+                given_name = 'Randall',
+                surname = 'Degges',
             )
-            original_href = user.hrf
+            original_href = user.href
 
             # Now we'll try to retrieve that user by specifing the user's
             # `email` and `password`.
             user = User.from_login(
-                'randall@stormpath.com',
+                'r@rdegges.com',
                 'woot1LoveCookies!',
             )
             self.assertEqual(user.href, original_href)
@@ -226,7 +225,7 @@ class TestUser(TestCase):
             # Now we'll try to retrieve that user by specifying the user's
             # `username` and `password`.
             user = User.from_login(
-                'cm',
+                'rdegges',
                 'woot1LoveCookies!',
             )
             self.assertEqual(user.href, original_href)
