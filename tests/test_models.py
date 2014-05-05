@@ -37,6 +37,7 @@ class TestUser(TestCase):
         }, create_directory=True)
         self.user = self.application.accounts.create({
             'given_name': 'Randall',
+            'middle_name': 'Clark',
             'surname': 'Degges',
             'email': 'randall@stormpath.com',
             'username': 'randall',
