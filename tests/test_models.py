@@ -95,7 +95,7 @@ class TestUser(TestCase):
                 given_name = 'Randall',
                 surname = 'Degges',
             )
-            self.assertEqual(user.get_id(), self.user.href)
+            self.assertEqual(user.get_id(), user.href)
 
     def test_is_active(self):
         with self.app.app_context():
