@@ -74,6 +74,9 @@ class TestUser(TestCase):
             )
             self.assertTrue(user.email in user.__repr__())
 
+            # Delete this user.
+            user.delete()
+
             # Ensure `username` is shown in the output if specified.
             user = User.create(
                 username = 'omgrandall',
