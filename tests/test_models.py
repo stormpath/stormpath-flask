@@ -3,13 +3,13 @@
 
 from os import environ
 from unittest import TestCase
-from uuid import uuid4
 
 from flask import Flask
 from flask.ext.stormpath import StormpathManager
 from flask.ext.stormpath.models import User
-from stormpath.client import Client
 from stormpath.resources.account import Account
+
+from .helpers import bootstrap_app, bootstrap_client
 
 
 class TestUser(TestCase):
@@ -18,29 +18,17 @@ class TestUser(TestCase):
     def setUp(self):
         """Generate some useful test data to make running our tests easier."""
         # Create a Stormpath Client so we can provision necessary resources.
-        self.client = Client(
-            id = environ.get('STORMPATH_API_KEY_ID'),
-            secret = environ.get('STORMPATH_API_KEY_SECRET'),
-        )
+        self.client = bootstrap_client()
 
-        # Reserve a globally unique Application name that all test data will be
-        # created under.  This is made random to prevent test collisions where
-        # a test suite is running concurrently, and destroying test data
-        # unexpectedly.
-        self.application_name = 'flask-stormpath-tests-%s' % uuid4().hex
-
-        # Create an Application that will be used to run all tests.
-        self.application = self.client.applications.create({
-            'name': self.application_name,
-            'description': 'This application is ONLY used for testing the Flask-Stormpath library. Please do not use this for anything serious.',
-        }, create_directory=True)
+        # Create a Stormpath Application so we can easily perform tests.
+        self.application = bootstrap_app(self.client)
 
         # Initialize a Flask application.
         self.app = Flask(__name__)
         self.app.config['SECRET_KEY'] = 'woot'
         self.app.config['STORMPATH_API_KEY_ID'] = environ.get('STORMPATH_API_KEY_ID')
         self.app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
-        self.app.config['STORMPATH_APPLICATION'] = self.application_name
+        self.app.config['STORMPATH_APPLICATION'] = self.application.name
 
         # Initialize Flask-Stormpath.
         StormpathManager(self.app)
@@ -232,5 +220,7 @@ class TestUser(TestCase):
 
     def tearDown(self):
         """Destroy all data created during tests."""
+        application_name = self.application.name
+
         self.application.delete()
-        self.client.directories.search(self.application_name)[0].delete()
+        self.client.directories.search(application_name)[0].delete()
