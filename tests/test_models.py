@@ -207,6 +207,7 @@ class TestUser(TestCase):
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
+                username = 'rdegges',
             )
             original_href = user.href
 
