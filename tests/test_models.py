@@ -157,11 +157,14 @@ class TestUser(TestCase):
                 surname = 'Degges',
             )
             self.assertEqual(user.email, 'r@rdegges.com')
-            self.assertEqual(user.given_name, 'Randalll')
+            self.assertEqual(user.given_name, 'Randall')
             self.assertEqual(user.surname, 'Degges')
             self.assertEqual(user.username, 'r@rdegges.com')
             self.assertEqual(user.middle_name, None)
             self.assertEqual(dict(user.custom_data), {})
+
+            # Delete this user.
+            user.delete()
 
             # Ensure all optional parameters are properly set.
             user = User.create(
