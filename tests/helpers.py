@@ -7,11 +7,40 @@ operations.
 
 
 from os import environ
+from unittest import TestCase
 from uuid import uuid4
 
 from flask import Flask
 from flask.ext.stormpath import StormpathManager
 from stormpath.client import Client
+
+
+class StormpathTestCase(TestCase):
+    """
+    Custom test case which bootstraps a Stormpath client, application, and Flask
+    app.
+
+    This makes writing tests significantly easier as there's no work to do for
+    setUp / tearDown.
+
+    When a test finishes, we'll delete all Stormpath resources that were
+    created.
+    """
+    def setUp(self):
+        """Provision a new Client, Application, and Flask app."""
+        self.client = bootstrap_client()
+        self.application = bootstrap_app(self.client)
+        self.app = bootstrap_flask_app(self.application)
+
+    def tearDown(self):
+        """Destroy all provisioned Stormpath resources."""
+        # Clean up the application.
+        app_name = self.application.name
+        self.application.delete()
+
+        # Clean up the directories.
+        for directory in self.client.directories.search(app_name):
+            directory.delete()
 
 
 def bootstrap_client():
