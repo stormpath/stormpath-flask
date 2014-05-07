@@ -1,15 +1,12 @@
 """Tests for our data models."""
 
 
-from os import environ
 from unittest import TestCase
 
-from flask import Flask
-from flask.ext.stormpath import StormpathManager
 from flask.ext.stormpath.models import User
 from stormpath.resources.account import Account
 
-from .helpers import bootstrap_app, bootstrap_client
+from .helpers import bootstrap_app, bootstrap_client, bootstrap_flask_app
 
 
 class TestUser(TestCase):
@@ -24,14 +21,7 @@ class TestUser(TestCase):
         self.application = bootstrap_app(self.client)
 
         # Initialize a Flask application.
-        self.app = Flask(__name__)
-        self.app.config['SECRET_KEY'] = 'woot'
-        self.app.config['STORMPATH_API_KEY_ID'] = environ.get('STORMPATH_API_KEY_ID')
-        self.app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
-        self.app.config['STORMPATH_APPLICATION'] = self.application.name
-
-        # Initialize Flask-Stormpath.
-        StormpathManager(self.app)
+        self.app = bootstrap_flask_app(self.application)
 
     def test_subclass(self):
         with self.app.app_context():
