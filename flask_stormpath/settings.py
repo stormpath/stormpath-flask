@@ -102,8 +102,7 @@ def check_settings(config):
     if config['STORMPATH_ENABLE_GOOGLE']:
         google_config = config['STORMPATH_SOCIAL'].get('GOOGLE')
 
-        if not all([
-            google_config,
+        if not google_config or not all([
             google_config.get('client_id'),
             google_config.get('client_secret'),
             google_config.get('scopes'),
@@ -113,7 +112,7 @@ def check_settings(config):
     if config['STORMPATH_ENABLE_FACEBOOK']:
         facebook_config = config['STORMPATH_SOCIAL'].get('FACEBOOK')
 
-        if not all([
+        if not facebook_config or not all([
             facebook_config,
             facebook_config.get('app_id'),
             facebook_config.get('app_secret'),
