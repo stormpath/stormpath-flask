@@ -10,6 +10,7 @@ Documentation on RTFD: http://flask-stormpath.readthedocs.org/en/latest/
 """
 
 
+from multiprocessing import cpu_count
 from subprocess import call
 
 from setuptools import (
@@ -31,7 +32,7 @@ class RunTests(Command):
 
     def run(self):
         """Run our tests!"""
-        errno = call(['py.test'])
+        errno = call(['py.test', '-n', str(cpu_count())])
         raise SystemExit(errno)
 
 
