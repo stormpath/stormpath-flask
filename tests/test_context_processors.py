@@ -11,7 +11,6 @@ class TestUserContextProcessor(StormpathTestCase):
 
     def setUp(self):
         """Provision a single user account for testing."""
-
         # Call the parent setUp method first -- this will bootstrap our tests.
         super(TestUserContextProcessor, self).setUp()
 
