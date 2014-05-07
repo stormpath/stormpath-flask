@@ -1,27 +1,14 @@
 """Tests for our data models."""
 
 
-from unittest import TestCase
-
 from flask.ext.stormpath.models import User
 from stormpath.resources.account import Account
 
-from .helpers import bootstrap_app, bootstrap_client, bootstrap_flask_app
+from .helpers import StormpathTestCase
 
 
-class TestUser(TestCase):
+class TestUser(StormpathTestCase):
     """Our User test suite."""
-
-    def setUp(self):
-        """Generate some useful test data to make running our tests easier."""
-        # Create a Stormpath Client so we can provision necessary resources.
-        self.client = bootstrap_client()
-
-        # Create a Stormpath Application so we can easily perform tests.
-        self.application = bootstrap_app(self.client)
-
-        # Initialize a Flask application.
-        self.app = bootstrap_flask_app(self.application)
 
     def test_subclass(self):
         with self.app.app_context():
@@ -207,10 +194,3 @@ class TestUser(TestCase):
                 'woot1LoveCookies!',
             )
             self.assertEqual(user.href, original_href)
-
-    def tearDown(self):
-        """Destroy all data created during tests."""
-        application_name = self.application.name
-
-        self.application.delete()
-        self.client.directories.search(application_name)[0].delete()

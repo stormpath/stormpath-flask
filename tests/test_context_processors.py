@@ -1,27 +1,21 @@
 """Run tests against our custom context processors."""
 
 
-from unittest import TestCase
-
 from flask.ext.stormpath import User, user
 from flask.ext.stormpath.context_processors import user_context_processor
 
-from .helpers import bootstrap_app, bootstrap_client, bootstrap_flask_app
+from .helpers import StormpathTestCase
 
 
-class TestUserContextProcessor(TestCase):
+class TestUserContextProcessor(StormpathTestCase):
 
     def setUp(self):
-        # Initialize a new Stormpath Client for future usage.
-        self.client = bootstrap_client()
+        """Provision a single user account for testing."""
 
-        # Create a new Stormpath application, for future usage.
-        self.application = bootstrap_app(self.client)
+        # Call the parent setUp method first -- this will bootstrap our tests.
+        super(TestUserContextProcessor, self).setUp()
 
-        # Create a Flask app for testing.
-        self.app = bootstrap_flask_app(self.application)
-
-        # Create a new Stormpath user account.
+        # Create our Stormpath user.
         with self.app.app_context():
             self.user = User.create(
                 given_name = 'Randall',
@@ -49,6 +43,3 @@ class TestUserContextProcessor(TestCase):
             })
 
             self.assertEqual(user.href, self.user.href)
-
-    def tearDown(self):
-        pass
