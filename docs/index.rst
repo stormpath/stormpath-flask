@@ -293,7 +293,7 @@ Below is a simple HTML template, `dashboard.html`, you can use as reference::
       <body>
         <p>Hello {{ user.given_name }} {{ user.surname }}!</p>
         <p>Your email address is: {{ user.email }}.</p>
-        <p>Your favorite web framework is: {{ user.custom_data['favorite_web_framework'] }}.</p
+        <p>Your favorite web framework is: {{ user.custom_data['favorite_web_framework'] }}.</p>
       </body>
     </html>
 
