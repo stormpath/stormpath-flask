@@ -1,14 +1,12 @@
 """Run tests against our custom context processors."""
 
 
-from os import environ
 from unittest import TestCase
 
-from flask import Flask
-from flask.ext.stormpath import StormpathManager, User, user
+from flask.ext.stormpath import User, user
 from flask.ext.stormpath.context_processors import user_context_processor
 
-from .helpers import bootstrap_app, bootstrap_client
+from .helpers import bootstrap_app, bootstrap_client, bootstrap_flask_app
 
 
 class TestUserContextProcessor(TestCase):
@@ -21,14 +19,7 @@ class TestUserContextProcessor(TestCase):
         self.application = bootstrap_app(self.client)
 
         # Create a Flask app for testing.
-        self.app = Flask(__name__)
-        self.app.config['DEBUG'] = True
-        self.app.config['SECRET_KEY'] = 'woot'
-        self.app.config['STORMPATH_API_KEY_ID'] = environ.get('STORMPATH_API_KEY_ID')
-        self.app.config['STORMPATH_API_KEY_SECRET'] = environ.get('STORMPATH_API_KEY_SECRET')
-        self.app.config['STORMPATH_APPLICATION'] = self.application.name
-        self.app.config['WTF_CSRF_ENABLED'] = False
-        StormpathManager(self.app)
+        self.app = bootstrap_flask_app(self.application)
 
         # Create a new Stormpath user account.
         with self.app.app_context():
