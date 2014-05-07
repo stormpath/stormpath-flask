@@ -10,7 +10,7 @@ from flask import current_app
 from flask.ext.login import current_user
 
 
-def groups_required(groups=None, all=True):
+def groups_required(groups, all=True):
     """
     This decorator requires that a user be part of one or more Groups before
     they are granted access.
