@@ -7,6 +7,7 @@ from .helpers import StormpathTestCase
 
 
 class TestRegister(StormpathTestCase):
+    """Test our registration view."""
 
     def test_default_fields(self):
         # By default, we'll register new users with first name, last name,
@@ -74,3 +75,75 @@ class TestRegister(StormpathTestCase):
             user = User.from_login('r@rdegges.com', 'woot1LoveCookies!')
             self.assertEqual(user.given_name, 'Anonymous')
             self.assertEqual(user.surname, 'Anonymous')
+
+
+class TestLogin(StormpathTestCase):
+    """Test our login view."""
+
+    def test_email_login(self):
+        # Create a user.
+        with self.app.app_context():
+            User.create(
+                given_name = 'Randall',
+                surname = 'Degges',
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+            )
+
+        # Attempt a login using email and password.
+        with self.app.test_client() as c:
+            resp = c.post('/login', data={
+                'login': 'r@rdegges.com',
+                'password': 'woot1LoveCookies!',
+            })
+            self.assertEqual(resp.status_code, 302)
+
+    def test_username_login(self):
+        # Create a user.
+        with self.app.app_context():
+            User.create(
+                username = 'rdegges',
+                given_name = 'Randall',
+                surname = 'Degges',
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+            )
+
+        # Attempt a login using username and password.
+        with self.app.test_client() as c:
+            resp = c.post('/login', data={
+                'login': 'rdegges',
+                'password': 'woot1LoveCookies!',
+            })
+            self.assertEqual(resp.status_code, 302)
+
+
+class TestLogout(StormpathTestCase):
+    """Test our logout view."""
+
+    def test_logout_works_with_anonymous_users(self):
+        with self.app.test_client() as c:
+            resp = c.get('/logout')
+            self.assertEqual(resp.status_code, 302)
+
+    def test_logout_works(self):
+        # Create a user.
+        with self.app.app_context():
+            User.create(
+                given_name = 'Randall',
+                surname = 'Degges',
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+            )
+
+        with self.app.test_client() as c:
+            # Log this user in.
+            resp = c.post('/login', data={
+                'login': 'r@rdegges.com',
+                'password': 'woot1LoveCookies!',
+            })
+            self.assertEqual(resp.status_code, 302)
+
+            # Log this user out.
+            resp = c.get('/logout')
+            self.assertEqual(resp.status_code, 302)
