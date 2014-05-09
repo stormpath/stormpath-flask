@@ -480,7 +480,7 @@ If you'd like to force a user to be a member of a group (or groups) before the
 user is allowed to access a view, you can do so using the `groups_required`
 decorator::
 
-    from flask.ext.stormpath import groups_requied
+    from flask.ext.stormpath import groups_required
 
     # ...
 
@@ -493,7 +493,7 @@ decorator::
 If you'd like to force a user to be a member of multiple groups, just list all
 the groups::
 
-    from flask.ext.stormpath import groups_requied
+    from flask.ext.stormpath import groups_required
 
     # ...
 
@@ -507,7 +507,7 @@ Lastly, if you'd like to just make sure a user is a member of at least ONE type
 of group, you can also do that by setting the optional `all` parameter to
 false::
 
-    from flask.ext.stormpath import groups_requied
+    from flask.ext.stormpath import groups_required
 
     # ...
 
