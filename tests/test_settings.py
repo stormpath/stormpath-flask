@@ -76,14 +76,8 @@ class TestCheckSettings(StormpathTestCase):
         self.app.config['STORMPATH_SOCIAL']['GOOGLE']['client_id'] = 'xxx'
         self.assertRaises(ConfigurationError, check_settings, self.app.config)
 
-        self.app.config['STORMPATH_SOCIAL']['GOOGLE']['client_secret'] = 'xxx'
-        self.assertRaises(ConfigurationError, check_settings, self.app.config)
-
-        self.app.config['STORMPATH_SOCIAL']['GOOGLE']['scopes'] = []
-        self.assertRaises(ConfigurationError, check_settings, self.app.config)
-
         # Now that we've configured things properly, it should work.
-        self.app.config['STORMPATH_SOCIAL']['GOOGLE']['scopes'] = ['email', 'profile']
+        self.app.config['STORMPATH_SOCIAL']['GOOGLE']['client_secret'] = 'xxx'
         check_settings(self.app.config)
 
     def test_facebook_settings(self):
@@ -102,14 +96,8 @@ class TestCheckSettings(StormpathTestCase):
         self.app.config['STORMPATH_SOCIAL']['FACEBOOK']['app_id'] = 'xxx'
         self.assertRaises(ConfigurationError, check_settings, self.app.config)
 
-        self.app.config['STORMPATH_SOCIAL']['FACEBOOK']['app_secret'] = 'xxx'
-        self.assertRaises(ConfigurationError, check_settings, self.app.config)
-
-        self.app.config['STORMPATH_SOCIAL']['FACEBOOK']['scopes'] = []
-        self.assertRaises(ConfigurationError, check_settings, self.app.config)
-
         # Now that we've configured things properly, it should work.
-        self.app.config['STORMPATH_SOCIAL']['FACEBOOK']['scopes'] = ['email']
+        self.app.config['STORMPATH_SOCIAL']['FACEBOOK']['app_secret'] = 'xxx'
         check_settings(self.app.config)
 
     def tearDown(self):
