@@ -1,10 +1,6 @@
-{% if config['STORMPATH_ENABLE_GOOGLE'] %}
-  <a class="btn btn-block btn-social btn-md btn-google-plus"
-    onclick="googleLogin()" style="margin-bottom: 2em; width: 8.3em;"> <i class="fa fa-google-plus"></i>&nbsp;&nbsp;&nbsp;Log In
-  </a>
-  <script>
-    function googleLogin() {
-      window.location.replace('https://accounts.google.com/o/oauth2/auth?response_type=code&client_id={{ config['STORMPATH_SOCIAL']['GOOGLE']['client_id'] }}&scope=email&include_granted_scopes=true&redirect_uri={{ (request.url_root[:-1] + config['STORMPATH_GOOGLE_LOGIN_URL'])|urlencode }}');
-    }
-  </script>
-{% endif %}
+<button class="btn btn-social btn-google" onclick="googleLogin()">Google</button>
+<script>
+  function googleLogin() {
+    window.location.replace('https://accounts.google.com/o/oauth2/auth?response_type=code&client_id={{ config['STORMPATH_SOCIAL']['GOOGLE']['client_id'] }}&scope=email&include_granted_scopes=true&redirect_uri={{ (request.url_root[:-1] + config['STORMPATH_GOOGLE_LOGIN_URL'])|urlencode }}');
+  }
+</script>
