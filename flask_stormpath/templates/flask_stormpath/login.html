@@ -1,48 +1,67 @@
 {% extends "flask_stormpath/base.html" %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Log In{% endblock %}
+{% block description %}Log into your account!{% endblock %}
+{% block bodytag %}login{% endblock %}
 
 {% block body %}
-  <div class="container">
-    <div class="page-header text-center" style="margin-bottom:6em;">
-      <h1>Login</h2>
-    </div>
-
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class="flashes">
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-
-    <div class="row">
-      <div class="col-sm-3 col-sm-offset-2">
-        <form action="" method="post" role="form">
-          {{ form.hidden_tag() }}
-          <div class="form-group">
-            {% if config['STORMPATH_ENABLE_USERNAME'] %}
-              {{ form.login(class='form-control', placeholder="Username or Email") }}
-            {% else %}
-              {{ form.login(class='form-control', placeholder="Email") }}
-            {% endif %}
+  <div class="container custom-container">
+    <div class="va-wrapper">
+      <div class="view login-view container">
+        <div class="box row">
+          <div class="email-password-area col-xs-12 {% if config['STORMPATH_ENABLE_FACEBOOK'] or config['STORMPATH_ENABLE_GOOGLE'] %}small col-sm-8{% else %}large col-sm-12{% endif %}">
+            <div class="header">
+              <span>Log In or </span>
+              <a href="{{ url_for('stormpath.register') }}">Create an Account</a>
+            </div>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <div class="alert alert-danger bad-login">
+                  {% for message in messages %}
+                    {{ message }}
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+            <form class="login-form form-horizontal" role="form" method="post">
+              {{ form.hidden_tag() }}
+              <div class="form-group group-email">
+                <label class="{% if config['STORMPATH_ENABLE_FACEBOOK'] or config['STORMPATH_ENABLE_GOOGLE'] %}col-sm-12{% else %}col-sm-4{% endif %}">{% if config['STORMPATH_ENABLE_USERNAME'] %}Username or {% endif %}Email</label>
+                <div class="{% if config['STORMPATH_ENABLE_FACEBOOK'] or config['STORMPATH_ENABLE_GOOGLE'] %}col-sm-12{% else %}col-sm-8{% endif %}">
+                  {% if config['STORMPATH_ENABLE_USERNAME'] %}
+                    {{ form.login(autofocus='true', class='form-control', placeholder='Username or Email', required='true') }}
+                  {% else %}
+                    {{ form.login(autofocus='true', class='form-control', placeholder='Email', required='true') }}
+                  {% endif %}
+                </div>
+              </div>
+              <div class="form-group group-password">
+                <label class="{% if config['STORMPATH_ENABLE_FACEBOOK'] or config['STORMPATH_ENABLE_GOOGLE'] %}col-sm-12{% else %}col-sm-4{% endif %}">Password</label>
+                <div class="{% if config['STORMPATH_ENABLE_FACEBOOK'] or config['STORMPATH_ENABLE_GOOGLE'] %}col-sm-12{% else %}col-sm-8{% endif %}">
+                  {{ form.password(class='form-control', placeholder='Password', required='true') }}
+                </div>
+              </div>
+              <div>
+                <button class="login btn btn-login btn-sp-green" type="submit">Log In</button>
+              </div>
+            </form>
           </div>
-          <div class="form-group">
-            {{ form.password(class='form-control', placeholder='Password', required='true') }}
-          </div>
-          <button type="submit" class="btn btn-default center-block">Login</button>
-        </form>
-      </div>
-      <div class="col-sm-2">
-        {% if config['STORMPATH_ENABLE_GOOGLE'] or config['STORMPATH_ENABLE_FACEBOOK'] %}
-          <p class="text-center" style="margin-top: 2em; font-size: 2em;">Or...</p>
-        {% endif %}
-      </div>
-      <div class="col-sm-2">
-        {% include "flask_stormpath/google_login_form.html" %}
-        {% include "flask_stormpath/facebook_login_form.html" %}
+          {% if config['STORMPATH_ENABLE_FACEBOOK'] or config['STORMPATH_ENABLE_GOOGLE'] %}
+            <div class="social-area col-xs-12 col-sm-4">
+              <div class="header">&nbsp;</div>
+              <label>Easy 1-click login:</label>
+              {% if config['STORMPATH_ENABLE_FACEBOOK'] %}
+                {% include "flask_stormpath/facebook_login_form.html" %}
+              {% endif %}
+              {% if config['STORMPATH_ENABLE_GOOGLE'] %}
+                {% include "flask_stormpath/google_login_form.html" %}
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+        <!-- to enable once we add in forgot password support
+        <a class="forgot" href="#forgot">Forgot Password?</a>
+        -->
       </div>
     </div>
   </div>
