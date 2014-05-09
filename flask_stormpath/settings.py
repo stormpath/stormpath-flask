@@ -105,7 +105,6 @@ def check_settings(config):
         if not google_config or not all([
             google_config.get('client_id'),
             google_config.get('client_secret'),
-            google_config.get('scopes'),
         ]):
             raise ConfigurationError('You must define your Google app settings.')
 
@@ -116,6 +115,5 @@ def check_settings(config):
             facebook_config,
             facebook_config.get('app_id'),
             facebook_config.get('app_secret'),
-            facebook_config.get('scopes'),
         ]):
             raise ConfigurationError('You must define your Facebook app settings.')
