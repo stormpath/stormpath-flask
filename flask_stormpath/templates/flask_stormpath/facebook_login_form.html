@@ -12,7 +12,7 @@
           window.location.replace('{{ config['STORMPATH_FACEBOOK_LOGIN_URL'] }}');
         }
       }
-    }, {scope: 'email,user_likes,user_friends,user_about_me'});
+    }, {scope: 'email{% if config["STORMPATH_SOCIAL"]["FACEBOOK"].get("scopes") %},{{ ",".join(config["STORMPATH_SOCIAL"]["FACEBOOK"]["scopes"]) }}{% endif %}'});
   }
 
   window.fbAsyncInit = function() {
