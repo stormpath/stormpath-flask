@@ -102,8 +102,8 @@ Wasn't that easy?!
     user Directory, then changing the "Password Strength Policy".
 
 
-Customize the User Registration Fields
---------------------------------------
+Customize User Registration Fields
+----------------------------------
 
 Now that we've seen how easy it is to register, login, and logout users in your
 Flask app, let's customize the fields we ask for when a user registers.
@@ -178,6 +178,37 @@ optional).  Just like the examples above, you can use the ``ENABLE`` and
     app.config['STORMPATH_REQUIRE_USERNAME'] = False
 
 And that's it!
+
+
+Customize User Login Fields
+---------------------------
+
+If you visit your login page (``/login``), you will see (*by default*), two
+input boxes: one for ``email`` and one for ``password``.
+
+While this is fine for most purposes, sometimes you might want to let users log
+in with a ``username`` **or** ``email`` (especially if your site collects
+``username`` during registration).
+
+Doing this is simple: by enabling the ``STORMPATH_ENABLE_USERNAME`` setting
+you'll not only make the ``username`` field available on the registration page,
+but also on the login page (so users can log in by entering either their
+``username`` or ``email`` and ``password``).
+
+To enable ``username`` support, just set the following config variable::
+
+    app.config['STORMPATH_ENABLE_USERNAME'] = True
+
+You should now see the following on your login page:
+
+.. image:: /_static/login-page.png
+
+.. note::
+    In the example above we didn't set the ``STORMPATH_REQUIRE_USERNAME`` field
+    to ``True`` -- if we did, this would ensure that when a new user registers
+    for the site, they **must** pick a ``username``.
+
+    The ``STORMPATH_REQUIRE_USERNAME`` field has no effect on the login page.
 
 
 Step 2: Create a User Registration Template
