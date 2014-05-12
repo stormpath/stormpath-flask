@@ -236,6 +236,179 @@ If you were to modify your config such that::
 Then visit ``/welcome``, you'd see your registration page there, instead!
 
 
+Customize the Templates
+-----------------------
+
+Although I personally find our registration and login pages to be incredibly
+good looking -- I realize that you might not share my same design passion!
+
+Flask-Stormpath was built with customizability in mind, and makes it very easy
+to build your own custom registration and login templates.
+
+Let's start by looking at the built-in templates:
+https://github.com/stormpath/stormpath-flask/tree/develop/flask_stormpath/templates/flask_stormpath
+
+Here's a quick rundown of what each template is for:
+
+- ``base.html`` is the base template that the registration and login templates
+  extend.  It provides a basic `bootstrap`_ based layout, with a couple of
+  blocks for customizing the child templates.
+- ``facebook_login_form.html`` is a simple standalone template that includes a
+  Facebook login button (*for social login, which is covered later on in the
+  guide*).
+- ``google_login_form.html`` is a simple standalone template that includes a
+  Google login button (*for social login, which is covered later on in the
+  guide*).
+- ``login.html`` is the login page.  It has some logic to flash error messages
+  to the user if something fails, and also dynamically determines which input
+  boxes to display based on the app's settings.
+- ``register.html`` is the registration page.  It has some logic to flash error
+  messages to the user if something fails, and also dynamically determines
+  which input boxes to display based on the app's settings.
+
+If you're comfortable with `Jinja2`_, you can copy these templates to your
+project directly, and customize them yourself.  If you're not already a super
+Flask guru, continue reading!
+
+
+The Most Basic Templates
+........................
+
+Let's say you want to build your own, fully customized registration and login
+templates -- no problem!
+
+The first thing you need to do is create two templates in the ``templates``
+directory of your project.
+
+First, copy the following code into ``templates/register.html``::
+
+    <form method="post">
+      {{ form.hidden_tag() }}
+
+      {# This bit of code displays a list of error messages if anything bad happens. #}
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+      {# This block of code renders the desired input boxes for registering users.  #}
+      {% if config['STORMPATH_ENABLE_USERNAME'] %}
+        {% if config['STORMPATH_REQUIRE_USERNAME'] %}
+          {{ form.username(placeholder='Username', required='true') }}
+        {% else %}
+          {{ form.username(placeholder='Username') }}
+        {% endif %}
+      {% endif %}
+      {% if config['STORMPATH_ENABLE_GIVEN_NAME'] %}
+        {% if config['STORMPATH_REQUIRE_GIVEN_NAME'] %}
+          {{ form.given_name(placeholder='First Name', required='true') }}
+        {% else %}
+          {{ form.given_name(placeholder='First Name') }}
+        {% endif %}
+      {% endif %}
+      {% if config['STORMPATH_ENABLE_MIDDLE_NAME'] %}
+        {% if config['STORMPATH_REQUIRE_MIDDLE_NAME'] %}
+          {{ form.middle_name(placeholder='Middle Name', required='true') }}
+        {% else %}
+          {{ form.middle_name(placeholder='Middle Name') }}
+        {% endif %}
+      {% endif %}
+      {% if config['STORMPATH_ENABLE_SURNAME'] %}
+        {% if config['STORMPATH_REQUIRE_SURNAME'] %}
+          {{ form.surname(placeholder='Last Name', required='true') }}
+        {% else %}
+          {{ form.surname(placeholder='Last Name') }}
+        {% endif %}
+      {% endif %}
+      {{ form.email(placeholder='Email', required='true', type='email') }}
+      {{ form.password(placeholder='Password', required='true', type='password') }}
+
+      <button type="submit">Create Account</button>
+    </form>
+
+The simple template you see above is the most basic possible registration page.
+It's using `Flask-WTF`_ to render the form fields, but everything other than
+that is all standard -- nothing special happening.
+
+Next, copy the following code into ``templates/login.html``::
+
+    {# Display errors (if there are any). #}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {# Render the login form. #}
+    <form method="post">
+      {{ form.hidden_tag() }}
+      {% if config['STORMPATH_ENABLE_USERNAME'] %}
+        {{ form.login(placeholder='Username or Email', required='true') }}
+      {% else %}
+        {{ form.login(placeholder='Email', required='true') }}
+      {% endif %}
+      {{ form.password(placeholder='Password', required='true') }}
+      <button type="submit">Log In</button>
+    </form>
+
+    {# If social login is enabled, display social login buttons. #}
+    {% if config['STORMPATH_ENABLE_FACEBOOK'] or config['STORMPATH_ENABLE_GOOGLE'] %}
+      <p>Or, log in using a social provider.</p>
+      {% if config['STORMPATH_ENABLE_FACEBOOK'] %}
+        {% include "flask_stormpath/facebook_login_form.html" %}
+      {% endif %}
+      {% if config['STORMPATH_ENABLE_GOOGLE'] %}
+        {% include "flask_stormpath/google_login_form.html" %}
+      {% endif %}
+    {% endif %}
+
+This is the most basic login template possible (it also includes support for
+social login, which is covered later in this guide).
+
+
+Update Your Template Paths
+..........................
+
+Now that you've got the simplest possible templates ready to go, let's activate
+them!  In your app's config, you'll need to specify the path to your new
+templates like so::
+
+    app.config['STORMPATH_REGISTRATION_TEMPLATE'] = 'register.html'
+    app.config['STORMPATH_LOGIN_TEMPLATE'] = 'login.html'
+
+That will tell Flask-Stormpath to render the templates you created above instead
+of the built-in ones!
+
+Now, if you open your browser and checkout ``/register`` and ``/login``, you
+should see something like the following:
+
+.. image:: /_static/registration-page-basic.png
+
+.. image:: /_static/login-page-basic.png
+
+**BAM!**  That wasn't so bad, was it?  You now have your own customized
+registration and login templates -- all you need to do now is design them the
+way you want!
+
+
+
+
+
+
+
+
+
+
+
 Step 2: Create a User Registration Template
 ...........................................
 
@@ -585,3 +758,6 @@ documentation to demonstrate how to use the latest and greatest features.
 
 .. _Stormpath dashboard: https://api.stormpath.com/ui/dashboard
 .. _Account: http://docs.stormpath.com/rest/product-guide/#accounts
+.. _bootstrap: http://getbootstrap.com/
+.. _Jinja2: http://jinja.pocoo.org/docs/
+.. _Flask-WTF: https://flask-wtf.readthedocs.org/en/latest/
