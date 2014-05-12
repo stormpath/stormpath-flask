@@ -375,8 +375,8 @@ This is the most basic login template possible (it also includes support for
 social login, which is covered later in this guide).
 
 
-Update Your Template Paths
-..........................
+Update Template Paths
+.....................
 
 Now that you've got the simplest possible templates ready to go, let's activate
 them!  In your app's config, you'll need to specify the path to your new
