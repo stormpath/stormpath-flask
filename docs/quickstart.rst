@@ -211,6 +211,31 @@ You should now see the following on your login page:
     The ``STORMPATH_REQUIRE_USERNAME`` field has no effect on the login page.
 
 
+Customize User Registration, Login, and Logout Routes
+-----------------------------------------------------
+
+By default, Flask-Stormpath automatically enables three separate views and
+routes:
+
+- ``/register`` - the registration view
+- ``/login`` - the login view
+- ``/logout`` - the logout view
+
+Customizing the built-in URL routes is quite simple.  There are several config
+variables you can change to control these URL mappings.  To change them, just
+modify your app's config.
+
+- ``STORMPATH_REGISTRATION_URL`` -- default: ``/register``
+- ``STORMPATH_LOGIN_URL`` -- default: ``/login``
+- ``STORMPATH_LOGOUT_URL`` -- default: ``/logout``
+
+If you were to modify your config such that::
+
+    app.config['STORMPATH_REGISTRATION_URL'] = '/welcome'
+
+Then visit ``/welcome``, you'd see your registration page there, instead!
+
+
 Step 2: Create a User Registration Template
 ...........................................
 
