@@ -154,6 +154,72 @@ registered users to a tutorial, dashboard, or something similar.
     overrides the ``STORMPATH_REDIRECT_URL`` setting).
 
 
+Access User Data
+----------------
+
+Let's take a quick look at how we can access user data from a custom view.
+
+Let's say we've defined a simple view that should simply display a user's email
+address.  We can make use of the magical :class:`user` context variable to do
+this::
+
+    from flask.ext.stormpath import login_required, user
+
+    @app.route('/email')
+    @login_required
+    def name():
+        return user.email
+
+The :class:`user` context allows you to directly interact with the current
+:class:`User` model.  This means you can perform *any* action on the
+:class:`User` model directly.
+
+For more information on what you can do with a :class:`User` model, please see
+the Python SDK documentation: http://docs.stormpath.com/python/product-guide/#accounts
+
+Let's say you want to change a user's ``given_name`` (*first name*).  You could
+easily accomplish this with the following code::
+
+    >>> user.given_name = 'Randall'
+    >>> user.save()
+
+As you can see above, you can directly modify :class:`User` attributes, then
+persist any changes by running ``user.save()``.
+
+
+Working With Custom User Data
+-----------------------------
+
+In addition to managing basic user fields, Stomrpath also allows you to store up
+to 10MB of JSON information with each user account!
+
+This could be compared to a user profile.  Instead of defining a database table
+for users, and another database table for user profile information -- with
+Stormpath you don't need either!
+
+Let's take a look at how easy it is to store custom data on a :class:`User`
+model::
+
+    >>> user.custom_data['somefield'] = 'somevalue'
+    >>> user.custom_data['anotherfield'] = {'json': 'data'}
+    >>> user.custom_data['woot'] = 10.202223
+    >>> user.save()
+
+    >>> user.custom_data['woot']
+    10.202223
+
+    >>> del user.custom_data['woot']
+    >>> user.save()
+
+    >>> user.custom_data['woot']
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    KeyError: 'woot'
+
+As you can see above -- storing custom information on a :class:`User` account is
+extremely simple!
+
+
 Customize User Registration Fields
 ----------------------------------
 
