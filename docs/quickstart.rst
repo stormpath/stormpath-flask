@@ -90,6 +90,16 @@ walk you through the basics:
 
 Wasn't that easy?!
 
+.. note::
+    You probably noticed that you couldn't register a user account without
+    specifying a sufficiently strong password.  This is because, by default,
+    Stormpath enforces certain password strength rules on your Stormpath
+    Directories.
+
+    If you'd like to change these password strength rules (or disable them), you
+    can do so easily by visiting the `Stormpath dashboard`_, navigating to your
+    user Directory, then changing the "Password Strength Policy".
+
 
 Step 2: Create a User Registration Template
 ...........................................
@@ -436,3 +446,6 @@ etc.), and all sorts of complex user authentication use cases.
 
 As new versions of this library are released, we'll be updating this
 documentation to demonstrate how to use the latest and greatest features.
+
+
+.. _Stormpath dashboard: https://api.stormpath.com/ui/dashboard
