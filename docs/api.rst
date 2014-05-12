@@ -38,3 +38,4 @@ Decorators
 ----------
 
 .. autofunction:: groups_required
+.. autofunction:: login_required
