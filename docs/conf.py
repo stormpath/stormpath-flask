@@ -18,7 +18,7 @@ import os
 # Import Flask themes:
 sys.path.append(os.path.abspath('_themes'))
 html_theme_path = ['_themes']
-html_theme = 'flask_small'
+html_theme = 'flask'
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -112,8 +112,7 @@ pygments_style = 'sphinx'
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-    'github_fork': 'stormpath/stormpath-flask',
-    'index_logo': False,
+    'index_logo': 'flask-stormpath.png',
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
