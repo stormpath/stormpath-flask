@@ -35,6 +35,10 @@ You can do this in one of two ways:
     # some code which creates your app
     stormpath_manager.init_app(app)
 
+The :class:`StormpathManager` is what initializes Stormpath, grabs
+configuration information, and manages sessions / user state.  It is the base
+of all Flask-Stormpath functionality.
+
 
 Specify Your Credentials
 ------------------------
