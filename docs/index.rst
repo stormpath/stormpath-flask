@@ -7,7 +7,67 @@
 Flask-Stormpath
 ===============
 
-.. currentmodule:: flask.ext.stormpath
+.. module:: flask.ext.stormpath
+
+
+Flask-Stormpath is an extension for `Flask`_ that makes it *incredibly* simple
+to add users and user data to your application.  It aims to completely abstract
+away all user registration, login, authentication, and authorization problems,
+and make building secure websites painless.  And the best part?  **You don't
+even need a database!**
+
+
+User's Guide
+------------
+
+This part of the documentation will show you how to get started with
+Flask-Stormpath.
+
+.. toctree::
+   :maxdepth: 2
+
+   about
+   quickstart
+   contexts
+   config
+   models
+   queries
+   binds
+   signals
+
+
+API Reference
+-------------
+
+If you are looking for information on a specific function, class or
+method, this part of the documentation is for you.
+
+.. toctree::
+   :maxdepth: 2
+
+   api
+
+
+Additional Notes
+----------------
+
+This part of the documentation covers changes between versions and upgrade
+information, to help you migrate to newer versions of Flask-Stormpath easily.
+
+Flask-Stormpath is made available under the `Apache License, Version 2.0`_.  In
+short, you can do pretty much whatever you want!
+
+.. toctree::
+   :maxdepth: 2
+
+   changelog
+   upgrading
+
+
+
+
+
+
 
 
 *User management and authentication made easy.*
@@ -26,42 +86,6 @@ user data) in a fast, secure, and effective way.
 
 This library plugs Stormpath into your Flask application, making it simple to
 handle users and their data.
-
-
-Why You Might Want to Use Stormpath
------------------------------------
-
-Stormpath is a great service, but it's not for everyone.
-
-You might want to use Stormpath if:
-
-- User security is a top priority.
-- Scaling your userbase is a potential problem (Stormpath handles scaling your
-  users completely).
-- You need to store custom user data along with your user's basic information
-  (email, password).
-- You would like to have automatic email verification for new user accounts.
-- You would like to configure and customize password strength rules.
-- You'd like to keep your user data separate from your other applications to
-  increase platform stability / availability.
-- You are building a service oriented application, in which multiple
-  independent services need access to the same user data.
-- You are a big organization who would like to use Stormpath, but need to host
-  it yourself (Stormpath has an on-premise system you can use internally).
-
-You might **NOT** want to use Stormpath if:
-
-- You are building an application that does not need user accounts.
-- Your application is meant for internal-only usage.
-- You aren't worried about user data / security much.
-- You aren't worried about application availability / redundancy.
-- You want to roll your own custom user authentication.
-
-If you don't need Stormpath, you might want to check out `Flask-Login
-<http://flask-login.readthedocs.org/en/latest/>`_ (which Flask-Stormpath uses
-behind the scenes to handle sessions).
-
-Want to use Stormpath?  OK, great!  Let's get started!
 
 
 Getting Started with Stormpath
@@ -529,25 +553,5 @@ As new versions of this library are released, we'll be updating this
 documentation to demonstrate how to use the latest and greatest features.
 
 
-API Documentation
-=================
-
-This documentation is automatically generated from Flask-Stormpath's source
-code.
-
-.. autoclass:: StormpathManager
-
-    .. automethod:: client
-    .. automethod:: application
-    .. automethod:: login_view
-    .. automethod:: load_user
-
-.. autoclass:: User
-
-    .. automethod:: get_id
-    .. automethod:: is_active
-    .. automethod:: is_anonymous
-    .. automethod:: is_authenticated
-    .. automethod:: from_login
-
- .. autofunction:: groups_required
+.. _Flask: http://flask.pocoo.org/
+.. _Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0.html
