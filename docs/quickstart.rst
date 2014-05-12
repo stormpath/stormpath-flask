@@ -106,11 +106,37 @@ Wasn't that easy?!
     user Directory, then changing the "Password Strength Policy".
 
 
+Enforce User Authentication
+---------------------------
+
+Now that we've seen how easy it is to register, login, and logout users in your
+Flask app, let's see how simple it is to restrict views to logged-in users only.
+
+Let's say you have a simple view which should only be accessible to users who
+have logged in.  Below is a code sample which shows how easy it is to restrict
+access to your view::
+
+    from flask.ext.stormpath import login_required
+
+    @app.route('/secret')
+    @login_required
+    def secret():
+        return 'secret information here'
+
+The :func:`login_required` decorator makes it really easy to enforce user
+authentication on your views.
+
+If you try to visit the ``/secret`` URL and you're not logged in, you'll be
+redirected to: ``/login?next=%2Fsecret``.  If you then enter your credentials
+and log in -- you'll be immediately redirected back to the page you were trying
+to access: ``/secret``.
+
+
 Customize User Registration Fields
 ----------------------------------
 
-Now that we've seen how easy it is to register, login, and logout users in your
-Flask app, let's customize the fields we ask for when a user registers.
+In many cases you might want to change the fields you collect when a user
+registers.  Let's customize the fields we ask for when a user registers!
 
 Every user you register ends up getting stored in Stormpath as an `Account`_
 object.  Accounts in Stormpath have several fields you can set:
