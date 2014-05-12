@@ -58,10 +58,11 @@ can do that easily as well::
 
 
 .. note::
-    The `STORMPATH_API_KEY_ID` and `STORMPATH_API_KEY_SECRET` variables can be
-    found in the `apiKey.properties` file you downloaded in the previous step.
+    The ``STORMPATH_API_KEY_ID`` and ``STORMPATH_API_KEY_SECRET`` variables can
+    be found in the ``apiKey.properties`` file you downloaded in the previous
+    step.
 
-    The `STORMPATH_APPLICATION` variable should be the name of your Stormpath
+    The ``STORMPATH_APPLICATION`` variable should be the name of your Stormpath
     application created above.  "dronewars", for instance.
 
 .. note::
@@ -79,14 +80,14 @@ registration, login, and logout functionality active on your site!
 Don't believe me?  Test it out!  Start up your Flask web server now, and I'll
 walk you through the basics:
 
-- Navigate to `/register`.  You will see a registration page.  Go ahead and
+- Navigate to ``/register``.  You will see a registration page.  Go ahead and
   enter some information.  You should be able to create a user account.  Once
   you've created a user account, you'll be automatically logged in, then
-  redirected back to the root URL (`/`, by default).
-- Navigate to `/logout`.  You will now be logged out of your account, then
-  redirected back to the root URL (`/`, by default).
-- Navigate to `/login`.  You will see a login page.  You can now re-enter your
-  user credentials and log into the site again.
+  redirected back to the root URL (``/``, by default).
+- Navigate to ``/logout``.  You will now be logged out of your account, then
+  redirected back to the root URL (``/``, by default).
+- Navigate to ``/login``.  You will see a login page.  You can now re-enter
+  your user credentials and log into the site again.
 
 Wasn't that easy?!
 
@@ -99,6 +100,84 @@ Wasn't that easy?!
     If you'd like to change these password strength rules (or disable them), you
     can do so easily by visiting the `Stormpath dashboard`_, navigating to your
     user Directory, then changing the "Password Strength Policy".
+
+
+Customize the User Registration Fields
+--------------------------------------
+
+Now that we've seen how easy it is to register, login, and logout users in your
+Flask app, let's customize the fields we ask for when a user registers.
+
+Every user you register ends up getting stored in Stormpath as an `Account`_
+object.  Accounts in Stormpath have several fields you can set:
+
+- username
+- email (**required**)
+- password (**required**)
+- given_name (**required**) also known as 'first name'
+- middle_name
+- surname (**required**) also known as 'last name'
+
+By default, the built-in registration view that Flask-Stormpath ships with gets
+you a registration page that looks like this:
+
+.. image:: /_static/registration-page.png
+
+As you can see, it includes the ``given_name``, ``middle_name``, ``surname``,
+``email``, and ``password`` fields by default.  All of these fields are
+required, with the exception of ``middle_name``.
+
+What happens if a user enters an invalid value -- or leaves a required field
+blank?  They'll see something like this:
+
+.. image:: /_static/registration-page-error.png
+
+But what if you want to force the user to enter a value for middle name?  Doing
+so is easy!  Flask-Stormpath is **highly customizable**, and allows you to
+easily control which fields are accepted, and which fields are required.
+
+To require a user to enter a middle name field, set the following value in your
+Flask app config::
+
+    app.config['STORMPATH_REQUIRE_MIDDLE_NAME'] = True
+
+Now go ahead and give it a try -- if you attempt to create a new user and don't
+specify a middle name, you'll see an error!
+
+But what if you wanted to only accept ``email`` and ``password``?  By using the
+``STORMPATH_ENABLE_*`` and ``STORMPATH_REQUIRE_*`` settings in your Flask app,
+you can completely customize which fields are accepted (*and required*)!
+Now, remove the ``STORMPATH_REQUIRE_MIDDLE_NAME`` setting and add the following in
+its place::
+
+    app.config['STORMPATH_ENABLE_GIVEN_NAME'] = False
+    app.config['STORMPATH_ENABLE_MIDDLE_NAME'] = False
+    app.config['STORMPATH_ENABLE_SURNAME'] = False
+
+If you refresh the registration page, you'll now see a form that only accepts
+``email`` and ``password``!  Not bad, right?
+
+.. note::
+    If you explicitly disable the ``given_name`` and ``surname`` fields as shown
+    above, those fields will automatically receive the value ``'Anonymous'`` (as
+    they are required by Stormpath).
+
+    We're currently working to make these fields optional on Stormpath's side.
+
+Want to keep everything as default, except make first and last name optional for
+the user?  All you'd have to do is::
+
+    app.config['STORMPATH_REQUIRE_GIVEN_NAME'] = False
+    app.config['STORMPATH_REQUIRE_SURNAME'] = False
+
+Lastly, it's also simple to add in a ``username`` field (either required or
+optional).  Just like the examples above, you can use the ``ENABLE`` and
+``REQUIRE`` settings to control the registration behavior::
+
+    app.config['STORMPATH_ENABLE_USERNAME'] = True
+    app.config['STORMPATH_REQUIRE_USERNAME'] = False
+
+And that's it!
 
 
 Step 2: Create a User Registration Template
@@ -449,3 +528,4 @@ documentation to demonstrate how to use the latest and greatest features.
 
 
 .. _Stormpath dashboard: https://api.stormpath.com/ui/dashboard
+.. _Account: http://docs.stormpath.com/rest/product-guide/#accounts
