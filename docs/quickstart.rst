@@ -413,18 +413,6 @@ following::
     app.config['STORMPATH_ENABLE_LOGOUT'] = False
 
 
-
-
-
-
-
-
-How Do I ... ?
---------------
-
-This section covers common questions that come up.
-
-
 Require a User to be in a Group
 ...............................
 
