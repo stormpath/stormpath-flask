@@ -1,8 +1,6 @@
 Flask-Stormpath
 ===============
 
-.. module:: flask.ext.stormpath
-
 
 Flask-Stormpath is an extension for `Flask`_ that makes it *incredibly* simple
 to add users and user data to your application.  It aims to completely abstract
