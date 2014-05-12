@@ -470,17 +470,6 @@ false::
         # ...
 
 
-Future Features
----------------
-
-In the future, Flask-Stormpath will support a great deal more functionality,
-including multi-tenant applications, groups of users ('admins', 'superusers',
-etc.), and all sorts of complex user authentication use cases.
-
-As new versions of this library are released, we'll be updating this
-documentation to demonstrate how to use the latest and greatest features.
-
-
 .. _Stormpath dashboard: https://api.stormpath.com/ui/dashboard
 .. _Account: http://docs.stormpath.com/rest/product-guide/#accounts
 .. _bootstrap: http://getbootstrap.com/
