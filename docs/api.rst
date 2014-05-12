@@ -39,3 +39,9 @@ Decorators
 
 .. autofunction:: groups_required
 .. autofunction:: login_required
+
+
+Request Context
+---------------
+
+.. autofunction:: user
