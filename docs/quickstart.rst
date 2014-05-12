@@ -166,9 +166,9 @@ object.  Accounts in Stormpath have several fields you can set:
 - username
 - email (**required**)
 - password (**required**)
-- given_name (**required**) also known as 'first name'
+- given_name (**required**) also known as "first name"
 - middle_name
-- surname (**required**) also known as 'last name'
+- surname (**required**) also known as "last name"
 
 By default, the built-in registration view that Flask-Stormpath ships with gets
 you a registration page that looks like this:
