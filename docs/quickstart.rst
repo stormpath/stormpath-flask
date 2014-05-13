@@ -132,6 +132,71 @@ and log in -- you'll be immediately redirected back to the page you were trying
 to access: ``/secret``.
 
 
+Enforce User Authorization
+--------------------------
+
+Stormpath supports extremely complex authorization rules.  This section aims to
+provide a basic introduction to Flask-Stormpath's authorization enforcement
+(this topic is covered in-depth later on).
+
+The main authorization resource in Stormpath is the ``Group``.  A Stormpath
+Group is a named resource (*admins, developers, paid users, free users, etc.*)
+which can be assigned to any number of user accounts.
+
+Let's say you're building a site that has three tiers of users: free users, paid
+users, and admins.  In this case, you'd want to create three Stormpath Groups:
+``free users``, ``paid users``, and ``admins``.
+
+Let's quickly take a look at how we can create and assign a Group to a
+:class:`User`::
+
+    >>> directory = stormpath_manager.application.default_account_store_mapping.account_store
+
+    >>> free_users = directory.groups.create({'name': 'free users'})
+    >>> paid_users = directory.groups.create({'name': 'paid users'})
+    >>> admins = directory.groups.create({'name': 'admins'})
+
+    >>> # Put the current user into the 'Free Users' group.
+    >>> user.groups.add(free_users)
+
+Now that we've created our Groups, and also added our :class:`User` to the "free
+users" group -- let's see how we can enforce different types of authorization on
+our :class:`User` using the :func:`groups_required` decorator::
+
+    from flask.ext.stormpath import groups_requied
+
+    @app.route('/admins')
+    @groups_required(['admins'])
+    def admins_only():
+        """A top-secret view only accessible to admins."""
+        pass
+
+If the :func:`User` tries to visit ``/admins``, they'll get redirected to the
+login page and won't be able to access the view.
+
+What if we wanted to build a view only accessible to users who are both free
+users and admins?  In this case we could just list both required Groups::
+
+    @app.route('/free_and_admins')
+    @groups_required(['free users', 'admins'])
+    def free_users_and_admins_only():
+        """Only free users and admins can access this view."""
+        pass
+
+Now that you've seen how you can require a :func:`User` to be a member of
+multiple Groups, let's take a look at how you can enforce selective Group
+membership::
+
+    @app.route('/any_user')
+    @groups_required(['free users', 'paid users', 'admins'], all=False)
+    def any_user():
+        """A view accessible to any user, but only if they're logged in."""
+
+The view above lists three Groups, and sets the ``all`` parameter to ``False``
+-- signifying that a :class:`User` must be a member of **at least one** of the
+list Groups in order to gain access.
+
+
 Access User Data
 ----------------
 
@@ -528,51 +593,6 @@ following::
     app.config['STORMPATH_ENABLE_REGISTRATION'] = False
     app.config['STORMPATH_ENABLE_LOGIN'] = False
     app.config['STORMPATH_ENABLE_LOGOUT'] = False
-
-
-Require a User to be in a Group
-...............................
-
-If you'd like to force a user to be a member of a group (or groups) before the
-user is allowed to access a view, you can do so using the `groups_required`
-decorator::
-
-    from flask.ext.stormpath import groups_requied
-
-    # ...
-
-    @app.route('/admins_only')
-    @groups_required(['admins'])
-    def admins_only():
-        """A top-secret view only accessible to admins."""
-        # ...
-
-If you'd like to force a user to be a member of multiple groups, just list all
-the groups::
-
-    from flask.ext.stormpath import groups_requied
-
-    # ...
-
-    @app.route('/admins_only')
-    @groups_required(['admins', 'super_admins'])
-    def admins_only():
-        """A top-secret view only accessible to admins (and super-admins)."""
-        # ...
-
-Lastly, if you'd like to just make sure a user is a member of at least ONE type
-of group, you can also do that by setting the optional `all` parameter to
-false::
-
-    from flask.ext.stormpath import groups_requied
-
-    # ...
-
-    @app.route('/dashboard')
-    @groups_required(['free-users', 'paid-users', 'admins'], all=False)
-    def dashboard():
-        """A user dashboard viewable by free users, paid users, or admins."""
-        # ...
 
 
 .. _Stormpath dashboard: https://api.stormpath.com/ui/dashboard
