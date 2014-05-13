@@ -7,7 +7,7 @@ Quickstart
 
 Now that we've got all the prerequisites out of the way, let's take a look at
 some code!  Integrating Flask-Stormpath into an application can take as little
-as 1 minute!
+as **1 minute**!
 
 
 Initialize Flask-Stormpath
@@ -190,12 +190,11 @@ persist any changes by running ``user.save()``.
 Working With Custom User Data
 -----------------------------
 
-In addition to managing basic user fields, Stomrpath also allows you to store up
-to 10MB of JSON information with each user account!
+In addition to managing basic user fields, Stomrpath also allows you to store
+up to 10MB of JSON information with each user account!
 
-This could be compared to a user profile.  Instead of defining a database table
-for users, and another database table for user profile information -- with
-Stormpath you don't need either!
+Instead of defining a database table for users, and another database table for
+user profile information -- with Stormpath, you don't need either!
 
 Let's take a look at how easy it is to store custom data on a :class:`User`
 model::
