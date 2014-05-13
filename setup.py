@@ -55,7 +55,7 @@ setup(
         'Flask-Login==0.2.9',
         'facebook-sdk==0.4.0',
         'oauth2client==1.2',
-        'stormpath==1.1.0',
+        'stormpath==1.2.1',
     ],
     classifiers = [
         'Environment :: Web Environment',
