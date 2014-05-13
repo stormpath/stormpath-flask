@@ -595,11 +595,115 @@ following::
     app.config['STORMPATH_ENABLE_LOGOUT'] = False
 
 
+Use Facebook Login
+------------------
+
+Now that we've covered the basics: let's add Facebook Login support to your app!
+Stormpath makes it very easy to support social login with Facebook.
+
+In the next few minutes I'll walk you through *everything* you need to know to
+support Facebook login with your app.
+
+
+Create a Facebook App
+.....................
+
+The first thing you need to do is log into the `Facebook Developer Site`_ and
+create a new Facebook App.
+
+You can do this by visiting the `Facebook Developer Site`_ and click the "Apps"
+menu at the top of the screen, then select the "Create a New App" button.  You
+should see something like the following:
+
+.. image:: /_static/facebook-new-project.png
+
+Go ahead and pick a "Display Name" (usually the name of your app), and choose a
+category for your app.  Once you've done this, click the "Create App" button.
+
+
+Specify Allowed URLs
+....................
+
+The next thing we need to do is tell Facebook what URLs we'll be using Facebook
+Login from.
+
+From the app dashboard page you're on, click the "Settings" tab in the left
+menu, then click the "Add Platform" button near the bottom of the page.  When
+prompted, select "Website" as your platform type.
+
+In the "Site URL" box, enter your private and public root URLs.  This should be
+something like ``"http://localhost:5000 http://mysite.com"``.  *You can list
+multiple URLs separated by spaces.*
+
+Lastly, click the "Save Changes" button to save the changes.
+
+Your settings should now look something like this:
+
+.. image:: /_static/facebook-url-settings.png
+
+
+Configure Your Flask App
+........................
+
+Now that we've created a new Facebook App and configured our URLs -- we need to
+enter our Facebook App secrets into our Flask app so that Flask-Stormpath knows
+about them.
+
+You can find your Facebook App ID and Secret on your App dashboard page, at the
+top of the screen.
+
+In your app's config, you'll want to add the following settings (*don't forget
+to substitute in the proper credentials!*)::
+
+    from os import environ
+
+    app.config['STORMPATH_ENABLE_FACEBOOK'] = True
+    app.config['STORMPATH_SOCIAL'] = {
+        'FACEBOOK': {
+            'app_id': environ.get('FACEBOOK_APP_ID'),
+            'app_secret': environ.get('FACEBOOK_APP_SECRET'),
+        }
+    }
+
+These two settings: ``STORMPATH_ENABLE_FACEBOOK`` and ``STORMPATH_SOCIAL`` work
+together to tell Flask-Stormpath to enable social login support for Facebook, as
+well as provide the proper credentials so things work as expected.
+
+.. note::
+    We recommend storing your credentials in environment variables (as shown in
+    the example above).  Please don't hard code secret credentials into your
+    source code!
+
+
+Test it Out
+...........
+
+Now that you've plugged your Facebook credentials into Flask-Stormpath, social
+login should already be working!
+
+Open your Flask app in a browser, and try logging in by visiting the login page
+(``/login``).  If you're using the default login page included with this
+library, you should see the following:
+
+.. image:: /_static/login-page-facebook.png
+
+You now have a fancy new Facebook enabled login button!  Try logging in!  When
+you click the new Facebook button you'll be redirected to Facebook, and
+prompted to accept the permissions requested:
+
+.. image:: /_static/login-page-facebook-permissions.png
+
+After accepting permissions, you'll be immediately redirected back to your
+website at the URL specified by ``STORMPATH_REDIRECT_URL`` in your app's
+settings.
+
+Simple, right?!
+
+
 Use Google Login
 ----------------
 
-Now that we've covered the basics: let's add Google Login support to your app!
-Stormpath makes it very easy to support social login with Google.
+Google Login is incredibly popular -- let's enable it!
 
 In the next few minutes I'll walk you through *everything* you need to know to
 support Google login with your app.
@@ -729,6 +833,7 @@ Simple, right?!
 .. _bootstrap: http://getbootstrap.com/
 .. _Jinja2: http://jinja.pocoo.org/docs/
 .. _Flask-WTF: https://flask-wtf.readthedocs.org/en/latest/
+.. _Facebook Developer Site: https://developers.facebook.com/
 .. _Google Developer Console: https://console.developers.google.com/project
 .. _Developer Console: https://console.developers.google.com/project
 .. _Console Dashboard: https://console.developers.google.com/project
