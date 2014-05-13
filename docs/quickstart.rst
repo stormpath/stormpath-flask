@@ -595,8 +595,140 @@ following::
     app.config['STORMPATH_ENABLE_LOGOUT'] = False
 
 
+Use Google Login
+----------------
+
+Now that we've covered the basics: let's add Google Login support to your app!
+Stormpath makes it very easy to support social login with Google.
+
+In the next few minutes I'll walk you through *everything* you need to know to
+support Google login with your app.
+
+
+Create a Google Project
+.......................
+
+The first thing you need to do is log into the `Google Developer Console`_ and
+create a new Google Project.
+
+You can do this by visiting the `Developer Console`_ and clicking the "Create
+Project" button.  You should see something like the following:
+
+.. image:: /_static/google-new-project.png
+
+Go ahead and pick a "Project Name" (usually the name of your app), and
+(*optionally*) a "Project ID".
+
+
+Enable Google Login
+...................
+
+Now that you've got a Google Project -- let's enable Google Login.  The way
+Google Projects work is that you have to selectively enable what functionality
+each Project needs.
+
+From your `Console Dashboard`_ click on your new Project, then in the side panel
+click on the "APIs & auth" menu option.
+
+Now, scroll through the API list until you see "Google+ API", then click the
+"OFF" button next to it to enable it.  You should now see the "Google+ API" as
+"ON" in your API list:
+
+.. image:: /_static/google-enable-login.png
+
+
+Create OAuth Credentials
+------------------------
+
+The next thing we need to do is create a new OAuth client ID.  This is what
+we'll use to handle user login with Google.
+
+From your `Console Dashboard`_ click the "APIs & auth" menu, then click on the
+"Credentials" sub-menu.
+
+You should see a big red button labeled "Create New Client ID" near the top of
+the page -- click that.
+
+You'll want to do several things here:
+
+1. Select "Web application" for your "Application Type".
+2. Remove everything from the "Authorized Javascript Origins" box.
+3. Add the URL of your site (both publicly and locally) into the "Authorized
+   Redirect URI" box, with the ``/google`` suffix.  This tells Google where to
+   redirect users after they've logged in with Google.
+
+In the end, your settings should look like this:
+
+.. image:: /_static/google-oauth-settings.png
+
+Once you've specified your settings, go ahead and click the "Create Client ID"
+button.
+
+Lastly, you'll want to take note of your "Client ID" and "Client Secret"
+variables that should now be displayed on-screen.  We'll need these in the next
+step.
+
+
+Configure Your Flask App
+........................
+
+Now that we've created a new Google Project and generated OAuth secrets -- we
+can now enter these secrets into our Flask app so that Flask-Stormpath knows
+about them.
+
+In your app's config, you'll want to add the following settings (*don't forget
+to substitute in the proper credentials!*)::
+
+    from os import environ
+
+    app.config['STORMPATH_ENABLE_GOOGLE'] = True
+    app.config['STORMPATH_SOCIAL'] = {
+        'GOOGLE': {
+            'client_id': environ.get('GOOGLE_CLIENT_ID'),
+            'client_secret': environ.get('GOOGLE_CLIENT_SECRET'),
+        }
+    }
+
+These two settings: ``STORMPATH_ENABLE_GOOGLE`` and ``STORMPATH_SOCIAL`` work
+together to tell Flask-Stormpath to enable social login support for Google, as
+well as provide the proper credentials so things work as expected.
+
+.. note::
+    We recommend storing your credentials in environment variables (as shown in
+    the example above).  Please don't hard code secret credentials into your
+    source code!
+
+
+Test it Out
+...........
+
+Now that you've plugged your Google credentials into Flask-Stormpath, social
+login should already be working!
+
+Open your Flask app in a browser, and try logging in by visiting the login page
+(``/login``).  If you're using the default login page included with this
+library, you should see the following:
+
+.. image:: /_static/login-page-google.png
+
+You now have a fancy new Google enabled login button!  Try logging in!  When you
+click the new Google button you'll be redirected to Google, and prompted to
+select your Google account:
+
+.. image:: /_static/login-page-google-account.png
+
+After selecting your account you'll then be prompted to accept any permissions,
+then immediately redirected back to your website at the URL specified by
+``STORMPATH_REDIRECT_URL`` in your app's settings.
+
+Simple, right?!
+
+
 .. _Stormpath dashboard: https://api.stormpath.com/ui/dashboard
 .. _Account: http://docs.stormpath.com/rest/product-guide/#accounts
 .. _bootstrap: http://getbootstrap.com/
 .. _Jinja2: http://jinja.pocoo.org/docs/
 .. _Flask-WTF: https://flask-wtf.readthedocs.org/en/latest/
+.. _Google Developer Console: https://console.developers.google.com/project
+.. _Developer Console: https://console.developers.google.com/project
+.. _Console Dashboard: https://console.developers.google.com/project
