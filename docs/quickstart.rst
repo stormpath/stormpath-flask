@@ -638,7 +638,7 @@ Now, scroll through the API list until you see "Google+ API", then click the
 
 
 Create OAuth Credentials
-------------------------
+........................
 
 The next thing we need to do is create a new OAuth client ID.  This is what
 we'll use to handle user login with Google.
