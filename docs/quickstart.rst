@@ -132,28 +132,6 @@ and log in -- you'll be immediately redirected back to the page you were trying
 to access: ``/secret``.
 
 
-Customize Redirect Logic
-------------------------
-
-As you might have already noticed by playing around with the registration and
-login pages -- when you first register or log into an account, you'll be
-immediately redirected to the URL ``/``.
-
-This is actually a configurable setting -- you can easily modify this default
-redirect URL by adding the following config setting::
-
-    app.config['STORMPATH_REDIRECT_URL'] = '/dashboard'
-
-This allows you to build nicer apps as you can do stuff like redirect newly
-registered users to a tutorial, dashboard, or something similar.
-
-.. note::
-    If a user visits a page which has restricted access, they'll be redirected
-    to the login page.  Once the user logs in, they'll be immediately redirected
-    back to whatever page they were initially trying to access (this behavior
-    overrides the ``STORMPATH_REDIRECT_URL`` setting).
-
-
 Access User Data
 ----------------
 
@@ -217,6 +195,28 @@ model::
 
 As you can see above -- storing custom information on a :class:`User` account is
 extremely simple!
+
+
+Customize Redirect Logic
+------------------------
+
+As you might have already noticed by playing around with the registration and
+login pages -- when you first register or log into an account, you'll be
+immediately redirected to the URL ``/``.
+
+This is actually a configurable setting -- you can easily modify this default
+redirect URL by adding the following config setting::
+
+    app.config['STORMPATH_REDIRECT_URL'] = '/dashboard'
+
+This allows you to build nicer apps as you can do stuff like redirect newly
+registered users to a tutorial, dashboard, or something similar.
+
+.. note::
+    If a user visits a page which has restricted access, they'll be redirected
+    to the login page.  Once the user logs in, they'll be immediately redirected
+    back to whatever page they were initially trying to access (this behavior
+    overrides the ``STORMPATH_REDIRECT_URL`` setting).
 
 
 Customize User Registration Fields
