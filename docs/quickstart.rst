@@ -632,8 +632,9 @@ menu, then click the "Add Platform" button near the bottom of the page.  When
 prompted, select "Website" as your platform type.
 
 In the "Site URL" box, enter your private and public root URLs.  This should be
-something like ``"http://localhost:5000 http://mysite.com"``.  *You can list
-multiple URLs separated by spaces.*
+something like ``"http://localhost:5000"`` or ``"http://mysite.com"``.  *If you
+want to allow Facebook Login from multiple URLs (local development, production,
+etc.) you can just click the "Add Platform" button again and enter another URL.*
 
 Lastly, click the "Save Changes" button to save the changes.
 
