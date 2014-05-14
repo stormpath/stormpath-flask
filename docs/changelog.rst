@@ -10,7 +10,7 @@ All library changes, in descending order.
 Version 0.2.0
 -------------
 
-**Not yet released.**
+**Released on May 14, 2014.**
 
 - Adding customizable user settings.
 - Adding support for social login via Gacebook.
