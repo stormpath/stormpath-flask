@@ -47,7 +47,7 @@ Now that you have your manager configured, you need to supply some basic
 configuration variables to make things work::
 
     app.config['SECRET_KEY'] = 'someprivatestringhere'
-    app.config['STORMPATH_API_KEYFILE'] = '/path/to/apiKey.properties'
+    app.config['STORMPATH_API_KEY_FILE'] = '/path/to/apiKey.properties'
     app.config['STORMPATH_APPLICATION'] = 'myapp'
 
 Or, if you prefer to use environment variables to specify your credentials, you
