@@ -100,12 +100,12 @@ http://docs.stormpath.com/rest/product-guide/#directories
 
     Cloud Directories hold *typical* user accounts.
 
-    Mirror Directories are used for syncing with `Active Directory`_ and
-    `LDAP`_ services (most people don't ever need these).
-
     Facebook and Google Directories allow you to automatically create Stormpath
     user accounts for both Facebook and Google users (using social login).
     Social login will be covered in detail later on.
+
+    Mirror Directories are used for syncing with `Active Directory`_ and
+    `LDAP`_ services (most people don't ever need these).
 
 
 Install the Package
