@@ -1,4 +1,4 @@
 include README.md
 include CHANGELOG.md
 include LICENSE
-recursive-include *.html *.py
+recursive-include flask_stormpath *.html
