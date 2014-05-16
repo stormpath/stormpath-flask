@@ -7,6 +7,14 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.2.1
+-------------
+
+**Released on May 16, 2014.**
+
+- Fixing bug in package: templates weren't being included.
+
+
 Version 0.2.0
 -------------
 
