@@ -126,6 +126,9 @@ class StormpathManager(object):
         app.login_manager.user_callback = self.load_user
         app.stormpath_manager = self
 
+        # Make this Flask session expire automatically.
+        app.config['PERMANENT_SESSION_LIFETIME'] = app.config['STORMPATH_COOKIE_DURATION']
+
     def init_routes(self, app):
         """
         Initialize our built-in routes.
