@@ -7,15 +7,16 @@ Change Log
 All library changes, in descending order.
 
 
-Version 0.2.2
+Version 0.2.3
 -------------
 
-**Not yet released.**
+**Released on May 20, 2014.**
 
 - Adding new setting: ``STORMPATH_COOKIE_DOMAIN``.  This allows users to specify
   which domain(s) the session cookie will be good for.
 - Adding new setting: ``STORMPATH_COOKIE_DURATION``.  This allows users to
   specify how long a session will last (as a ``timedelta`` object).
+- Adding docs on expiring sessions / cookies.
 
 
 Version 0.2.1
