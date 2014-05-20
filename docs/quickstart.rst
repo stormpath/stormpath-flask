@@ -197,6 +197,24 @@ The view above lists three Groups, and sets the ``all`` parameter to ``False``
 list Groups in order to gain access.
 
 
+Restrict Session Duration / Expiration
+--------------------------------------
+
+Another thing people commonly want to do is restrict how long a user can be
+logged in without activity before being forced to log into their account again.
+
+As of the latest Flask-Stormpath release, this is now possible!
+
+You can easily change the default session / cookie expiration by modifying the
+``STORMPATH_COOKIE_DURATION`` setting::
+
+    from datetime import timedelta
+
+    app.config['STORMPATH_COOKIE_DURATION'] = timedelta(minutes=30)
+
+By default, sessions / cookies will not expire for a year (out of convenience).
+
+
 Access User Data
 ----------------
 
