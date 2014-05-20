@@ -1,6 +1,8 @@
 """Helper functions for dealing with Flask-Stormpath settings."""
 
 
+from datetime import timedelta
+
 from .errors import ConfigurationError
 
 
@@ -78,6 +80,13 @@ def init_settings(config):
     # Social login configuration.
     config.setdefault('STORMPATH_SOCIAL', {})
 
+    # Cookie configuration.
+    config.setdefault('STORMPATH_COOKIE_DOMAIN', None)
+    config.setdefault('STORMPATH_COOKIE_DURATION', timedelta(days=365))
+
+    # Cookie name (this is not overridable by users, at least not explicitly).
+    config.setdefault('REMEMBER_COOKIE_NAME', 'stormpath_token')
+
 
 def check_settings(config):
     """
@@ -117,3 +126,9 @@ def check_settings(config):
             facebook_config.get('app_secret'),
         ]):
             raise ConfigurationError('You must define your Facebook app settings.')
+
+    if config['STORMPATH_COOKIE_DOMAIN'] and not isinstance(config['STORMPATH_COOKIE_DOMAIN'], str):
+        raise ConfigurationError('STORMPATH_COOKIE_DOMAIN must be a string.')
+
+    if config['STORMPATH_COOKIE_DURATION'] and not isinstance(config['STORMPATH_COOKIE_DURATION'], timedelta):
+        raise ConfigurationError('STORMPATH_COOKIE_DURATION must be a timedelta object.')

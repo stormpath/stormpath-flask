@@ -1,6 +1,7 @@
 """Tests for our settings stuff."""
 
 
+from datetime import timedelta
 from os import close, environ, remove, write
 from tempfile import mkstemp
 
@@ -98,6 +99,25 @@ class TestCheckSettings(StormpathTestCase):
 
         # Now that we've configured things properly, it should work.
         self.app.config['STORMPATH_SOCIAL']['FACEBOOK']['app_secret'] = 'xxx'
+        check_settings(self.app.config)
+
+    def test_cookie_settings(self):
+        # Ensure that if a user specifies a cookie domain which isn't a string,
+        # an error is raised.
+        self.app.config['STORMPATH_COOKIE_DOMAIN'] = 1
+        self.assertRaises(ConfigurationError, check_settings, self.app.config)
+
+        # Now that we've configured things properly, it should work.
+        self.app.config['STORMPATH_COOKIE_DOMAIN'] = 'test'
+        check_settings(self.app.config)
+
+        # Ensure that if a user specifies a cookie duration which isn't a
+        # timedelta object, an error is raised.
+        self.app.config['STORMPATH_COOKIE_DURATION'] = 1
+        self.assertRaises(ConfigurationError, check_settings, self.app.config)
+
+        # Now that we've configured things properly, it should work.
+        self.app.config['STORMPATH_COOKIE_DURATION'] = timedelta(minutes=1)
         check_settings(self.app.config)
 
     def tearDown(self):

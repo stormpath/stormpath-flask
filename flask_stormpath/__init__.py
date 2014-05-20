@@ -118,6 +118,9 @@ class StormpathManager(object):
 
         :param obj app: The Flask app.
         """
+        app.config['REMEMBER_COOKIE_DURATION'] = app.config['STORMPATH_COOKIE_DURATION']
+        app.config['REMEMBER_COOKIE_DOMAIN'] = app.config['STORMPATH_COOKIE_DOMAIN']
+
         app.login_manager = LoginManager(app)
         app.login_manager.login_view = 'stormpath.login'
         app.login_manager.user_callback = self.load_user
