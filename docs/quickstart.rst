@@ -69,6 +69,10 @@ can do that easily as well::
     The ``STORMPATH_APPLICATION`` variable should be the name of your Stormpath
     application created above.  "dronewars", for instance.
 
+    The ``SECRET_KEY`` variable should be a random string -- this is used by
+    Flask internally for securing sessions -- make sure this isn't easily
+    guessable!
+
 .. note::
     **Please don't hardcode your API key information into your source code!**
     To keep your credentials safe and secret, we recommend storing these
