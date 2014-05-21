@@ -20,6 +20,7 @@ Flask-Stormpath.  If you're a new Flask-Stormpath user, start here!
    about
    setup
    quickstart
+   product
    help
 
 
