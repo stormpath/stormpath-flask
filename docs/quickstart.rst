@@ -67,7 +67,7 @@ can do that easily as well::
     step.
 
     The ``STORMPATH_APPLICATION`` variable should be the name of your Stormpath
-    application created above.  "dronewars", for instance.
+    application created in the Setup docs.  "dronewars", for instance.
 
     The ``SECRET_KEY`` variable should be a random string -- this is used by
     Flask internally for securing sessions -- make sure this isn't easily
