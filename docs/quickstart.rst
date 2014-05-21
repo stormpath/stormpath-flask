@@ -76,7 +76,8 @@ can do that easily as well::
 .. note::
     **Please don't hardcode your API key information into your source code!**
     To keep your credentials safe and secret, we recommend storing these
-    credentials in environment variables.
+    credentials in environment variables or keeping your ``apiKey.properties``
+    file out of version control.
 
 
 Testing It Out
