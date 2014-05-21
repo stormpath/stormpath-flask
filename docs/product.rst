@@ -750,7 +750,6 @@ then immediately redirected back to your website at the URL specified by
 Simple, right?!
 
 
-.. _Stormpath dashboard: https://api.stormpath.com/ui/dashboard
 .. _Account: http://docs.stormpath.com/rest/product-guide/#accounts
 .. _bootstrap: http://getbootstrap.com/
 .. _Jinja2: http://jinja.pocoo.org/docs/

@@ -109,3 +109,6 @@ Wasn't that easy?!
     If you'd like to change these password strength rules (or disable them), you
     can do so easily by visiting the `Stormpath dashboard`_, navigating to your
     user Directory, then changing the "Password Strength Policy".
+
+
+.. _Stormpath dashboard: https://api.stormpath.com/ui/dashboard
