@@ -22,7 +22,12 @@ __license__ = 'Apache'
 __copyright__ = '(c) 2012 - 2014 Stormpath, Inc.'
 
 
-from flask import Blueprint, _app_ctx_stack as stack, current_app
+from flask import (
+    Blueprint,
+    __version__ as flask_version,
+    _app_ctx_stack as stack,
+    current_app,
+)
 
 from flask.ext.login import (
     LoginManager,
@@ -187,11 +192,16 @@ class StormpathManager(object):
         if ctx is not None:
             if not hasattr(ctx, 'stormpath_client'):
 
+                # Create our custom user agent.  This allows us to see which
+                # version of this SDK are out in the wild!
+                user_agent = 'stormpath-flask/%s (flask %s)' % (__version__, flask_version)
+
                 # If the user is specifying their credentials via a file path,
                 # we'll use this.
                 if self.app.config['STORMPATH_API_KEY_FILE']:
                     ctx.stormpath_client = Client(
                         api_key_file_location = self.app.config['STORMPATH_API_KEY_FILE'],
+                        user_agent = user_agent,
                     )
 
                 # If the user isn't specifying their credentials via a file
@@ -201,6 +211,7 @@ class StormpathManager(object):
                     ctx.stormpath_client = Client(
                         id = self.app.config['STORMPATH_API_KEY_ID'],
                         secret = self.app.config['STORMPATH_API_KEY_SECRET'],
+                        user_agent = user_agent,
                     )
 
             return ctx.stormpath_client
