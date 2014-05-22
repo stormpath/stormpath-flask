@@ -7,6 +7,14 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.2.3
+-------------
+
+**Released on May 22, 2014.**
+
+- Adding a proper user agent.
+
+
 Version 0.2.2
 -------------
 
