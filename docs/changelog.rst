@@ -7,6 +7,17 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.2.4
+-------------
+
+**Released on June 16, 2014.**
+
+- Fixing bug which affected the login page when `STORMPATH_ENABLE_REGISTRATION`
+  was disabled.
+- Fixing bug which affected the registration page when `STORMPATH_ENABLE_LOGIN`
+  was disabled.
+
+
 Version 0.2.3
 -------------
 
