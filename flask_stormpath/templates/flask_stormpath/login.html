@@ -11,8 +11,10 @@
         <div class="box row">
           <div class="email-password-area col-xs-12 {% if config['STORMPATH_ENABLE_FACEBOOK'] or config['STORMPATH_ENABLE_GOOGLE'] %}small col-sm-8{% else %}large col-sm-12{% endif %}">
             <div class="header">
-              <span>Log In or </span>
-              <a href="{{ url_for('stormpath.register') }}">Create an Account</a>
+              <span>Log In{% if config['STORMPATH_ENABLE_REGISTRATION'] %} or {% endif %}</span>
+              {% if config['STORMPATH_ENABLE_REGISTRATION'] %}
+                <a href="{{ url_for('stormpath.register') }}">Create an Account</a>
+              {% endif %}
             </div>
             {% with messages = get_flashed_messages() %}
               {% if messages %}
