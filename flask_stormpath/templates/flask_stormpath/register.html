@@ -88,7 +88,9 @@
             </form>
           </div>
         </div>
-        <a class="to-login" href="{{ url_for('stormpath.login') }}">Back to Log In</a>
+        {% if config['STORMPATH_ENABLE_LOGIN'] %}
+          <a class="to-login" href="{{ url_for('stormpath.login') }}">Back to Log In</a>
+        {% endif %}
       </div>
     </div>
   </div>
