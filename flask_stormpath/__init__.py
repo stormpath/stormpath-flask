@@ -15,7 +15,7 @@
 """
 
 
-__version_info__ = ('0', '2', '4')
+__version_info__ = ('0', '2', '5')
 __version__ = '.'.join(__version_info__)
 __author__ = 'Stormpath, Inc.'
 __license__ = 'Apache'
