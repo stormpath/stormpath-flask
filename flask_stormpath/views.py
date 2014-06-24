@@ -65,7 +65,7 @@ def register():
                 # the user has # explicitly said they don't want to collect
                 # those fields.
                 data['given_name'] = data['given_name'] or 'Anonymous'
-                data['surname'] = data['given_name'] or 'Anonymous'
+                data['surname'] = data['surname'] or 'Anonymous'
 
                 # Create the user account on Stormpath.  If this fails, an
                 # exception will be raised.
