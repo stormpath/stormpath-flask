@@ -7,6 +7,15 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.2.5
+-------------
+
+**Released on June 24, 2014.**
+
+- Fixing bug in built-in registration view.  When new users registered, the
+  first name would be inserted into the last name field.
+
+
 Version 0.2.4
 -------------
 
