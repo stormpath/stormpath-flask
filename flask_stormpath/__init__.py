@@ -127,9 +127,11 @@ class StormpathManager(object):
         app.config['REMEMBER_COOKIE_DOMAIN'] = app.config['STORMPATH_COOKIE_DOMAIN']
 
         app.login_manager = LoginManager(app)
-        app.login_manager.login_view = 'stormpath.login'
         app.login_manager.user_callback = self.load_user
         app.stormpath_manager = self
+
+        if app.config['STORMPATH_ENABLE_LOGIN']:
+            app.login_manager.login_view = 'stormpath.login'
 
         # Make this Flask session expire automatically.
         app.config['PERMANENT_SESSION_LIFETIME'] = app.config['STORMPATH_COOKIE_DURATION']
