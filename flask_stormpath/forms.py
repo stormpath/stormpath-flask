@@ -50,3 +50,13 @@ class LoginForm(Form):
     """
     login = StringField('Login', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
+
+
+class ForgotPasswordForm(Form):
+    """
+    Retrieve a user's email address for initializing the password reset
+    workflow.
+
+    This class is used to retrieve a user's email address.
+    """
+    email = StringField('Email', validators=[InputRequired()])
