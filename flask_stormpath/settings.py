@@ -54,7 +54,7 @@ def init_settings(config):
     config.setdefault('STORMPATH_ENABLE_REGISTRATION', True)
     config.setdefault('STORMPATH_ENABLE_LOGIN', True)
     config.setdefault('STORMPATH_ENABLE_LOGOUT', True)
-    config.setdefault('STORMPATH_ENABLE_FORGOT_PASSWORD', True)
+    config.setdefault('STORMPATH_ENABLE_FORGOT_PASSWORD', False)
     config.setdefault('STORMPATH_ENABLE_SETTINGS', True)
 
     # Configure URL mappings.  These URL mappings control which URLs will be
