@@ -222,6 +222,10 @@
         padding-bottom: 20px;
       }
 
+      .view .box .header p {
+        margin-top: 20px;
+      }
+
       .unverified-view .box {
         padding-bottom: 30px;
       }
@@ -350,6 +354,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    {% block head %}{% endblock %}
   </head>
   <body class="{% block bodytag %}{% endblock %}">
     {% block body %}{% endblock %}
