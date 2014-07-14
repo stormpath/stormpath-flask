@@ -1,0 +1,50 @@
+{% extends "flask_stormpath/base.html" %}
+
+{% block title %}Forgot Your Password?{% endblock %}
+{% block description %}Forgot your password? No worries!{% endblock %}
+{% block bodytag %}login{% endblock %}
+
+{% block body %}
+  <div class="container custom-container">
+    <div class="va-wrapper">
+      <div class="view login-view container">
+        <div class="box row">
+          <div class="email-password-area col-xs-12 large col-sm-12">
+            <div class="header">
+              <span>Forgot your password?</span>
+              <p>
+                Enter your email address below to reset your password. You will
+                be sent an email which you will need to open to continue. You may
+                need to check your spam folder.
+              </p>
+            </div>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <div class="alert alert-danger bad-login">
+                  {% for message in messages %}
+                    {{ message }}
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+            <form class="login-form form-horizontal" role="form" method="post">
+              {{ form.hidden_tag() }}
+              <div class="form-group group-email">
+                <label class="col-sm-4">Email</label>
+                <div class="col-sm-8">
+                  {{ form.email(class='form-control', placeholder='Email', required='true') }}
+                </div>
+              </div>
+              <div>
+                <button class="login btn btn-login btn-sp-green" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        {% if config['STORMPATH_ENABLE_LOGIN'] %}
+          <a class="forgot" href="{{ url_for('stormpath.login') }}">Back to Log In</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

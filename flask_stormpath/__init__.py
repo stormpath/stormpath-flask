@@ -47,7 +47,15 @@ from .context_processors import user_context_processor
 from .decorators import groups_required
 from .models import User
 from .settings import check_settings, init_settings
-from .views import google_login, facebook_login, login, logout, register
+from .views import (
+    google_login,
+    facebook_login,
+    forgot,
+    forgot_change,
+    login,
+    logout,
+    register,
+)
 
 
 # A proxy for the current user.
@@ -160,6 +168,20 @@ class StormpathManager(object):
                 app.config['STORMPATH_LOGIN_URL'],
                 'stormpath.login',
                 login,
+                methods = ['GET', 'POST'],
+            )
+
+        if app.config['STORMPATH_ENABLE_FORGOT_PASSWORD']:
+            app.add_url_rule(
+                app.config['STORMPATH_FORGOT_PASSWORD_URL'],
+                'stormpath.forgot',
+                forgot,
+                methods = ['GET', 'POST'],
+            )
+            app.add_url_rule(
+                app.config['STORMPATH_FORGOT_PASSWORD_CHANGE_URL'],
+                'stormpath.forgot_change',
+                forgot_change,
                 methods = ['GET', 'POST'],
             )
 

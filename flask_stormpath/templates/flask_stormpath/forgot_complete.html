@@ -1,0 +1,29 @@
+{% extends "flask_stormpath/base.html" %}
+
+{% block title %}Password Change Complete{% endblock %}
+{% block description %}You have successfully changed your password!{% endblock %}
+{% block bodytag %}login{% endblock %}
+{% block head %}
+  <meta http-equiv="refresh" content="5; url={{ config['STORMPATH_REDIRECT_URL'] }}" />
+{% endblock %}
+
+{% block body %}
+  <div class="container custom-container">
+    <div class="va-wrapper">
+      <div class="view login-view container">
+        <div class="box row">
+          <div class="email-password-area col-xs-12 large col-sm-12">
+            <div class="header">
+              <span>Password Change Complete!</span>
+              <p>
+                Your password has been changed, and you have been logged into
+                your account.  You will be redirected back to the site in 5
+                seconds.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -54,7 +54,7 @@ def init_settings(config):
     config.setdefault('STORMPATH_ENABLE_REGISTRATION', True)
     config.setdefault('STORMPATH_ENABLE_LOGIN', True)
     config.setdefault('STORMPATH_ENABLE_LOGOUT', True)
-    config.setdefault('STORMPATH_ENABLE_FORGOT_PASSWORD', True)
+    config.setdefault('STORMPATH_ENABLE_FORGOT_PASSWORD', False)
     config.setdefault('STORMPATH_ENABLE_SETTINGS', True)
 
     # Configure URL mappings.  These URL mappings control which URLs will be
@@ -63,6 +63,7 @@ def init_settings(config):
     config.setdefault('STORMPATH_LOGIN_URL', '/login')
     config.setdefault('STORMPATH_LOGOUT_URL', '/logout')
     config.setdefault('STORMPATH_FORGOT_PASSWORD_URL', '/forgot')
+    config.setdefault('STORMPATH_FORGOT_PASSWORD_CHANGE_URL', '/forgot/change')
     config.setdefault('STORMPATH_SETTINGS_URL', '/settings')
     config.setdefault('STORMPATH_GOOGLE_LOGIN_URL', '/google')
     config.setdefault('STORMPATH_FACEBOOK_LOGIN_URL', '/facebook')
@@ -75,6 +76,9 @@ def init_settings(config):
     config.setdefault('STORMPATH_REGISTRATION_TEMPLATE', 'flask_stormpath/register.html')
     config.setdefault('STORMPATH_LOGIN_TEMPLATE', 'flask_stormpath/login.html')
     config.setdefault('STORMPATH_FORGOT_PASSWORD_TEMPLATE', 'flask_stormpath/forgot.html')
+    config.setdefault('STORMPATH_FORGOT_PASSWORD_EMAIL_SENT_TEMPLATE', 'flask_stormpath/forgot_email_sent.html')
+    config.setdefault('STORMPATH_FORGOT_PASSWORD_CHANGE_TEMPLATE', 'flask_stormpath/forgot_change.html')
+    config.setdefault('STORMPATH_FORGOT_PASSWORD_COMPLETE_TEMPLATE', 'flask_stormpath/forgot_complete.html')
     config.setdefault('STORMPATH_SETTINGS_TEMPLATE', 'flask_stormpath/settings.html')
 
     # Social login configuration.
