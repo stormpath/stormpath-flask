@@ -61,9 +61,9 @@
             </div>
           {% endif %}
         </div>
-        <!-- to enable once we add in forgot password support
-        <a class="forgot" href="#forgot">Forgot Password?</a>
-        -->
+        {% if config['STORMPATH_ENABLE_FORGOT_PASSWORD'] %}
+          <a class="forgot" href="{{ url_for('stormpath.forgot') }}">Forgot Password?</a>
+        {% endif %}
       </div>
     </div>
   </div>
