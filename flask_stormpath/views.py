@@ -14,7 +14,12 @@ from flask.ext.login import login_user
 from stormpath.resources.provider import Provider
 
 from . import StormpathError, logout_user
-from .forms import LoginForm, RegistrationForm
+from .forms import (
+    ChangePasswordForm,
+    ForgotPasswordForm,
+    LoginForm,
+    RegistrationForm,
+)
 from .models import User
 
 
@@ -120,6 +125,99 @@ def login():
 
     return render_template(
         current_app.config['STORMPATH_LOGIN_TEMPLATE'],
+        form = form,
+    )
+
+
+def forgot():
+    """
+    Initialize 'password reset' functionality for a user who has forgotten his
+    password.
+
+    This view will render a forgot template, which prompts a user for their
+    email address, then sends a password reset email.
+
+    The URL this view is bound to, and the template that is used to render
+    this page can all be controlled via Flask-Stormpath settings.
+    """
+    form = ForgotPasswordForm()
+
+    # If we received a POST request with valid information, we'll continue
+    # processing.
+    if form.validate_on_submit():
+        try:
+            # Try to fetch the user's account from Stormpath.  If this
+            # fails, an exception will be raised.
+            account = current_app.stormpath_manager.application.send_password_reset_email(form.email.data)
+
+            # If we're able to successfully send a password reset email to this
+            # user, we'll display a success page prompting the user to check
+            # their inbox to complete the password reset process.
+            return render_template(
+                current_app.config['STORMPATH_FORGOT_PASSWORD_EMAIL_SENT_TEMPLATE'],
+                user = account,
+            )
+        except StormpathError, err:
+            # If the error message contains 'https', it means something failed
+            # on the network (network connectivity, most likely).
+            if 'https' in err.message.lower():
+                flash('Something went wrong! Please try again.')
+
+            # Otherwise, it means the user is trying to reset an invalid email
+            # address.
+            else:
+                flash('Invalid email address.')
+
+    return render_template(
+        current_app.config['STORMPATH_FORGOT_PASSWORD_TEMPLATE'],
+        form = form,
+    )
+
+
+def forgot_change():
+    """
+    Allow a user to change his password.
+
+    This can only happen if a use has reset their password, received the
+    password reset email, then clicked the link in the email which redirects
+    them to this view.
+
+    The URL this view is bound to, and the template that is used to render
+    this page can all be controlled via Flask-Stormpath settings.
+    """
+    try:
+        account = current_app.stormpath_manager.application.verify_password_reset_token(request.args.get('sptoken'))
+    except StormpathError, err:
+        abort(400)
+
+    form = ChangePasswordForm()
+
+    # If we received a POST request with valid information, we'll continue
+    # processing.
+    if form.validate_on_submit():
+        try:
+            # Update this user's passsword.
+            account.password = form.password.data
+            account.save()
+
+            # Log this user into their account.
+            account = User.from_login(account.email, form.password.data)
+            login_user(account, remember=True)
+
+            return render_template(current_app.config['STORMPATH_FORGOT_PASSWORD_COMPLETE_TEMPLATE'])
+        except StormpathError, err:
+            if 'https' in err.message.lower():
+                flash('Something went wrong! Please try again.')
+            else:
+                flash(err.user_message)
+
+    # If this is a POST request, and the form isn't valid, this means the
+    # user's password was no good, so we'll display a message.
+    elif request.method == 'POST':
+        flash("Passwords don't match.")
+
+    return render_template(
+        current_app.config['STORMPATH_FORGOT_PASSWORD_CHANGE_TEMPLATE'],
         form = form,
     )
 

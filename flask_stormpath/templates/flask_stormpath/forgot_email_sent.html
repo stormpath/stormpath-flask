@@ -1,0 +1,28 @@
+{% extends "flask_stormpath/base.html" %}
+
+{% block title %}Password Reset Email Sent{% endblock %}
+{% block description %}Your password reset email has been sent!{% endblock %}
+{% block bodytag %}login{% endblock %}
+
+{% block body %}
+  <div class="container custom-container">
+    <div class="va-wrapper">
+      <div class="view login-view container">
+        <div class="box row">
+          <div class="email-password-area col-xs-12 large col-sm-12">
+            <div class="header">
+              <span>Your password reset email has been sent!</span>
+              <p>
+                We have sent a password reset email to your email
+                address: <b>{{ user.email }}</b>.
+              </p>
+              <p>
+                Please check your inbox to continue.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

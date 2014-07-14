@@ -516,6 +516,124 @@ following::
     app.config['STORMPATH_ENABLE_LOGOUT'] = False
 
 
+Use Password Reset
+------------------
+
+As of Flask-Stormpath **0.2.6**, it is now possible to easily enable a "Password
+Reset Workflow", which allows your users to reset their passwords automatically.
+
+We highly encourage you to use this feature, as it provides a simple and secure
+way to allow your users to reset their passwords without hassle.
+
+
+Configure the Workflow
+......................
+
+The first thing you need to do to enable "Password Reset" functionality in your
+Flask app is visit the `Directory Dashboard`_ and select your default user
+directory.
+
+Next, you should see several options in a tab.  You will want to click the
+"Workflows" button.  Once you've landed on this page, you'll then want to click
+the "show" link to the right of the "Password Reset" header.  This section
+allows you to configure your "Password Reset" settings.
+
+On this page, the only thing you **need** to change is the "Base URL" setting at
+the top.  You need to set this to be: ``https://mysite.com/forgot/change``,
+substituting in your own website address.
+
+For instance, if your site lives at ``https://www.mysite.com``, you'll want to
+set "Base URL" to ``https://www.mysite.com/forgot/change``.
+
+This URL determines where a user will be redirected after attempting to reset
+their password on your website.  If you're testing things out locally, you can
+also set this to a local URL (eg: ``http://localhost:5000/forgot/change``).
+
+After setting "Base URL", you can also adjust any of the other settings below --
+you can customize the email templates that are used to email the user, and a
+variety of other options.
+
+When you're finished customizing the "Password Reset Workflow", be sure to hit
+the "Update" button at the bottom of the page.
+
+
+Enable Password Reset in Your App
+.................................
+
+Now that you've configured the "Password Reset" settings on Stormpath's side,
+you need to configure your Flask application to enable password reset.
+
+You can do this easily by modifying your application config like so::
+
+    app.config['STORMPATH_ENABLE_FORGOT_PASSWORD'] = True
+
+And...  That's all you have to do!
+
+
+Test it Out
+...........
+
+Now that you've fully enabled password reset functionality in your app, open up
+the login page in your Flask app and check it out!  You should see a "Forgot
+Password?" link below the login form which looks like this:
+
+.. image:: /_static/forgot.png
+
+If you click the "Forgot Password?" link, you'll be brought to a password reset
+page that looks like this:
+
+.. image:: /_static/forgot-init.png
+
+After filling in their email address, a user will see the following page:
+
+.. image:: /_static/forgot-email-sent.png
+
+Then, depending on your "Password Reset Workflow" configuration, the user will
+see an email that looks like the following:
+
+.. image:: /_static/forgot-email.png
+
+When a user clicks the link in their email, they'll reach a password change page
+that looks like this:
+
+.. image:: /_static/forgot-change.png
+
+And lastly, once a user changes their password successfully, they'll be
+automatically logged into their account, then redirected to the main page of
+your site (whatever URL is set as ``STORMPATH_REDIRECT_URL`` in your
+configuration).  They'll also be shown this page for a few seconds to let them
+know the change was successful:
+
+.. image:: /_static/forgot-complete.png
+
+Not bad, right?
+
+
+Customization
+.............
+
+Much like all other Flask-Stormpath features, the password reset feature is
+completely customizable.
+
+You can easily change the password reset templates by modifying the following
+configuration variables, respectively:
+
+- ``STORMPATH_FORGOT_PASSWORD_TEMPLATE`` - The template which is shown when a
+  user clicks the "Forgot Password?" link on the login page.
+- ``STORMPATH_FORGOT_PASSWORD_EMAIL_SENT_TEMPLATE`` - The template which is
+  shown after a user has successfully requested a password reset.
+- ``STORMPATH_FORGOT_PASSWORD_CHANGE_TEMPLATE`` - The template which is shown to
+  a user after they've clicked the link in their email.  This template allows
+  the user to change their password.
+- ``STORMPATH_FORGOT_PASSWORD_COMPLETE_TEMPLATE`` - The template which is shown
+  after the user has successfully reset their account password.
+
+If you'd like to override the default templates, you should take a look at the
+ones included with Flask-Stormpath here:
+https://github.com/stormpath/stormpath-flask/tree/master/flask_stormpath/templates/flask_stormpath
+and use these as a base for your own templates.
+
+
 Use Facebook Login
 ------------------
 
@@ -754,6 +872,7 @@ Simple, right?!
 .. _bootstrap: http://getbootstrap.com/
 .. _Jinja2: http://jinja.pocoo.org/docs/
 .. _Flask-WTF: https://flask-wtf.readthedocs.org/en/latest/
+.. _Directory Dashboard: https://api.stormpath.com/v#!directories
 .. _Facebook Developer Site: https://developers.facebook.com/
 .. _Google Developer Console: https://console.developers.google.com/project
 .. _Developer Console: https://console.developers.google.com/project
