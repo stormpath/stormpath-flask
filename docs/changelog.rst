@@ -7,6 +7,16 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.2.6
+-------------
+
+**Released on July 14, 2014.**
+
+- Adding in easy 'Password Reset' functionality.  If a developer enables this
+  functionality, users can easily reset their passwords securely.  This feature
+  is disabled by default.
+
+
 Version 0.2.5
 -------------
 
