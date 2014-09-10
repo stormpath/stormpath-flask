@@ -7,6 +7,14 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.2.7
+-------------
+
+**Released on September 10, 2014.**
+
+- Adding the ability to set a user's status when calling ``User.create()``.
+
+
 Version 0.2.6
 -------------
 
