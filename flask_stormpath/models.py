@@ -44,7 +44,7 @@ class User(Account):
         return True
 
     @classmethod
-    def create(self, email, password, given_name, surname, username=None, middle_name=None, custom_data=None):
+    def create(self, email, password, given_name, surname, username=None, middle_name=None, custom_data=None, status='ENABLED'):
         """
         Create a new User.
 
@@ -66,6 +66,8 @@ class User(Account):
         :param str middle_name: This user's middle name ('Clark').
         :param dict custom_data: Any custom JSON data you'd like stored with
             this user.  Must be <= 10MB.
+        :param str status: The user's status (*defaults to 'ENABLED'*). Can be
+            either 'ENABLED', 'DISABLED', or 'UNVERIFIED'.
 
         If something goes wrong we'll raise an exception -- most likely -- a
         `StormpathError` (flask.ext.stormpath.StormpathError).
@@ -78,6 +80,7 @@ class User(Account):
             'username': username,
             'middle_name': middle_name,
             'custom_data': custom_data,
+            'status': status,
         })
         _user.__class__ = User
 
