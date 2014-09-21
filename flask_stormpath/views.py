@@ -149,6 +149,7 @@ def forgot():
             # Try to fetch the user's account from Stormpath.  If this
             # fails, an exception will be raised.
             account = current_app.stormpath_manager.application.send_password_reset_email(form.email.data)
+            account.__class__ = User
 
             # If we're able to successfully send a password reset email to this
             # user, we'll display a success page prompting the user to check
