@@ -7,6 +7,15 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.2.8
+-------------
+
+**Released on September 20, 2014.**
+
+- Fixing bug in forgot() view -- the user object passed to the template wasn't
+  an actual user object.
+
+
 Version 0.2.7
 -------------
 
