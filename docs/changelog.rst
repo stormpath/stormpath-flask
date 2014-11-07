@@ -7,6 +7,14 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.2.9
+-------------
+
+**Released on November 7, 2014.**
+
+- Adding support for Google login's `hd` attribute.
+
+
 Version 0.2.8
 -------------
 
