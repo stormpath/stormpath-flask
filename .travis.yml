@@ -9,5 +9,5 @@ script:
   - cd docs && make html
 env:
   global:
-  - secure: Ab7W+Wul7pYVFm+8vrVYSS89mNuVaQmCJnY4e4rWlDK4cQr0OEDaUcAeDUkpUtfMWTl9cIK16/TxflvTIwY51sD/dhrgc4pQbceS4SKimY9XlXNYoLfp27/ASvRt8qbZHF78Gy0pEpsk+8gzwgxuUG+TJtxcPP8WbLk9sNe3PJE=
-  - secure: NIvBcgOg1ah4D84jhDv/A1YyOe0Mg4kavwpHB2fhdglzIzN6z0K2KnnBnzCO8kc0gyehPehGgWXxMcoxnz/KCIn2/lJXda9hBE/kvxSq8cXaVCfNKiH154huViFlncgKFmZpDnT+l+3wMpCiCwoPTNVz9j6UmbP2WxwKuCPtimc=
+  - secure: hAO+zuFzu6JSBMbZv6I0lMxRiD1NPxIFoKTFzWZ6R9v7CMzt6Gyisp9u8TVdLMyluGgcu1OMXfauOy57q2N85aQBPosgyrDb9PW4NI9bpEOP3B2sjGMfpYLK94RylfjbiginkuhQElgqOJ0V0gGiJ1+pQ53AdY0TB5EMmI4YmSs=
+  - secure: c7r7HLIBk+jbfrJtJCDbVW4n6izcPx69pn32HltNYV+bd6YZIpIFvR4D7dsvS3dO18ITel2oqATuaxdG0U1UAEssyDiwoCcUPN8R822i5pGAgXV/CLVbxPRNUkVGRJslDzNvjYqSXVULaCl1g5yMHcdlaylBGAKwhXCF8xCAFcY=
