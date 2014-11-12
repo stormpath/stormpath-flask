@@ -10,6 +10,8 @@ All library changes, in descending order.
 Version 0.3.0
 -------------
 
+**Not yet released.**
+
 - Fixing minor issue with user agent.
 
 
