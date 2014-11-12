@@ -218,7 +218,7 @@ class StormpathManager(object):
 
                 # Create our custom user agent.  This allows us to see which
                 # version of this SDK are out in the wild!
-                user_agent = 'stormpath-flask/%s (flask %s)' % (__version__, flask_version)
+                user_agent = 'stormpath-flask/%s flask/%s' % (__version__, flask_version)
 
                 # If the user is specifying their credentials via a file path,
                 # we'll use this.
