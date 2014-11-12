@@ -7,6 +7,12 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.3.0
+-------------
+
+- Fixing minor issue with user agent.
+
+
 Version 0.2.9
 -------------
 
