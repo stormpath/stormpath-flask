@@ -66,7 +66,7 @@ Now that we've created our Groups, and also added our :class:`User` to the "free
 users" group -- let's see how we can enforce different types of authorization on
 our :class:`User` using the :func:`groups_required` decorator::
 
-    from flask.ext.stormpath import groups_requied
+    from flask.ext.stormpath import groups_required
 
     @app.route('/admins')
     @groups_required(['admins'])
