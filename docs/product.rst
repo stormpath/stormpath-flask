@@ -60,7 +60,7 @@ Let's quickly take a look at how we can create and assign a Group to a
     >>> admins = directory.groups.create({'name': 'admins'})
 
     >>> # Put the current user into the 'Free Users' group.
-    >>> user.groups.add(free_users)
+    >>> user.add_group(free_users)
 
 Now that we've created our Groups, and also added our :class:`User` to the "free
 users" group -- let's see how we can enforce different types of authorization on
