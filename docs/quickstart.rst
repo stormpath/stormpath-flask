@@ -112,3 +112,37 @@ Wasn't that easy?!
 
 
 .. _Stormpath dashboard: https://api.stormpath.com/ui/dashboard
+
+Caching
+-------
+
+The best kind of websites are fast websites. `Flask-Stormpath` includes built-in support for caching.
+You can currently use either:
+
+- A local memory cache (default).
+- A [memcached](http://memcached.org/) cache.
+- A [redis](http://redis.io/) cache.
+
+All can be easily configured using configuration variables.
+
+There are several configuration settings you can specify when initializing the :class:`StormpathManager`.
+
+Redis cache example:
+
+     app = Flask(__name__)
+     # app config...
+     from stormpath.cache.redis_store import RedisStore
+     cache_opts = {'store': RedisStore, 'store_opts': {'host': 'localhost', 'port': 6379}}
+     stormpath_manager = StormpathManager(cache=cache_opts)
+
+Memcached cache example:
+
+     app = Flask(__name__)
+     # app config...
+     from stormpath.cache.memcached_store import MemcachedStore
+     cache_opts = {'store': MemcachedStore, 'store_opts': {'host': 'localhost', 'port': 11211}}
+     stormpath_manager = StormpathManager(cache=cache_opts)
+
+If no cache is specified when creating the StormpathManager then the default MemoryStore is used.
+For a full list of options for each cache backend please the official [Python SDK Guide](http://docs.stormpath.com/python/product-guide/#caching).
+
