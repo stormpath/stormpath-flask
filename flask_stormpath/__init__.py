@@ -69,13 +69,15 @@ class StormpathManager(object):
     specific apps, so you can create one in the main body of your code and
     then bind it to your app in a factory function.
     """
-    def __init__(self, app=None):
+    def __init__(self, app=None, cache=None):
         """
         Initialize this extension.
 
         :param obj app: (optional) The Flask app.
+        :param obj cache: (optional) defaults to MemoryStore
         """
         self.app = app
+        self.cache = cache
 
         # If the user specifies an app, let's configure go ahead and handle all
         # configuration stuff for the user's app.
@@ -226,6 +228,7 @@ class StormpathManager(object):
                     ctx.stormpath_client = Client(
                         api_key_file_location = self.app.config['STORMPATH_API_KEY_FILE'],
                         user_agent = user_agent,
+                        cache_options=self.cache
                     )
 
                 # If the user isn't specifying their credentials via a file
@@ -236,6 +239,7 @@ class StormpathManager(object):
                         id = self.app.config['STORMPATH_API_KEY_ID'],
                         secret = self.app.config['STORMPATH_API_KEY_SECRET'],
                         user_agent = user_agent,
+                        cache_options=self.cache
                     )
 
             return ctx.stormpath_client
