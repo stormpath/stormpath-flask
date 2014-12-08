@@ -3,8 +3,6 @@
 
 from datetime import timedelta
 
-from stormpath.cache.memory_store import MemoryStore
-
 from .errors import ConfigurationError
 
 
@@ -74,7 +72,7 @@ def init_settings(config):
     config.setdefault('STORMPATH_REDIRECT_URL', '/')
 
     # Cache configuration.
-    config.setdefault('STORMPATH_CACHE', {'store': MemoryStore})
+    config.setdefault('STORMPATH_CACHE', None)
 
     # Configure templates.  These template settings control which templates are
     # used to render the Flask-Stormpath views.
