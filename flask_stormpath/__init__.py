@@ -228,7 +228,7 @@ class StormpathManager(object):
                     ctx.stormpath_client = Client(
                         api_key_file_location = self.app.config['STORMPATH_API_KEY_FILE'],
                         user_agent = user_agent,
-                        cache_options=self.cache
+                        cache_options = self.cache,
                     )
 
                 # If the user isn't specifying their credentials via a file
@@ -239,7 +239,7 @@ class StormpathManager(object):
                         id = self.app.config['STORMPATH_API_KEY_ID'],
                         secret = self.app.config['STORMPATH_API_KEY_SECRET'],
                         user_agent = user_agent,
-                        cache_options=self.cache
+                        cache_options = self.cache,
                     )
 
             return ctx.stormpath_client
