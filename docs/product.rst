@@ -880,8 +880,8 @@ support for caching.  You can currently use either:
 
 All can be easily configured using configuration variables.
 
-There are several configuration settings you can specify when initializing the
-:class:`StormpathManager`.
+There are several configuration settings you can specify to control caching
+behavior.
 
 Here's an example which shows how to enable caching with redis::
 
@@ -889,9 +889,7 @@ Here's an example which shows how to enable caching with redis::
 
 
     app = Flask(__name__)
-
-    # app config stuff
-    cache = {
+    app.config['STORMPATH_CACHE'] = {
         'store': RedisStore,
         'store_opts': {
             'host': 'localhost',
@@ -899,7 +897,7 @@ Here's an example which shows how to enable caching with redis::
         }
     }
 
-    stormpath_manager = StormpathManager(cache=cache)
+    stormpath_manager = StormpathManager(app)
 
 Here's an example which shows how to enable caching with memcached::
 
@@ -907,9 +905,7 @@ Here's an example which shows how to enable caching with memcached::
 
 
     app = Flask(__name__)
-
-    # app config stuff
-    cache = {
+    app.config['STORMPATH_CACHE'] = {
         'store': MemcachedStore,
         'store_opts': {
             'host': 'localhost',
@@ -917,10 +913,10 @@ Here's an example which shows how to enable caching with memcached::
         }
     }
 
-    stormpath_manager = StormpathManager(cache=cache)
+    stormpath_manager = StormpathManager(app)
 
-If no cache is specified when creating the :class:`StormpathManager` then the
-default ``MemoryStore`` is used.
+If no cache is specified, the default, ``MemoryStore``, is used.  This will
+cache all resources in local memory.
 
 For a full list of options available for each cache backend, please see the
 official `Caching Docs`_ in our Python library.
