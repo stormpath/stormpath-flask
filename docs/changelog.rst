@@ -16,6 +16,7 @@ Version 0.3.0
 - Updating stormpath dependency to latest release.
 - Adding support for caching (*with local memory, memcached, and redis*).
 - Adding caching docs.
+- Dynamically handling library versions.
 
 
 Version 0.2.9
