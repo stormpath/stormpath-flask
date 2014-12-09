@@ -12,11 +12,13 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
-import os
+
+from os.path import abspath, dirname, join
+from sys import path
+
 
 # Import Flask themes:
-sys.path.append(os.path.abspath('_themes'))
+path.append(abspath('_themes'))
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -57,7 +59,7 @@ copyright = u'2014, Stormpath, Inc.'
 # built documents.
 #
 # The short X.Y version.
-for line in open('../setup.py').readlines():
+for line in open(join(dirname(dirname(abspath(__file__))), 'setup.py')).readlines():
     if line.strip().startswith('version'):
         version = release = line.strip().split("'")[1]
 
