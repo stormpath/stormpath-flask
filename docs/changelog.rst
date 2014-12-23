@@ -7,6 +7,15 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.3.1
+-------------
+
+**Released on December 23, 2014.**
+
+- Fixing critical issue where version info caused startup errors.  The
+  resolution is to remove dynamic versioning that depends on ``setup.py``.
+
+
 Version 0.3.0
 -------------
 
