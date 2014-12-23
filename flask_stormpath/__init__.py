@@ -15,15 +15,7 @@
 """
 
 
-from os.path import abspath, dirname, join
-
-
-# Dynamically find our version information from within setup.py.
-for line in open(join(dirname(dirname(abspath(__file__))), 'setup.py')).readlines():
-    if line.strip().startswith('version'):
-        __version__ = release = line.strip().split("'")[1]
-
-
+__version__ = '0.3.1'
 __version_info__ = __version__.split('.')
 __author__ = 'Stormpath, Inc.'
 __license__ = 'Apache'
