@@ -212,7 +212,7 @@ class StormpathManager(object):
         Lazily load the Stormpath Client object we need to access the raw
         Stormpath SDK.
         """
-        ctx = stack.top
+        ctx = stack.top.app
         if ctx is not None:
             if not hasattr(ctx, 'stormpath_client'):
 
@@ -263,7 +263,7 @@ class StormpathManager(object):
         Lazily load the Stormpath Application object we need to handle user
         authentication, etc.
         """
-        ctx = stack.top
+        ctx = stack.top.app
         if ctx is not None:
             if not hasattr(ctx, 'stormpath_application'):
                 ctx.stormpath_application = self.client.applications.search(
