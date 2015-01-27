@@ -10,7 +10,7 @@
 
     No user table required! :)
 
-    :copyright: (c) 2012 - 2014 Stormpath, Inc.
+    :copyright: (c) 2012 - 2015 Stormpath, Inc.
     :license: Apache, see LICENSE for more details.
 """
 
