@@ -7,6 +7,15 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.3.2
+-------------
+
+**Released on January 27, 2015.**
+
+- Fixing issue with singletons.  We were previously NOT using a client
+  singleton, which means in-memory caching would not work :(
+
+
 Version 0.3.1
 -------------
 
