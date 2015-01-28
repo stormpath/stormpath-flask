@@ -15,7 +15,7 @@
 """
 
 
-__version__ = '0.3.2'
+__version__ = '0.3.3'
 __version_info__ = __version__.split('.')
 __author__ = 'Stormpath, Inc.'
 __license__ = 'Apache'
