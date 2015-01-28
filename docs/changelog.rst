@@ -7,6 +7,15 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.3.3
+-------------
+
+**Released on January 28, 2015.**
+
+- Upgrading our Stormpath python dependency.  This gets us lots of bugfixes /
+  speed improvements.
+
+
 Version 0.3.2
 -------------
 
