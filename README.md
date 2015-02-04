@@ -7,13 +7,6 @@ Build simple, secure web applications with Stormpath and Flask!
 [![Build Status](https://travis-ci.org/stormpath/stormpath-flask.png?branch=master)](https://travis-ci.org/stormpath/stormpath-flask)
 
 
-**NOTE**: This library is an early release.  It's currently lacking many
-features, and only handles basic use cases.  We're working on adding lots of
-cool stuff to the library which will improve it's general usefulness.  If you
-have feedback, please get in touch and share your thoughts!
-[python@stormpath.com](mailto:python@stormpath.com)
-
-
 ## Documentation
 
 You can find this project's documentation on ReadTheDocs:
