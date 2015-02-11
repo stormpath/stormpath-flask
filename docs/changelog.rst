@@ -10,10 +10,12 @@ All library changes, in descending order.
 Version 0.3.4
 -------------
 
-**Not yet released.**
+**Released on February 11, 2015.**
 
 - Upgrading our Stormpath python dependency.  Lots of bugfixes / improvements
   included.
+- Allowing users to customize the base Stormpath template via a new setting:
+  ``STORMPATH_BASE_TEMPLATE``.
 
 
 Version 0.3.3
