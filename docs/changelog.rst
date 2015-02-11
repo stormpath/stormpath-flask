@@ -7,6 +7,15 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.3.4
+-------------
+
+**Not yet released.**
+
+- Upgrading our Stormpath python dependency.  Lots of bugfixes / improvements
+  included.
+
+
 Version 0.3.3
 -------------
 
