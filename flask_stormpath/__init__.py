@@ -15,11 +15,11 @@
 """
 
 
-__version__ = '0.3.4'
+__version__ = '0.3.5'
 __version_info__ = __version__.split('.')
 __author__ = 'Stormpath, Inc.'
 __license__ = 'Apache'
-__copyright__ = '(c) 2012 - 2014 Stormpath, Inc.'
+__copyright__ = '(c) 2012 - 2015 Stormpath, Inc.'
 
 
 from flask import (
