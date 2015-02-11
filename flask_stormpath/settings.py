@@ -76,6 +76,7 @@ def init_settings(config):
 
     # Configure templates.  These template settings control which templates are
     # used to render the Flask-Stormpath views.
+    config.setdefault('STORMPATH_BASE_TEMPLATE', 'flask_stormpath/base.html')
     config.setdefault('STORMPATH_REGISTRATION_TEMPLATE', 'flask_stormpath/register.html')
     config.setdefault('STORMPATH_LOGIN_TEMPLATE', 'flask_stormpath/login.html')
     config.setdefault('STORMPATH_FORGOT_PASSWORD_TEMPLATE', 'flask_stormpath/forgot.html')
