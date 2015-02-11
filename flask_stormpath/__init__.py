@@ -43,7 +43,7 @@ from stormpath.error import Error as StormpathError
 
 from werkzeug.local import LocalProxy
 
-from .context_processors import inject_base_template, user_context_processor
+from .context_processors import user_context_processor
 from .decorators import groups_required
 from .models import User
 from .settings import check_settings, init_settings
@@ -117,11 +117,6 @@ class StormpathManager(object):
         # really easy for developers to grab user data for display purposes in
         # templates.
         app.context_processor(user_context_processor)
-
-        # Ensure the `base template` context is available in templates.  This
-        # makes it easy for developers to dynamically specify their own base
-        # template, from which all other templates extend.
-        app.context_processor(inject_base_template)
 
         # Store a reference to the Flask app so we can use it later if
         # necessary!
