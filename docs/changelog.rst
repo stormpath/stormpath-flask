@@ -7,6 +7,23 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.3.6
+-------------
+
+**Released on February 16, 2015.**
+
+- Fixing minor issues in error handling in our registration and login views.
+- Adding tests for error handling in our registration and login views.
+
+
+Version 0.3.5
+-------------
+
+**Released on February 11, 2015.**
+
+- Upgrading dependencies.
+
+
 Version 0.3.4
 -------------
 
