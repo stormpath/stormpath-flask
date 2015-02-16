@@ -210,7 +210,7 @@ def forgot_change():
             if 'https' in err.message.lower():
                 flash('Something went wrong! Please try again.')
             else:
-                flash(err.user_message)
+                flash(err.message)
 
     # If this is a POST request, and the form isn't valid, this means the
     # user's password was no good, so we'll display a message.
