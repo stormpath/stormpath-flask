@@ -149,6 +149,27 @@ class TestLogin(StormpathTestCase):
             })
             self.assertEqual(resp.status_code, 302)
 
+    def test_error_messages(self):
+        # Create a user.
+        with self.app.app_context():
+            User.create(
+                username = 'rdegges',
+                given_name = 'Randall',
+                surname = 'Degges',
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+            )
+
+        # Ensure that an error is raised if an invalid username or password is
+        # specified.
+        with self.app.test_client() as c:
+            resp = c.post('/login', data={
+                'login': 'rdegges',
+                'password': 'hilol',
+            })
+            self.assertEqual(resp.status_code, 200)
+            self.assertTrue('Invalid username or password.' in resp.data)
+
 
 class TestLogout(StormpathTestCase):
     """Test our logout view."""
