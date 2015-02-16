@@ -76,6 +76,38 @@ class TestRegister(StormpathTestCase):
             self.assertEqual(user.given_name, 'Anonymous')
             self.assertEqual(user.surname, 'Anonymous')
 
+    def test_error_messages(self):
+        with self.app.test_client() as c:
+
+            # Ensure that an error is raised if an invalid password is
+            # specified.
+            resp = c.post('/register', data={
+                'given_name': 'Randall',
+                'surname': 'Degges',
+                'email': 'r@rdegges.com',
+                'password': 'hilol',
+            })
+            self.assertEqual(resp.status_code, 200)
+            self.assertTrue('Account password minimum length not satisfied.' in resp.data)
+
+            resp = c.post('/register', data={
+                'given_name': 'Randall',
+                'surname': 'Degges',
+                'email': 'r@rdegges.com',
+                'password': 'hilolwoot1',
+            })
+            self.assertEqual(resp.status_code, 200)
+            self.assertTrue('Password requires at least 1 uppercase character.' in resp.data)
+
+            resp = c.post('/register', data={
+                'given_name': 'Randall',
+                'surname': 'Degges',
+                'email': 'r@rdegges.com',
+                'password': 'hilolwoothi',
+            })
+            self.assertEqual(resp.status_code, 200)
+            self.assertTrue('Password requires at least 1 numeric character.' in resp.data)
+
 
 class TestLogin(StormpathTestCase):
     """Test our login view."""
