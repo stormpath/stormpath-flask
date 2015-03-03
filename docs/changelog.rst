@@ -7,6 +7,16 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.3.7
+-------------
+
+**Released on March 2, 2015.**
+
+- Fixing exception handling error during password reset when an invalid email
+  address is entered.  Thanks `@roengraft <https://github.com/roengraft>`_ for
+  the report!
+
+
 Version 0.3.6
 -------------
 
