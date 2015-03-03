@@ -11,6 +11,7 @@ from flask import (
     request,
 )
 from flask.ext.login import login_user
+from six import string_types
 from stormpath.resources.provider import Provider
 
 from . import StormpathError, logout_user
@@ -161,7 +162,7 @@ def forgot():
         except StormpathError, err:
             # If the error message contains 'https', it means something failed
             # on the network (network connectivity, most likely).
-            if 'https' in err.message.lower():
+            if isinstance(err.message, string_types) and 'https' in err.message.lower():
                 flash('Something went wrong! Please try again.')
 
             # Otherwise, it means the user is trying to reset an invalid email
