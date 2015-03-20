@@ -2,6 +2,7 @@
 
 
 from flask import current_app
+from six import text_type
 from stormpath.resources.account import Account
 from stormpath.resources.provider import Provider
 
@@ -21,7 +22,7 @@ class User(Account):
         Return the unique user identifier (in our case, the Stormpath resource
         href).
         """
-        return unicode(self.href)
+        return text_type(self.href)
 
     def is_active(self):
         """

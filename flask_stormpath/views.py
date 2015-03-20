@@ -83,7 +83,7 @@ def register():
                 login_user(account, remember=True)
 
                 return redirect(current_app.config['STORMPATH_REDIRECT_URL'])
-            except StormpathError, err:
+            except StormpathError as err:
                 flash(err.message)
 
     return render_template(
@@ -120,7 +120,7 @@ def login():
             login_user(account, remember=True)
 
             return redirect(request.args.get('next') or current_app.config['STORMPATH_REDIRECT_URL'])
-        except StormpathError, err:
+        except StormpathError as err:
             flash(err.message)
 
     return render_template(
@@ -158,7 +158,7 @@ def forgot():
                 current_app.config['STORMPATH_FORGOT_PASSWORD_EMAIL_SENT_TEMPLATE'],
                 user = account,
             )
-        except StormpathError, err:
+        except StormpathError as err:
             # If the error message contains 'https', it means something failed
             # on the network (network connectivity, most likely).
             if 'https' in err.message.lower():
@@ -188,7 +188,7 @@ def forgot_change():
     """
     try:
         account = current_app.stormpath_manager.application.verify_password_reset_token(request.args.get('sptoken'))
-    except StormpathError, err:
+    except StormpathError as err:
         abort(400)
 
     form = ChangePasswordForm()
@@ -206,7 +206,7 @@ def forgot_change():
             login_user(account, remember=True)
 
             return render_template(current_app.config['STORMPATH_FORGOT_PASSWORD_COMPLETE_TEMPLATE'])
-        except StormpathError, err:
+        except StormpathError as err:
             if 'https' in err.message.lower():
                 flash('Something went wrong! Please try again.')
             else:
@@ -261,7 +261,7 @@ def facebook_login():
     # for us.
     try:
         account = User.from_facebook(facebook_user['access_token'])
-    except StormpathError, err:
+    except StormpathError as err:
         social_directory_exists = False
 
         # If we failed here, it usually means that this application doesn't have
@@ -338,7 +338,7 @@ def google_login():
     # Stormpath account, by automatically handling the Google API stuff for us.
     try:
         account = User.from_google(code)
-    except StormpathError, err:
+    except StormpathError as err:
         social_directory_exists = False
 
         # If we failed here, it usually means that this application doesn't
