@@ -84,7 +84,7 @@ def register():
 
                 return redirect(current_app.config['STORMPATH_REDIRECT_URL'])
             except StormpathError, err:
-                flash(err.message)
+                flash(err.message.get('message'))
 
     return render_template(
         current_app.config['STORMPATH_REGISTRATION_TEMPLATE'],
@@ -121,7 +121,7 @@ def login():
 
             return redirect(request.args.get('next') or current_app.config['STORMPATH_REDIRECT_URL'])
         except StormpathError, err:
-            flash(err.message)
+            flash(err.message.get('message'))
 
     return render_template(
         current_app.config['STORMPATH_LOGIN_TEMPLATE'],
@@ -210,7 +210,7 @@ def forgot_change():
             if 'https' in err.message.lower():
                 flash('Something went wrong! Please try again.')
             else:
-                flash(err.message)
+                flash(err.message.get('message'))
 
     # If this is a POST request, and the form isn't valid, this means the
     # user's password was no good, so we'll display a message.
