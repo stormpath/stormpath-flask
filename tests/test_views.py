@@ -88,7 +88,9 @@ class TestRegister(StormpathTestCase):
                 'password': 'hilol',
             })
             self.assertEqual(resp.status_code, 200)
-            self.assertTrue('Account password minimum length not satisfied.' in resp.data)
+            self.assertTrue(
+                'Account password minimum length not satisfied.' in
+                resp.data.decode('utf-8'))
 
             resp = c.post('/register', data={
                 'given_name': 'Randall',
@@ -97,7 +99,9 @@ class TestRegister(StormpathTestCase):
                 'password': 'hilolwoot1',
             })
             self.assertEqual(resp.status_code, 200)
-            self.assertTrue('Password requires at least 1 uppercase character.' in resp.data)
+            self.assertTrue(
+                'Password requires at least 1 uppercase character.' in
+                resp.data.decode('utf-8'))
 
             resp = c.post('/register', data={
                 'given_name': 'Randall',
@@ -106,7 +110,9 @@ class TestRegister(StormpathTestCase):
                 'password': 'hilolwoothi',
             })
             self.assertEqual(resp.status_code, 200)
-            self.assertTrue('Password requires at least 1 numeric character.' in resp.data)
+            self.assertTrue(
+                'Password requires at least 1 numeric character.' in
+                resp.data.decode('utf-8'))
 
 
 class TestLogin(StormpathTestCase):
@@ -168,7 +174,8 @@ class TestLogin(StormpathTestCase):
                 'password': 'hilol',
             })
             self.assertEqual(resp.status_code, 200)
-            self.assertTrue('Invalid username or password.' in resp.data)
+            self.assertTrue(
+                'Invalid username or password.' in resp.data.decode('utf-8'))
 
 
 class TestLogout(StormpathTestCase):

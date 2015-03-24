@@ -32,8 +32,11 @@ class TestCheckSettings(StormpathTestCase):
 
         # Generate our file locally.
         self.fd, self.file = mkstemp()
-        write(self.fd, 'apiKey.id = %s\n' % environ.get('STORMPATH_API_KEY_ID'))
-        write(self.fd, 'apiKey.secret = %s\n' % environ.get('STORMPATH_API_KEY_SECRET'))
+        api_key_id = 'apiKey.id = %s\n' % environ.get('STORMPATH_API_KEY_ID')
+        api_key_secret = 'apiKey.secret = %s\n' % environ.get(
+            'STORMPATH_API_KEY_SECRET')
+        write(self.fd, api_key_id.encode('utf-8') + b'\n')
+        write(self.fd, api_key_secret.encode('utf-8') + b'\n')
 
     def test_requires_api_credentials(self):
         # We'll remove our default API credentials, and ensure we get an
