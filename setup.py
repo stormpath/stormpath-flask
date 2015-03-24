@@ -54,9 +54,12 @@ setup(
         'Flask>=0.9.0',
         'Flask-Login==0.2.9',
         'Flask-WTF>=0.9.5',
-        'facebook-sdk==0.4.0',
+        'facebook-sdk==1.0.0-alpha',
         'oauth2client==1.2',
         'stormpath==1.3.5',
+    ],
+    dependency_links=[
+        'git+git://github.com/pythonforfacebook/facebook-sdk.git@e65d06158e48388b3932563f1483ca77065951b3#egg=facebook-sdk-1.0.0-alpha',
     ],
     classifiers = [
         'Environment :: Web Environment',
