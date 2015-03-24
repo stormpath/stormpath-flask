@@ -21,11 +21,7 @@ class User(Account):
         Return the unique user identifier (in our case, the Stormpath resource
         href).
         """
-        # Python3 compatibility.
-        if isinstance(self.href, str):
-            return self.href
-        else:
-            return self.href.decode('UTF-8')
+        return unicode(self.href)
 
     def is_active(self):
         """
