@@ -38,7 +38,7 @@ class RunTests(Command):
 
 setup(
     name = 'Flask-Stormpath',
-    version = '0.3.7',
+    version = '0.3.8',
     url = 'https://github.com/stormpath/stormpath-flask',
     license = 'Apache',
     author = 'Stormpath, Inc.',
