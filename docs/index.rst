@@ -7,6 +7,11 @@ away all user registration, login, authentication, and authorization problems,
 and make building secure websites painless.  And the best part?  **You don't
 even need a database!**
 
+.. note::
+    Unfortunately, this library will NOT work on Google App Engine due to the
+    `requests <http://stackoverflow.com/questions/9604799/can-python-requests-library-be-used-on-google-app-engine>`_
+    module not working :(
+
 
 User's Guide
 ------------

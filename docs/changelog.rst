@@ -7,6 +7,24 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.3.8
+-------------
+
+**Released on March 23, 2015.**
+
+- Making the library 100% python 3 compatible!
+
+
+Version 0.3.7
+-------------
+
+**Released on March 2, 2015.**
+
+- Fixing exception handling error during password reset when an invalid email
+  address is entered.  Thanks `@roengraft <https://github.com/roengraft>`_ for
+  the report!
+
+
 Version 0.3.6
 -------------
 
