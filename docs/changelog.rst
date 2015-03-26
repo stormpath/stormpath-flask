@@ -10,9 +10,10 @@ All library changes, in descending order.
 Version 0.3.8
 -------------
 
-**Released on March 23, 2015.**
+**Released on March 26, 2015.**
 
 - Making the library 100% python 3 compatible!
+- Fixing issue with error messages being flashed incorrectly.
 
 
 Version 0.3.7
