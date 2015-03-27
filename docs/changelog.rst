@@ -7,6 +7,15 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.3.9
+-------------
+
+**Released on March 27, 2015.**
+
+- Removing python 3 compatibility (*due to pip bug with Facebook SDK*).  This
+  will be back soon once we find a workaround.
+
+
 Version 0.3.8
 -------------
 
