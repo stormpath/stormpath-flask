@@ -120,6 +120,56 @@ class TestRegister(StormpathTestCase):
                 resp.data.decode('utf-8'))
             self.assertFalse("developerMessage" in resp.data.decode('utf-8'))
 
+    def test_redirect_to_login_and_register_url(self):
+        # Setting redirect URL to something that is easy to check
+        stormpath_redirect_url = '/redirect_for_login_and_registration'
+        self.app.config['STORMPATH_REDIRECT_URL'] = stormpath_redirect_url
+
+        with self.app.test_client() as c:
+            # Ensure that valid registration will redirect to
+            # STORMPATH_REDIRECT_URL
+            resp = c.post(
+                '/register',
+                data=
+                {
+                    'given_name': 'Randall',
+                    'middle_name': 'Clark',
+                    'surname': 'Degges',
+                    'email': 'r@rdegges.com',
+                    'password': 'woot1LoveCookies!',
+                })
+
+            self.assertEqual(resp.status_code, 302)
+            location = resp.headers.get('location')
+            self.assertTrue(stormpath_redirect_url in location)
+
+    def test_redirect_to_register_url(self):
+        # Setting redirect URLs to something that is easy to check
+        stormpath_redirect_url = '/redirect_for_login'
+        stormpath_registration_redirect_url = '/redirect_for_registration'
+        self.app.config['STORMPATH_REDIRECT_URL'] = stormpath_redirect_url
+        self.app.config['STORMPATH_REGISTRATION_REDIRECT_URL'] = \
+            stormpath_registration_redirect_url
+
+        with self.app.test_client() as c:
+            # Ensure that valid registration will redirect to
+            # STORMPATH_REGISTRATION_REDIRECT_URL if it exists
+            resp = c.post(
+                '/register',
+                data=
+                {
+                    'given_name': 'Randall',
+                    'middle_name': 'Clark',
+                    'surname': 'Degges',
+                    'email': 'r@rdegges.com',
+                    'password': 'woot1LoveCookies!',
+                })
+
+            self.assertEqual(resp.status_code, 302)
+            location = resp.headers.get('location')
+            self.assertFalse(stormpath_redirect_url in location)
+            self.assertTrue(stormpath_registration_redirect_url in location)
+
 
 class TestLogin(StormpathTestCase):
     """Test our login view."""
@@ -184,6 +234,60 @@ class TestLogin(StormpathTestCase):
             self.assertTrue(
                 'Invalid username or password.' in resp.data.decode('utf-8'))
             self.assertFalse("developerMessage" in resp.data.decode('utf-8'))
+
+    def test_redirect_to_login_and_register_url(self):
+        # Create a user.
+        with self.app.app_context():
+            User.create(
+                username = 'rdegges',
+                given_name = 'Randall',
+                surname = 'Degges',
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+            )
+
+        # Setting redirect URL to something that is easy to check
+        stormpath_redirect_url = '/redirect_for_login_and_registration'
+        self.app.config['STORMPATH_REDIRECT_URL'] = stormpath_redirect_url
+
+        with self.app.test_client() as c:
+            # Attempt a login using username and password.
+            resp = c.post(
+                '/login',
+                data={'login': 'rdegges', 'password': 'woot1LoveCookies!',})
+
+            self.assertEqual(resp.status_code, 302)
+            location = resp.headers.get('location')
+            self.assertTrue(stormpath_redirect_url in location)
+
+    def test_redirect_to_register_url(self):
+        # Create a user.
+        with self.app.app_context():
+            User.create(
+                username = 'rdegges',
+                given_name = 'Randall',
+                surname = 'Degges',
+                email = 'r@rdegges.com',
+                password = 'woot1LoveCookies!',
+            )
+
+        # Setting redirect URLs to something that is easy to check
+        stormpath_redirect_url = '/redirect_for_login'
+        stormpath_registration_redirect_url = '/redirect_for_registration'
+        self.app.config['STORMPATH_REDIRECT_URL'] = stormpath_redirect_url
+        self.app.config['STORMPATH_REGISTRATION_REDIRECT_URL'] = \
+            stormpath_registration_redirect_url
+
+        with self.app.test_client() as c:
+            # Attempt a login using username and password.
+            resp = c.post(
+                '/login',
+                data={'login': 'rdegges', 'password': 'woot1LoveCookies!',})
+
+            self.assertEqual(resp.status_code, 302)
+            location = resp.headers.get('location')
+            self.assertTrue('redirect_for_login' in location)
+            self.assertFalse('redirect_for_registration' in location)
 
 
 class TestLogout(StormpathTestCase):

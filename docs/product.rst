@@ -195,6 +195,14 @@ redirect URL by adding the following config setting::
 
     app.config['STORMPATH_REDIRECT_URL'] = '/dashboard'
 
+You can also redirect users to different URL after they register by adding
+this config setting::
+
+    app.config['STORMPATH_REGISTRATION_REDIRECT_URL'] = '/thank-you'
+
+If this setting is not set, users will be redirected to
+``STORMPATH_REDIRECT_URL`` after registration.
+
 This allows you to build nicer apps as you can do stuff like redirect newly
 registered users to a tutorial, dashboard, or something similar.
 
