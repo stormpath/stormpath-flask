@@ -8,6 +8,12 @@ This page contains specific upgrading instructions to help you migrate between
 Flask-Stormpath releases.
 
 
+Version 0.3.9 -> Version 0.4.0
+------------------------------
+
+**No changes needed!**
+
+
 Version 0.3.8 -> Version 0.3.9
 ------------------------------
 

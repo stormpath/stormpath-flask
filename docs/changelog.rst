@@ -7,6 +7,15 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.4.0
+-------------
+
+**Released on April 15, 2015.**
+
+- Adding new setting: ``STORMPATH_REGISTRATION_REDIRECT_URL``.  This lets users
+  specify where they'd like to redirect a *newly registered user*.
+
+
 Version 0.3.9
 -------------
 
