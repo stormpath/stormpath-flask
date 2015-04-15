@@ -83,7 +83,13 @@ def register():
                 # STORMPATH_REDIRECT_URL setting.
                 login_user(account, remember=True)
 
-                return redirect(current_app.config['STORMPATH_REDIRECT_URL'])
+                if 'STORMPATH_REGISTRATION_REDIRECT_URL'\
+                        in current_app.config:
+                    redirect_url = current_app.config[
+                        'STORMPATH_REGISTRATION_REDIRECT_URL']
+                else:
+                    redirect_url = current_app.config['STORMPATH_REDIRECT_URL']
+                return redirect(redirect_url)
 
             except StormpathError as err:
                 flash(err.message.get('message'))
