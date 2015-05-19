@@ -34,6 +34,10 @@ redirected to: ``/login?next=%2Fsecret``.  If you then enter your credentials
 and log in -- you'll be immediately redirected back to the page you were trying
 to access: ``/secret``.
 
+.. note::
+    If you have ``TESTING`` set to True in your Flask settings, this decorator
+    will *NOT* enforce authentication.  This is done to simplify unit testing.
+
 
 Enforce User Authorization
 --------------------------
@@ -98,6 +102,10 @@ membership::
 The view above lists three Groups, and sets the ``all`` parameter to ``False``
 -- signifying that a :class:`User` must be a member of **at least one** of the
 list Groups in order to gain access.
+
+.. note::
+    If you have ``TESTING`` set to True in your Flask settings, this decorator
+    will *NOT* enforce authentication.  This is done to simplify unit testing.
 
 
 Restrict Session Duration / Expiration
