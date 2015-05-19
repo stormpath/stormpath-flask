@@ -7,6 +7,17 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.4.1
+-------------
+
+**Released on May 19, 2015.**
+
+- Adding 'profile' scope as a default requested scope for Google login.  This
+  allows us to get a user's first and last name in addition to their email
+  address.  Thanks to `@stauffec <https://github.com/stauffec>`_ for the
+  contribution!
+
+
 Version 0.4.0
 -------------
 
