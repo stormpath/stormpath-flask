@@ -7,6 +7,14 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.4.2
+-------------
+
+**Not yet released.**
+
+- Adding notes about ``TESTING = True`` for clarity.
+
+
 Version 0.4.1
 -------------
 
