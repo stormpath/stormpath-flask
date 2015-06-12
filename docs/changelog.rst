@@ -10,9 +10,12 @@ All library changes, in descending order.
 Version 0.4.2
 -------------
 
-**Not yet released.**
+**Released on June 12, 2015.**
 
 - Adding notes about ``TESTING = True`` for clarity.
+- Fixing error handling error in the 'forgot password' feature.  If a user tried
+  to change their password to something that didn't match the password strength
+  rules, they'd get a 500.
 
 
 Version 0.4.1
