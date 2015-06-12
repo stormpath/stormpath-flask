@@ -216,7 +216,7 @@ def forgot_change():
 
             return render_template(current_app.config['STORMPATH_FORGOT_PASSWORD_COMPLETE_TEMPLATE'])
         except StormpathError as err:
-            if 'https' in err.message.lower():
+            if isinstance(err.message, string_types) and 'https' in err.message.lower():
                 flash('Something went wrong! Please try again.')
             else:
                 flash(err.message.get('message'))
