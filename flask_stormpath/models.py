@@ -3,8 +3,17 @@
 
 from flask import current_app
 from six import text_type
+
+from blinker import Namespace
+
 from stormpath.resources.account import Account
 from stormpath.resources.provider import Provider
+
+
+stormpath_signals = Namespace()
+user_created = stormpath_signals.signal('user-created')
+user_updated = stormpath_signals.signal('user-updated')
+user_deleted = stormpath_signals.signal('user-deleted')
 
 
 class User(Account):
@@ -43,6 +52,22 @@ class User(Account):
         True.
         """
         return True
+
+    def save(self):
+        """
+        Send signal after user is updated.
+        """
+        return_value = super(User, self).save()
+        user_updated.send(self, user=self)
+        return return_value
+
+    def delete(self):
+        """
+        Send signal after user is deleted.
+        """
+        return_value = super(User, self).delete()
+        user_deleted.send(self, user=self)
+        return return_value
 
     @classmethod
     def create(self, email, password, given_name, surname, username=None, middle_name=None, custom_data=None, status='ENABLED'):
@@ -84,6 +109,7 @@ class User(Account):
             'status': status,
         })
         _user.__class__ = User
+        user_created.send(self, user=_user)
 
         return _user
 
