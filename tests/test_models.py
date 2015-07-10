@@ -129,7 +129,12 @@ class TestUser(StormpathTestCase):
             self.assertEqual(user.surname, 'Degges')
             self.assertEqual(user.username, 'r@rdegges.com')
             self.assertEqual(user.middle_name, None)
-            self.assertEqual(dict(user.custom_data), {})
+            self.assertEqual(
+                dict(user.custom_data),
+                {
+                    'created_at': user.custom_data.created_at,
+                    'modified_at': user.custom_data.modified_at,
+                })
 
             # Delete this user.
             user.delete()
@@ -164,6 +169,8 @@ class TestUser(StormpathTestCase):
                     'reason': 'Beautiful landscape.',
                     'amount_of_likage': 99.9999,
                 },
+                'created_at': user.custom_data.created_at,
+                'modified_at': user.custom_data.modified_at,
             })
 
     def test_from_login(self):
