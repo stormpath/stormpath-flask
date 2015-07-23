@@ -43,6 +43,15 @@ class StormpathTestCase(TestCase):
             directory.delete()
 
 
+class SignalReceiver(object):
+    received_signals = None
+
+    def signal_user_receiver_function(self, sender, user):
+        if self.received_signals is None:
+            self.received_signals = []
+        self.received_signals.append((sender, user))
+
+
 def bootstrap_client():
     """
     Create a new Stormpath Client from environment variables.
