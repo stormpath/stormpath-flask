@@ -7,6 +7,16 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.4.3
+-------------
+
+**Released on August 25, 2015.**
+
+- Adding in some test fixes.
+- Adding in signals for user creation, updating, and deleting.
+- Upgrading the Stormpath library to the latest release.
+
+
 Version 0.4.2
 -------------
 
