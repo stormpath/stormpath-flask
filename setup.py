@@ -56,7 +56,7 @@ setup(
         'Flask-WTF>=0.9.5',
         'facebook-sdk==0.4.0',
         'oauth2client==1.2',
-        'stormpath==2.0.9',
+        'stormpath==2.1.1',
         'blinker==1.3'
     ],
     dependency_links=[
