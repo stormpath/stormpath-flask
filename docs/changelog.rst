@@ -7,6 +7,14 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.4.4
+-------------
+
+**Released on August 31, 2015.**
+
+- Upgrading the Stormpath dependency to the latest release.
+
+
 Version 0.4.3
 -------------
 
