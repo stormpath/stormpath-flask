@@ -1,7 +1,7 @@
 """Run tests for signals."""
 
 from flask.ext.login import user_logged_in
-from flask.ext.stormpath.models import (
+from flask_stormpath.models import (
     User,
     user_created,
     user_deleted,
@@ -34,11 +34,11 @@ class TestSignals(StormpathTestCase):
         self.assertEqual(len(signal_receiver.received_signals), 1)
         received_signal = signal_receiver.received_signals[0]
         # User instance is received
-        self.assertIsInstance(received_signal[1], User)
+        self.assertIsInstance(received_signal[1], dict)
         # Correct user instance is received
         created_user = received_signal[1]
-        self.assertEqual(created_user.email, 'r@rdegges.com')
-        self.assertEqual(created_user.surname, 'Degges')
+        self.assertEqual(created_user['email'], 'r@rdegges.com')
+        self.assertEqual(created_user['surname'], 'Degges')
 
     def test_user_logged_in_signal(self):
         # Subscribe to signals for user login
@@ -95,11 +95,11 @@ class TestSignals(StormpathTestCase):
         self.assertEqual(len(signal_receiver.received_signals), 1)
         received_signal = signal_receiver.received_signals[0]
         # User instance is received
-        self.assertIsInstance(received_signal[1], User)
+        self.assertIsInstance(received_signal[1], dict)
         # Correct user instance is received
         updated_user = received_signal[1]
-        self.assertEqual(updated_user.email, 'r@rdegges.com')
-        self.assertEqual(updated_user.middle_name, 'Clark')
+        self.assertEqual(updated_user['email'], 'r@rdegges.com')
+        self.assertEqual(updated_user['middle_name'], 'Clark')
 
     def test_user_is_deleted_signal(self):
         # Subscribe to signals for user delete
@@ -122,7 +122,7 @@ class TestSignals(StormpathTestCase):
         self.assertEqual(len(signal_receiver.received_signals), 1)
         received_signal = signal_receiver.received_signals[0]
         # User instance is received
-        self.assertIsInstance(received_signal[1], User)
+        self.assertIsInstance(received_signal[1], dict)
         # Correct user instance is received
         deleted_user = received_signal[1]
-        self.assertEqual(deleted_user.email, 'r@rdegges.com')
+        self.assertEqual(deleted_user['email'], 'r@rdegges.com')

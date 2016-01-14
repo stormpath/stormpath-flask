@@ -1,7 +1,7 @@
 """Tests for our data models."""
 
 
-from flask.ext.stormpath.models import User
+from flask_stormpath.models import User
 from stormpath.resources.account import Account
 
 from .helpers import StormpathTestCase

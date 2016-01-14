@@ -58,15 +58,16 @@ class User(Account):
         Send signal after user is updated.
         """
         return_value = super(User, self).save()
-        user_updated.send(self, user=self)
+        user_updated.send(self, user=dict(self))
         return return_value
 
     def delete(self):
         """
         Send signal after user is deleted.
         """
+        user_dict = dict(self)
         return_value = super(User, self).delete()
-        user_deleted.send(self, user=self)
+        user_deleted.send(None, user=user_dict)
         return return_value
 
     @classmethod
@@ -109,7 +110,7 @@ class User(Account):
             'status': status,
         })
         _user.__class__ = User
-        user_created.send(self, user=_user)
+        user_created.send(self, user=dict(_user))
 
         return _user
 
