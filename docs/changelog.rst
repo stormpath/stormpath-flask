@@ -7,6 +7,18 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.4.5
+-------------
+
+**Not yet released.**
+
+- Upgrading Stormpath dependency to latest release.
+- Upgrading oauth2client dependency to latest release.
+- Upgrading blinker dependency to latest release.
+- Upgrading Flask-Login dependency to latest release.
+- Adding Python 3 support.
+
+
 Version 0.4.4
 -------------
 
