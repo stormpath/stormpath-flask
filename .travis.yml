@@ -1,17 +1,17 @@
 language: python
 python:
-  - '2.7'
-  - '3.2'
-  - '3.3'
-  - '3.4'
-  - '3.5'
+- '2.7'
+- '3.2'
+- '3.3'
+- '3.4'
+- '3.5'
 install:
-  - pip install -r requirements.txt
-  - python setup.py develop
+- pip install -r requirements.txt
+- python setup.py develop
 script:
-  - test -z "$STORMPATH_API_KEY_SECRET" || python setup.py test
-  - cd docs && make html
+- test -z "$STORMPATH_API_KEY_SECRET" || python setup.py test
+- cd docs && make html
 env:
   global:
-  - secure: hAO+zuFzu6JSBMbZv6I0lMxRiD1NPxIFoKTFzWZ6R9v7CMzt6Gyisp9u8TVdLMyluGgcu1OMXfauOy57q2N85aQBPosgyrDb9PW4NI9bpEOP3B2sjGMfpYLK94RylfjbiginkuhQElgqOJ0V0gGiJ1+pQ53AdY0TB5EMmI4YmSs=
-  - secure: c7r7HLIBk+jbfrJtJCDbVW4n6izcPx69pn32HltNYV+bd6YZIpIFvR4D7dsvS3dO18ITel2oqATuaxdG0U1UAEssyDiwoCcUPN8R822i5pGAgXV/CLVbxPRNUkVGRJslDzNvjYqSXVULaCl1g5yMHcdlaylBGAKwhXCF8xCAFcY=
+  - secure: Q7sQSmMxZs0mfqgccUWr16rn38e+uFUbdIRaU0igYvIV24q80lXCWA5vvCwoSpa3AAVTEF4+XDaBdZl+HzD8PKjmAldljWIOi22fjoiyPtaA/+n5F9w8QbwmZ9T/pPfmHqr0yzYg89bsuGKJ7Irem1NdtOAozc2tVdfhhXI6NYM=
+  - secure: CZOy1BN3piid5RgqjZRCQmYI6eZAQI+ojVb/pWA1APFFVNuQtKgAvsjI1zaQRx5xmiGFco1/BhSLBokwknh7MJcwxckpC5D7Y9Ccev4jbWG/2Gif3wjKlezBra2w6LheimcLvbkC+QKJ2n2oNI2xJxr95sBAMaQORJFXXD6Y2wg=
