@@ -57,7 +57,7 @@ setup(
         'facebook-sdk==0.4.0',
         'oauth2client==1.2',
         'stormpath==2.1.6',
-        'blinker==1.3'
+        'blinker==1.4'
     ],
     dependency_links=[
         'git+git://github.com/pythonforfacebook/facebook-sdk.git@e65d06158e48388b3932563f1483ca77065951b3#egg=facebook-sdk-1.0.0-alpha',
