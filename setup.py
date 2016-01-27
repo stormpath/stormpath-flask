@@ -55,7 +55,7 @@ setup(
         'Flask-Login==0.3.2',
         'Flask-WTF>=0.9.5',
         'facebook-sdk==0.4.0',
-        'oauth2client==1.2',
+        'oauth2client==1.5.2',
         'stormpath==2.1.6',
         'blinker==1.4'
     ],
