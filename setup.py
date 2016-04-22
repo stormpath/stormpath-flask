@@ -38,7 +38,7 @@ class RunTests(Command):
 
 setup(
     name = 'Flask-Stormpath',
-    version = '0.4.4',
+    version = '0.4.5',
     url = 'https://github.com/stormpath/stormpath-flask',
     license = 'Apache',
     author = 'Stormpath, Inc.',
@@ -54,7 +54,7 @@ setup(
         'Flask>=0.9.0',
         'Flask-Login==0.2.9',
         'Flask-WTF>=0.9.5',
-        'facebook-sdk==0.4.0',
+        'facebook-sdk==1.0.0',
         'oauth2client==1.2',
         'stormpath==2.1.1',
         'blinker==1.3'
