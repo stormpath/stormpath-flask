@@ -7,6 +7,16 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.4.5
+-------------
+
+**Released on April 22, 2016.**
+
+- Upgrading facebook-sdk dependency.
+- Providing Facebook support for hosts which require outbound HTTP proxying.
+- Fixing styling issue with CSS forms.
+
+
 Version 0.4.4
 -------------
 
