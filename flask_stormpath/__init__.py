@@ -270,7 +270,8 @@ class StormpathManager(object):
                     self.app.config['STORMPATH_APPLICATION']
                 )
                 if applications is None:
-                    raise Exception('failed to find ' +  self.app.config['STORMPATH_APPLICATION'] + ' application')
+                    raise Exception('failed to find ' +  self.app.config['STORMPATH_APPLICATION'] + ' application. please add it in the '
+                                                                                                    'stormpath console')
 
                 ctx.stormpath_application = applications[0]
 
