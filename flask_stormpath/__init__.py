@@ -29,7 +29,7 @@ from flask import (
     current_app,
 )
 
-from flask.ext.login import (
+from flask_login import (
     LoginManager,
     current_user,
     _get_user,

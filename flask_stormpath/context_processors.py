@@ -2,7 +2,7 @@
 
 
 from flask import current_app
-from flask.ext.login import _get_user
+from flask_login import _get_user
 
 
 def user_context_processor():
