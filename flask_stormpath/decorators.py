@@ -7,7 +7,7 @@ simpler.
 from functools import wraps
 
 from flask import current_app
-from flask.ext.login import current_user
+from flask_login import current_user
 
 
 def groups_required(groups, all=True):

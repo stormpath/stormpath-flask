@@ -96,7 +96,7 @@ class User(Account):
             either 'ENABLED', 'DISABLED', or 'UNVERIFIED'.
 
         If something goes wrong we'll raise an exception -- most likely -- a
-        `StormpathError` (flask.ext.stormpath.StormpathError).
+        `StormpathError` (flask_stormpath.StormpathError).
         """
         _user = current_app.stormpath_manager.application.accounts.create({
             'email': email,
@@ -120,7 +120,7 @@ class User(Account):
         password.
 
         If something goes wrong, this will raise an exception -- most likely --
-        a `StormpathError` (flask.ext.stormpath.StormpathError).
+        a `StormpathError` (flask_stormpath.StormpathError).
         """
         _user = current_app.stormpath_manager.application.authenticate_account(login, password).account
         _user.__class__ = User
@@ -136,7 +136,7 @@ class User(Account):
         Login).
 
         If something goes wrong, this will raise an exception -- most likely --
-        a `StormpathError` (flask.ext.stormpath.StormpathError).
+        a `StormpathError` (flask_stormpath.StormpathError).
         """
         _user = current_app.stormpath_manager.application.get_provider_account(
             code = code,
@@ -155,7 +155,7 @@ class User(Account):
         Login).
 
         If something goes wrong, this will raise an exception -- most likely --
-        a `StormpathError` (flask.ext.stormpath.StormpathError).
+        a `StormpathError` (flask_stormpath.StormpathError).
         """
         _user = current_app.stormpath_manager.application.get_provider_account(
             access_token = access_token,

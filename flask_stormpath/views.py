@@ -10,7 +10,7 @@ from flask import (
     render_template,
     request,
 )
-from flask.ext.login import login_user
+from flask_login import login_user
 from six import string_types
 from stormpath.resources.provider import Provider
 
