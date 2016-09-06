@@ -59,6 +59,9 @@ setup(
         'stormpath==2.1.6',
         'blinker==1.4'
     ],
+    extras_require = {
+        'test': ['coverage', 'pytest', 'pytest-cov', 'python-coveralls', 'Sphinx', 'pytest-xdist'],
+    },
     dependency_links=[
         'git+git://github.com/pythonforfacebook/facebook-sdk.git@e65d06158e48388b3932563f1483ca77065951b3#egg=facebook-sdk-1.0.0-alpha',
     ],
