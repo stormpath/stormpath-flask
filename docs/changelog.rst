@@ -33,7 +33,6 @@ Version 0.4.5
 - Upgrading facebook-sdk dependency.
 - Providing Facebook support for hosts which require outbound HTTP proxying.
 - Fixing styling issue with CSS forms.
->>>>>>> master
 
 
 Version 0.4.4
