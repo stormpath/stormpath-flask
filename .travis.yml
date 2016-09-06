@@ -4,9 +4,7 @@ python:
 - '3.3'
 - '3.4'
 - '3.5'
-install:
-- pip install -r requirements.txt
-- python setup.py develop
+install: pip install -e .[test]
 script:
 - test -z "$STORMPATH_API_KEY_SECRET" || python setup.py test
 - cd docs && make html
