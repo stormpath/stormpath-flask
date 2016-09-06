@@ -1,4 +1,4 @@
-.. module:: flask.ext.stormpath
+.. module:: flask_stormpath
 
 
 Product Guide
@@ -19,7 +19,7 @@ Let's say you have a simple view which should only be accessible to users who
 have logged in.  Below is a code sample which shows how easy it is to restrict
 access to your view::
 
-    from flask.ext.stormpath import login_required
+    from flask_stormpath import login_required
 
     @app.route('/secret')
     @login_required
@@ -70,7 +70,7 @@ Now that we've created our Groups, and also added our :class:`User` to the "free
 users" group -- let's see how we can enforce different types of authorization on
 our :class:`User` using the :func:`groups_required` decorator::
 
-    from flask.ext.stormpath import groups_required
+    from flask_stormpath import groups_required
 
     @app.route('/admins')
     @groups_required(['admins'])
@@ -135,7 +135,7 @@ Let's say we've defined a simple view that should simply display a user's email
 address.  We can make use of the magical :class:`user` context variable to do
 this::
 
-    from flask.ext.stormpath import login_required, user
+    from flask_stormpath import login_required, user
 
     @app.route('/email')
     @login_required

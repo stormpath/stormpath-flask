@@ -4,7 +4,7 @@
 API
 ===
 
-.. module:: flask.ext.stormpath
+.. module:: flask_stormpath
 
 This part of the documentation documents all the public classes, functions, and
 API details in Flask-Stormpath.  This documentation is auto generated, and is
