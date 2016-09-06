@@ -7,7 +7,7 @@ if sys.version_info.major == 3:
 else:
     from facebook import get_user_from_cookie
     FACEBOOK = True
-    
+
 
 from flask import (
     abort,
@@ -270,9 +270,8 @@ def facebook_login():
     Flask-Stormpath settings.
     """
     if not FACEBOOK:
-        raise StormpathError({
-            'developerMessage': 'Facebook does not support python 3'
-        })
+        raise StormpathError({'developerMessage': 'Facebook does not support python 3'})
+
     # First, we'll try to grab the Facebook user's data by accessing their
     # session data.
     facebook_user = get_user_from_cookie(
