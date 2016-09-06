@@ -15,7 +15,7 @@
 """
 
 
-__version__ = '0.4.4'
+__version__ = '0.4.5'
 __version_info__ = __version__.split('.')
 __author__ = 'Stormpath, Inc.'
 __license__ = 'Apache'
@@ -29,7 +29,7 @@ from flask import (
     current_app,
 )
 
-from flask.ext.login import (
+from flask_login import (
     LoginManager,
     current_user,
     _get_user,
@@ -266,9 +266,14 @@ class StormpathManager(object):
         ctx = stack.top.app
         if ctx is not None:
             if not hasattr(ctx, 'stormpath_application'):
-                ctx.stormpath_application = self.client.applications.search(
+                applications =  self.client.applications.search(
                     self.app.config['STORMPATH_APPLICATION']
-                )[0]
+                )
+                if applications is None:
+                    raise Exception('failed to find ' +  self.app.config['STORMPATH_APPLICATION'] + ' application. please add it in the '
+                                                                                                    'stormpath console')
+
+                ctx.stormpath_application = applications[0]
 
             return ctx.stormpath_application
 

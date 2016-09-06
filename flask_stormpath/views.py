@@ -17,7 +17,7 @@ from flask import (
     render_template,
     request,
 )
-from flask.ext.login import login_user
+from flask_login import login_user
 from six import string_types
 from stormpath.resources.provider import Provider
 
@@ -104,7 +104,7 @@ def register():
                 return redirect(redirect_url)
 
             except StormpathError as err:
-                flash(err.message.get('message'))
+                flash(err.message)
 
     return render_template(
         current_app.config['STORMPATH_REGISTRATION_TEMPLATE'],
@@ -142,7 +142,7 @@ def login():
             return redirect(request.args.get('next') or current_app.config['STORMPATH_REDIRECT_URL'])
 
         except StormpathError as err:
-            flash(err.message.get('message'))
+            flash(err.message)
 
     return render_template(
         current_app.config['STORMPATH_LOGIN_TEMPLATE'],
@@ -231,7 +231,7 @@ def forgot_change():
             if isinstance(err.message, string_types) and 'https' in err.message.lower():
                 flash('Something went wrong! Please try again.')
             else:
-                flash(err.message.get('message'))
+                flash(err.message)
 
     # If this is a POST request, and the form isn't valid, this means the
     # user's password was no good, so we'll display a message.

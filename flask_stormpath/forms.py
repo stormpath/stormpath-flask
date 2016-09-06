@@ -1,7 +1,7 @@
 """Helper forms which make handling common operations simpler."""
 
 
-from flask.ext.wtf import Form
+from flask_wtf import Form
 from wtforms.fields import PasswordField, StringField
 from wtforms.validators import InputRequired, ValidationError
 
