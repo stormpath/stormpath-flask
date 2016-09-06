@@ -13,10 +13,7 @@ Documentation on RTFD: http://flask-stormpath.readthedocs.org/en/latest/
 from multiprocessing import cpu_count
 from subprocess import call
 
-from setuptools import (
-    Command,
-    setup,
-)
+from setuptools import Command, setup
 
 
 class RunTests(Command):
