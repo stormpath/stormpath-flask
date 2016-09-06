@@ -89,15 +89,14 @@ def register():
                     flash('You must validate your email address before logging '
                           'in. Please check your email for instructions.')
 
-                if 'STORMPATH_REGISTRATION_REDIRECT_URL'\
-                        in current_app.config:
-                    redirect_url = current_app.config[
-                        'STORMPATH_REGISTRATION_REDIRECT_URL']
+                if 'STORMPATH_REGISTRATION_REDIRECT_URL' in current_app.config:
+                    redirect_url = current_app.config['STORMPATH_REGISTRATION_REDIRECT_URL']
                 else:
                     redirect_url = current_app.config['STORMPATH_REDIRECT_URL']
                 return redirect(redirect_url)
 
             except StormpathError as err:
+                print('DEBUG: {}'.format(err))
                 flash(err.message)
 
     return render_template(
