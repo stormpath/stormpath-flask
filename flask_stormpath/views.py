@@ -2,13 +2,7 @@
 
 import sys
 
-if sys.version_info.major == 3:
-    FACEBOOK = False
-else:
-    from facebook import get_user_from_cookie
-    FACEBOOK = True
-
-
+from facebook import get_user_from_cookie
 from flask import (
     abort,
     current_app,
@@ -269,9 +263,6 @@ def facebook_login():
     The location this view redirects users to can be configured via
     Flask-Stormpath settings.
     """
-    if not FACEBOOK:
-        raise StormpathError({'developerMessage': 'Facebook does not support python 3'})
-
     # First, we'll try to grab the Facebook user's data by accessing their
     # session data.
     facebook_user = get_user_from_cookie(
