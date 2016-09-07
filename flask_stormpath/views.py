@@ -86,8 +86,7 @@ def register():
 
                 # The email address must be verified, so pop an alert about it.
                 if current_app.config['STORMPATH_VERIFY_EMAIL'] is True:
-                    flash('You must validate your email address before logging '
-                          'in. Please check your email for instructions.')
+                    flash('You must validate your email address before logging in. Please check your email for instructions.')
 
                 if 'STORMPATH_REGISTRATION_REDIRECT_URL' in current_app.config:
                     redirect_url = current_app.config['STORMPATH_REGISTRATION_REDIRECT_URL']
@@ -96,7 +95,6 @@ def register():
                 return redirect(redirect_url)
 
             except StormpathError as err:
-                print('DEBUG: {}'.format(err))
                 flash(err.message)
 
     return render_template(
