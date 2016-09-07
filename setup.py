@@ -53,7 +53,7 @@ setup(
         'Flask-WTF>=0.9.5',
         'facebook-sdk==2.0.0',
         'oauth2client==1.5.2',
-        'stormpath==2.1.6',
+        'stormpath==2.4.4',
         'blinker==1.4'
     ],
     extras_require = {
