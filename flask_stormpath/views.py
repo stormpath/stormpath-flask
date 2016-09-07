@@ -131,7 +131,6 @@ def login():
             login_user(account, remember=True)
 
             return redirect(request.args.get('next') or current_app.config['STORMPATH_REDIRECT_URL'])
-
         except StormpathError as err:
             flash(err.message)
 

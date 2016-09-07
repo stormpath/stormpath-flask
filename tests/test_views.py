@@ -225,7 +225,8 @@ class TestLogin(StormpathTestCase):
             })
             self.assertEqual(resp.status_code, 200)
 
-            self.assertTrue('Invalid username or password.' in resp.data.decode('utf-8'))
+            #self.assertTrue('Invalid username or password.' in resp.data.decode('utf-8'))
+            self.assertTrue('Login attempt failed because the specified password is incorrect.' in resp.data.decode('utf-8'))
             self.assertFalse('developerMessage' in resp.data.decode('utf-8'))
 
     def test_redirect_to_login_and_register_url(self):
