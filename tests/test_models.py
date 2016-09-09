@@ -75,17 +75,17 @@ class TestUser(StormpathTestCase):
                 given_name = 'Randall',
                 surname = 'Degges',
             )
-            self.assertEqual(user.is_active(), True)
+            self.assertEqual(user.is_active, True)
 
             # Ensure users who have their accounts explicitly disabled actually
             # return a proper status when `is_active` is called.
             user.status = User.STATUS_DISABLED
-            self.assertEqual(user.is_active(), False)
+            self.assertEqual(user.is_active, False)
 
             # Ensure users who have not verified their accounts return a proper
             # status when `is_active` is called.
             user.status = User.STATUS_UNVERIFIED
-            self.assertEqual(user.is_active(), False)
+            self.assertEqual(user.is_active, False)
 
     def test_is_anonymous(self):
         with self.app.app_context():
@@ -99,7 +99,7 @@ class TestUser(StormpathTestCase):
                 given_name = 'Randall',
                 surname = 'Degges',
             )
-            self.assertEqual(user.is_anonymous(), False)
+            self.assertEqual(user.is_anonymous, False)
 
     def test_is_authenticated(self):
         with self.app.app_context():
@@ -112,7 +112,7 @@ class TestUser(StormpathTestCase):
                 given_name = 'Randall',
                 surname = 'Degges',
             )
-            self.assertEqual(user.is_authenticated(), True)
+            self.assertEqual(user.is_authenticated, True)
 
     def test_create(self):
         with self.app.app_context():

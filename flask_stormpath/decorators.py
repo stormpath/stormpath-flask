@@ -44,7 +44,7 @@ def groups_required(groups, all=True):
                 return func(*args, **kwargs)
 
             # If the user is NOT authenticated, this user is unauthorized.
-            elif not current_user.is_authenticated():
+            elif not current_user.is_authenticated:
                 return current_app.login_manager.unauthorized()
 
             # If the user authenticated, and the all flag is set, we need to
