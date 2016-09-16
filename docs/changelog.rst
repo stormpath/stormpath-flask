@@ -7,6 +7,15 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.4.7
+-------------
+
+**Released September 16, 2016.**
+
+- Updating the library components to work with the latest release of
+  Flask-Login.  Thanks `@01walid <https://github.com/01walid>`_ for the PR!
+
+
 Version 0.4.6
 -------------
 
