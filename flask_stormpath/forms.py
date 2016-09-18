@@ -28,8 +28,8 @@ class RegistrationForm(Form):
     given_name = StringField('First Name')
     middle_name = StringField('Middle Name')
     surname = StringField('Last Name')
-    email = StringField('Email', validators=[InputRequired()])
-    password = PasswordField('Password', validators=[InputRequired()])
+    email = StringField('Email', validators=[InputRequired('You must provide a valid email address.')])
+    password = PasswordField('Password', validators=[InputRequired('You must supply a password.')])
 
     def __init__(self, formdata=_Auto, obj=None, prefix='', csrf_context=None, secret_key=None, csrf_enabled=None,
                  config=None, *args, **kwargs):
