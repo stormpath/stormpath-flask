@@ -4,7 +4,7 @@
 from flask_wtf import Form
 from flask_wtf.form import _Auto
 from wtforms.fields import PasswordField, StringField
-from wtforms.validators import InputRequired, ValidationError
+from wtforms.validators import Email, EqualTo, InputRequired, ValidationError
 
 
 class RegistrationForm(Form):
@@ -28,7 +28,10 @@ class RegistrationForm(Form):
     given_name = StringField('First Name')
     middle_name = StringField('Middle Name')
     surname = StringField('Last Name')
-    email = StringField('Email', validators=[InputRequired('You must provide a valid email address.')])
+    email = StringField('Email', validators=[
+        InputRequired('You must provide an email address.'),
+        Email('You must provide a valid email address.')
+    ])
     password = PasswordField('Password', validators=[InputRequired('You must supply a password.')])
 
     def __init__(self, formdata=_Auto, obj=None, prefix='', csrf_context=None, secret_key=None, csrf_enabled=None,
@@ -67,8 +70,8 @@ class LoginForm(Form):
         Since social login stuff is handled separately (login happens through
         Javascript) we don't need to have a form for logging in users that way.
     """
-    login = StringField('Login', validators=[InputRequired()])
-    password = PasswordField('Password', validators=[InputRequired()])
+    login = StringField('Login', validators=[InputRequired('Login identifier required.')])
+    password = PasswordField('Password', validators=[InputRequired('Password required.')])
 
 
 class ForgotPasswordForm(Form):
@@ -78,7 +81,10 @@ class ForgotPasswordForm(Form):
 
     This class is used to retrieve a user's email address.
     """
-    email = StringField('Email', validators=[InputRequired()])
+    email = StringField('Email', validators=[
+        InputRequired('Email address required.'),
+        Email('You must provide a valid email address.')
+    ])
 
 
 class ChangePasswordForm(Form):
@@ -88,14 +94,8 @@ class ChangePasswordForm(Form):
     This class is used to retrieve a user's password twice to ensure it's valid
     before making a change.
     """
-    password = PasswordField('Password', validators=[InputRequired()])
-    password_again = PasswordField('Password (again)', validators=[InputRequired()])
-
-    def validate_password_again(self, field):
-        """
-        Ensure both password fields match, otherwise raise a ValidationError.
-
-        :raises: ValidationError if passwords don't match.
-        """
-        if self.password.data != field.data:
-            raise ValidationError("Passwords don't match.")
+    password = PasswordField('Password', validators=[InputRequired('Password required.')])
+    password_again = PasswordField('Password (again)', validators=[
+        InputRequired('Please verify the password.'),
+        EqualTo(password, 'Passwords don\'t match.')
+    ])
