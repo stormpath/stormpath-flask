@@ -36,66 +36,43 @@ def register():
     template that is used to render this page can all be controlled via
     Flask-Stormpath settings.
     """
-    form = RegistrationForm()
+    form = RegistrationForm(config=current_app.config)
 
     # If we received a POST request with valid information, we'll continue
     # processing.
     if form.validate_on_submit():
-        fail = False
-
-        # Iterate through all fields, grabbing the necessary form data and
-        # flashing error messages if required.
         data = form.data
-        for field in data.keys():
-            if current_app.config['STORMPATH_ENABLE_%s' % field.upper()]:
-                if current_app.config['STORMPATH_REQUIRE_%s' % field.upper()] and not data[field]:
-                    fail = True
+        # Attempt to create the user's account on Stormpath.
+        try:
+            # Since Stormpath requires both the given_name and surname
+            # fields be set, we'll just set the both to 'Anonymous' if
+            # the user has # explicitly said they don't want to collect
+            # those fields.
+            data['given_name'] = data['given_name'] or 'Anonymous'
+            data['surname'] = data['surname'] or 'Anonymous'
 
-                    # Manually override the terms for first / last name to make
-                    # errors more user friendly.
-                    if field == 'given_name':
-                        field = 'first name'
+            # Create the user account on Stormpath.  If this fails, an
+            # exception will be raised.
+            account = User.create(**data)
 
-                    elif field == 'surname':
-                        field = 'last name'
+            # If we're able to successfully create the user's account,
+            # we'll log the user in (creating a secure session using
+            # Flask-Login), then redirect the user to the
+            # STORMPATH_REDIRECT_URL setting.
+            login_user(account, remember=True)
 
-                    flash('%s is required.' % field.replace('_', ' ').title())
+            # The email address must be verified, so pop an alert about it.
+            if current_app.config['STORMPATH_VERIFY_EMAIL'] is True:
+                flash('You must validate your email address before logging in. Please check your email for instructions.')
 
-        # If there are no missing fields (per our settings), continue.
-        if not fail:
+            if 'STORMPATH_REGISTRATION_REDIRECT_URL' in current_app.config:
+                redirect_url = current_app.config['STORMPATH_REGISTRATION_REDIRECT_URL']
+            else:
+                redirect_url = current_app.config['STORMPATH_REDIRECT_URL']
+            return redirect(redirect_url)
 
-            # Attempt to create the user's account on Stormpath.
-            try:
-
-                # Since Stormpath requires both the given_name and surname
-                # fields be set, we'll just set the both to 'Anonymous' if
-                # the user has # explicitly said they don't want to collect
-                # those fields.
-                data['given_name'] = data['given_name'] or 'Anonymous'
-                data['surname'] = data['surname'] or 'Anonymous'
-
-                # Create the user account on Stormpath.  If this fails, an
-                # exception will be raised.
-                account = User.create(**data)
-
-                # If we're able to successfully create the user's account,
-                # we'll log the user in (creating a secure session using
-                # Flask-Login), then redirect the user to the
-                # STORMPATH_REDIRECT_URL setting.
-                login_user(account, remember=True)
-
-                # The email address must be verified, so pop an alert about it.
-                if current_app.config['STORMPATH_VERIFY_EMAIL'] is True:
-                    flash('You must validate your email address before logging in. Please check your email for instructions.')
-
-                if 'STORMPATH_REGISTRATION_REDIRECT_URL' in current_app.config:
-                    redirect_url = current_app.config['STORMPATH_REGISTRATION_REDIRECT_URL']
-                else:
-                    redirect_url = current_app.config['STORMPATH_REDIRECT_URL']
-                return redirect(redirect_url)
-
-            except StormpathError as err:
-                flash(err.message)
+        except StormpathError as err:
+            flash(err.message)
 
     return render_template(
         current_app.config['STORMPATH_REGISTRATION_TEMPLATE'],

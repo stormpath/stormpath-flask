@@ -29,7 +29,7 @@ class RunTests(Command):
 
     def run(self):
         """Run our tests!"""
-        errno = call(['py.test', '-n', str(cpu_count())])
+        errno = call(['py.test', '-n', str(cpu_count()), 'tests/'])
         raise SystemExit(errno)
 
 

@@ -23,6 +23,7 @@ class TestRegister(StormpathTestCase):
 
             # Ensure that valid fields will result in a success.
             resp = c.post('/register', data={
+                'username': 'rdegges',
                 'given_name': 'Randall',
                 'middle_name': 'Clark',
                 'surname': 'Degges',
@@ -34,6 +35,7 @@ class TestRegister(StormpathTestCase):
     def test_disable_all_except_mandatory(self):
         # Here we'll disable all the fields except for the mandatory fields:
         # email and password.
+        self.app.config['STORMPATH_ENABLE_USERNAME'] = False
         self.app.config['STORMPATH_ENABLE_GIVEN_NAME'] = False
         self.app.config['STORMPATH_ENABLE_MIDDLE_NAME'] = False
         self.app.config['STORMPATH_ENABLE_SURNAME'] = False
