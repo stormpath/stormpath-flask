@@ -7,6 +7,16 @@ Change Log
 All library changes, in descending order.
 
 
+Version 0.4.8
+-------------
+
+**Released September 21, 2016.**
+
+- Refactoring registration logic to use form validation.  Thanks `@jcass77
+  <https://github.com/jcass77>`_ for the PR!
+- Updating some tracking codes on docs.
+
+
 Version 0.4.7
 -------------
 
