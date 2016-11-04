@@ -13,7 +13,7 @@ class TestUser(StormpathTestCase):
     def test_subclass(self):
         with self.app.app_context():
             user = User.create(
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
@@ -32,7 +32,7 @@ class TestUser(StormpathTestCase):
             # Ensure `email` is shown in the output if no `username` is
             # specified.
             user = User.create(
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
@@ -45,7 +45,7 @@ class TestUser(StormpathTestCase):
             # Ensure `username` is shown in the output if specified.
             user = User.create(
                 username = 'omgrandall',
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
@@ -58,7 +58,7 @@ class TestUser(StormpathTestCase):
     def test_get_id(self):
         with self.app.app_context():
             user = User.create(
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
@@ -70,7 +70,7 @@ class TestUser(StormpathTestCase):
 
             # Ensure users are active by default.
             user = User.create(
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
@@ -94,7 +94,7 @@ class TestUser(StormpathTestCase):
             # anonymous users (that is a job better suited for a cache or
             # something).
             user = User.create(
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
@@ -107,7 +107,7 @@ class TestUser(StormpathTestCase):
             # This should always return true.  If a user account can be
             # fetched, that means it must be authenticated.
             user = User.create(
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
@@ -119,15 +119,15 @@ class TestUser(StormpathTestCase):
 
             # Ensure all requied fields are properly set.
             user = User.create(
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
             )
-            self.assertEqual(user.email, 'r@rdegges.com')
+            self.assertEqual(user.email, 'r@testmail.stormpath.com')
             self.assertEqual(user.given_name, 'Randall')
             self.assertEqual(user.surname, 'Degges')
-            self.assertEqual(user.username, 'r@rdegges.com')
+            self.assertEqual(user.username, 'r@testmail.stormpath.com')
             self.assertEqual(user.middle_name, None)
             self.assertEqual(
                 dict(user.custom_data),
@@ -141,7 +141,7 @@ class TestUser(StormpathTestCase):
 
             # Ensure all optional parameters are properly set.
             user = User.create(
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
@@ -178,7 +178,7 @@ class TestUser(StormpathTestCase):
 
             # First we'll create a user.
             user = User.create(
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
@@ -189,7 +189,7 @@ class TestUser(StormpathTestCase):
             # Now we'll try to retrieve that user by specifing the user's
             # `email` and `password`.
             user = User.from_login(
-                'r@rdegges.com',
+                'r@testmail.stormpath.com',
                 'woot1LoveCookies!',
             )
             self.assertEqual(user.href, original_href)

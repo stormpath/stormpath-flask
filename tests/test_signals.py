@@ -25,7 +25,7 @@ class TestSignals(StormpathTestCase):
                 'given_name': 'Randall',
                 'middle_name': 'Clark',
                 'surname': 'Degges',
-                'email': 'r@rdegges.com',
+                'email': 'r@testmail.stormpath.com',
                 'password': 'woot1LoveCookies!',
             })
             self.assertEqual(resp.status_code, 302)
@@ -37,7 +37,7 @@ class TestSignals(StormpathTestCase):
         self.assertIsInstance(received_signal[1], dict)
         # Correct user instance is received
         created_user = received_signal[1]
-        self.assertEqual(created_user['email'], 'r@rdegges.com')
+        self.assertEqual(created_user['email'], 'r@testmail.stormpath.com')
         self.assertEqual(created_user['surname'], 'Degges')
 
     def test_user_logged_in_signal(self):
@@ -51,7 +51,7 @@ class TestSignals(StormpathTestCase):
                 username = 'rdegges',
                 given_name = 'Randall',
                 surname = 'Degges',
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
             )
 
@@ -70,7 +70,7 @@ class TestSignals(StormpathTestCase):
         self.assertIsInstance(received_signal[1], User)
         # Correct user instance is received
         logged_in_user = received_signal[1]
-        self.assertEqual(logged_in_user.email, 'r@rdegges.com')
+        self.assertEqual(logged_in_user.email, 'r@testmail.stormpath.com')
         self.assertEqual(logged_in_user.surname, 'Degges')
 
     def test_user_is_updated_signal(self):
@@ -82,7 +82,7 @@ class TestSignals(StormpathTestCase):
 
             # Ensure all requied fields are properly set.
             user = User.create(
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
@@ -98,7 +98,7 @@ class TestSignals(StormpathTestCase):
         self.assertIsInstance(received_signal[1], dict)
         # Correct user instance is received
         updated_user = received_signal[1]
-        self.assertEqual(updated_user['email'], 'r@rdegges.com')
+        self.assertEqual(updated_user['email'], 'r@testmail.stormpath.com')
         self.assertEqual(updated_user['middle_name'], 'Clark')
 
     def test_user_is_deleted_signal(self):
@@ -110,7 +110,7 @@ class TestSignals(StormpathTestCase):
 
             # Ensure all requied fields are properly set.
             user = User.create(
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
                 given_name = 'Randall',
                 surname = 'Degges',
@@ -125,4 +125,4 @@ class TestSignals(StormpathTestCase):
         self.assertIsInstance(received_signal[1], dict)
         # Correct user instance is received
         deleted_user = received_signal[1]
-        self.assertEqual(deleted_user['email'], 'r@rdegges.com')
+        self.assertEqual(deleted_user['email'], 'r@testmail.stormpath.com')

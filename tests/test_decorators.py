@@ -20,7 +20,7 @@ class TestGroupsRequired(StormpathTestCase):
             self.user = User.create(
                 given_name = 'Randall',
                 surname = 'Degges',
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
             )
 

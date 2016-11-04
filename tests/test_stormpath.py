@@ -48,7 +48,7 @@ from stormpath.client import Client
 #        self.user = self.application.accounts.create({
 #            'given_name': 'Randall',
 #            'surname': 'Degges',
-#            'email': 'randall@stormpath.com',
+#            'email': 'randall@testmail.stormpath.com',
 #            'username': 'randall',
 #            'password': 'woot1LoveCookies!',
 #        })
@@ -120,7 +120,7 @@ from stormpath.client import Client
 #        self.user = self.application.accounts.create({
 #            'given_name': 'Randall',
 #            'surname': 'Degges',
-#            'email': 'randall@stormpath.com',
+#            'email': 'randall@testmail.stormpath.com',
 #            'username': 'randall',
 #            'password': 'woot1LoveCookies!',
 #        })

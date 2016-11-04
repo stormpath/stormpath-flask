@@ -16,7 +16,7 @@ class TestRegister(StormpathTestCase):
 
             # Ensure that missing fields will cause a failure.
             resp = c.post('/register', data={
-                'email': 'r@rdegges.com',
+                'email': 'r@testmail.stormpath.com',
                 'password': 'woot1LoveCookies!',
             })
             self.assertEqual(resp.status_code, 200)
@@ -27,7 +27,7 @@ class TestRegister(StormpathTestCase):
                 'given_name': 'Randall',
                 'middle_name': 'Clark',
                 'surname': 'Degges',
-                'email': 'r@rdegges.com',
+                'email': 'r@testmail.stormpath.com',
                 'password': 'woot1LoveCookies!',
             })
             self.assertEqual(resp.status_code, 302)
@@ -44,13 +44,13 @@ class TestRegister(StormpathTestCase):
 
             # Ensure that missing fields will cause a failure.
             resp = c.post('/register', data={
-                'email': 'r@rdegges.com',
+                'email': 'r@testmail.stormpath.com',
             })
             self.assertEqual(resp.status_code, 200)
 
             # Ensure that valid fields will result in a success.
             resp = c.post('/register', data={
-                'email': 'r@rdegges.com',
+                'email': 'r@testmail.stormpath.com',
                 'password': 'woot1LoveCookies!',
             })
             self.assertEqual(resp.status_code, 302)
@@ -67,14 +67,14 @@ class TestRegister(StormpathTestCase):
             # Ensure that registration works *without* given name and surname
             # since they aren't required.
             resp = c.post('/register', data={
-                'email': 'r@rdegges.com',
+                'email': 'r@testmail.stormpath.com',
                 'password': 'woot1LoveCookies!',
             })
             self.assertEqual(resp.status_code, 302)
 
             # Find our user account that was just created, and ensure the given
             # name and surname fields were set to our default string.
-            user = User.from_login('r@rdegges.com', 'woot1LoveCookies!')
+            user = User.from_login('r@testmail.stormpath.com', 'woot1LoveCookies!')
             self.assertEqual(user.given_name, 'Anonymous')
             self.assertEqual(user.surname, 'Anonymous')
 
@@ -86,7 +86,7 @@ class TestRegister(StormpathTestCase):
             resp = c.post('/register', data={
                 'given_name': 'Randall',
                 'surname': 'Degges',
-                'email': 'r@rdegges.com',
+                'email': 'r@testmail.stormpath.com',
                 'password': 'hilol',
             })
             self.assertEqual(resp.status_code, 200)
@@ -97,7 +97,7 @@ class TestRegister(StormpathTestCase):
             resp = c.post('/register', data={
                 'given_name': 'Randall',
                 'surname': 'Degges',
-                'email': 'r@rdegges.com',
+                'email': 'r@testmail.stormpath.com',
                 'password': 'hilolwoot1',
             })
             self.assertEqual(resp.status_code, 200)
@@ -108,7 +108,7 @@ class TestRegister(StormpathTestCase):
             resp = c.post('/register', data={
                 'given_name': 'Randall',
                 'surname': 'Degges',
-                'email': 'r@rdegges.com',
+                'email': 'r@testmail.stormpath.com',
                 'password': 'hilolwoothi',
             })
             self.assertEqual(resp.status_code, 200)
@@ -131,7 +131,7 @@ class TestRegister(StormpathTestCase):
                     'given_name': 'Randall',
                     'middle_name': 'Clark',
                     'surname': 'Degges',
-                    'email': 'r@rdegges.com',
+                    'email': 'r@testmail.stormpath.com',
                     'password': 'woot1LoveCookies!',
                 })
 
@@ -157,7 +157,7 @@ class TestRegister(StormpathTestCase):
                     'given_name': 'Randall',
                     'middle_name': 'Clark',
                     'surname': 'Degges',
-                    'email': 'r@rdegges.com',
+                    'email': 'r@testmail.stormpath.com',
                     'password': 'woot1LoveCookies!',
                 })
 
@@ -176,14 +176,14 @@ class TestLogin(StormpathTestCase):
             User.create(
                 given_name = 'Randall',
                 surname = 'Degges',
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
             )
 
         # Attempt a login using email and password.
         with self.app.test_client() as c:
             resp = c.post('/login', data={
-                'login': 'r@rdegges.com',
+                'login': 'r@testmail.stormpath.com',
                 'password': 'woot1LoveCookies!',
             })
             self.assertEqual(resp.status_code, 302)
@@ -195,7 +195,7 @@ class TestLogin(StormpathTestCase):
                 username = 'rdegges',
                 given_name = 'Randall',
                 surname = 'Degges',
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
             )
 
@@ -214,7 +214,7 @@ class TestLogin(StormpathTestCase):
                 username = 'rdegges',
                 given_name = 'Randall',
                 surname = 'Degges',
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
             )
 
@@ -238,7 +238,7 @@ class TestLogin(StormpathTestCase):
                 username = 'rdegges',
                 given_name = 'Randall',
                 surname = 'Degges',
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
             )
 
@@ -263,7 +263,7 @@ class TestLogin(StormpathTestCase):
                 username = 'rdegges',
                 given_name = 'Randall',
                 surname = 'Degges',
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
             )
 
@@ -300,14 +300,14 @@ class TestLogout(StormpathTestCase):
             User.create(
                 given_name = 'Randall',
                 surname = 'Degges',
-                email = 'r@rdegges.com',
+                email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
             )
 
         with self.app.test_client() as c:
             # Log this user in.
             resp = c.post('/login', data={
-                'login': 'r@rdegges.com',
+                'login': 'r@testmail.stormpath.com',
                 'password': 'woot1LoveCookies!',
             })
             self.assertEqual(resp.status_code, 302)
