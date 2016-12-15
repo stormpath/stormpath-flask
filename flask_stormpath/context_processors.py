@@ -2,7 +2,10 @@
 
 
 from flask import current_app
-from flask_login import _get_user
+try:
+    from flask_login.utils import _get_user
+except ImportError:
+    from flask_login import _get_user
 
 
 def user_context_processor():
