@@ -32,11 +32,14 @@ from flask import (
 from flask_login import (
     LoginManager,
     current_user,
-    _get_user,
     login_required,
     login_user,
     logout_user,
 )
+try:
+    from flask_login.utils import _get_user
+except ImportError:
+    from flask_login import _get_user
 
 from stormpath.client import Client
 from stormpath.error import Error as StormpathError
