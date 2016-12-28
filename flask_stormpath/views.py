@@ -368,7 +368,7 @@ def google_login():
             'is_default_group_store': False,
         })
 
-        # Lastly, let's retry the Facebook login one more time.
+        # Lastly, let's retry the Google login one more time.
         account = User.from_google(code)
 
     # Now we'll log the new user into their account.  From this point on, this
