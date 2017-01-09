@@ -1,13 +1,13 @@
 """Helper forms which make handling common operations simpler."""
 
 
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from flask_wtf.form import _Auto
 from wtforms.fields import PasswordField, StringField
 from wtforms.validators import Email, EqualTo, InputRequired, ValidationError
 
 
-class RegistrationForm(Form):
+class RegistrationForm(FlaskForm):
     """
     Register a new user.
 
@@ -34,10 +34,8 @@ class RegistrationForm(Form):
     ])
     password = PasswordField('Password', validators=[InputRequired('You must supply a password.')])
 
-    def __init__(self, formdata=_Auto, obj=None, prefix='', csrf_context=None, secret_key=None, csrf_enabled=None,
-                 config=None, *args, **kwargs):
-        super(RegistrationForm, self).__init__(formdata, obj, prefix, csrf_context, secret_key, csrf_enabled, *args,
-                                               **kwargs)
+    def __init__(self, formdata=_Auto, config=None, **kwargs):
+        super(RegistrationForm, self).__init__(formdata=formdata, **kwargs)
 
         if config:
             if config['STORMPATH_ENABLE_USERNAME'] and config['STORMPATH_REQUIRE_USERNAME']:
@@ -53,7 +51,7 @@ class RegistrationForm(Form):
                 self.surname.validators.append(InputRequired('Surname is required.'))
 
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     """
     Log in an existing user.
 
@@ -74,7 +72,7 @@ class LoginForm(Form):
     password = PasswordField('Password', validators=[InputRequired('Password required.')])
 
 
-class ForgotPasswordForm(Form):
+class ForgotPasswordForm(FlaskForm):
     """
     Retrieve a user's email address for initializing the password reset
     workflow.
@@ -87,7 +85,7 @@ class ForgotPasswordForm(Form):
     ])
 
 
-class ChangePasswordForm(Form):
+class ChangePasswordForm(FlaskForm):
     """
     Change a user's password.
 
