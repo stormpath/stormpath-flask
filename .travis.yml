@@ -4,6 +4,7 @@ python:
 - '3.3'
 - '3.4'
 - '3.5'
+- '3.6'
 install: pip install -e .[test]
 script:
 - test -z "$STORMPATH_API_KEY_SECRET" || python setup.py test
