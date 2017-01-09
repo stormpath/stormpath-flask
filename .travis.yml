@@ -8,8 +8,28 @@ python:
 install: pip install -e .[test]
 script:
 - test -z "$STORMPATH_API_KEY_SECRET" || python setup.py test
-- cd docs && make html
+- test -z "$BUILD_DOCS" cd docs && make html && cd ..
+- test -z "$BUILD_DOCS" || CURRENT_HASH=`git rev-parse HEAD`
+- test -z "$BUILD_DOCS" || RELEASE_VERSION=`git tag | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort | awk '{print $4}' | tail -n 1`
+- test -z "$BUILD_DOCS" || RELEASE_HASH=`git rev-list $RELEASE_VERSION -n 1`
+- test -z "$BUILD_DOCS" || if [ "$CURRENT_HASH" = "$RELEASE_HASH" ]; then DEPLOY_DOCS=true; fi
+- test -z "$DEPLOY_DOCS" || git config --global user.email "evangelists@stormpath.com"
+- test -z "$DEPLOY_DOCS" || git config --global user.name "flask-stormpath Auto Doc Build"
+- test -z "$DEPLOY_DOCS" || git clone git@github.com:stormpath/stormpath.github.io.git
+- test -z "$DEPLOY_DOCS" || cd stormpath.github.io
+- test -z "$DEPLOY_DOCS" || git fetch origin source:source
+- test -z "$DEPLOY_DOCS" || git checkout source
+- test -z "$DEPLOY_DOCS" || rm -rf source/python/flask/latest
+- test -z "$DEPLOY_DOCS" || cp -r ../docs/_build/html source/python/flask/latest
+- test -z "$DEPLOY_DOCS" || cp -r ../docs/_build/html source/python/flask/$RELEASE_VERSION
+- test -z "$DEPLOY_DOCS" || git add --all
+- test -z "$DEPLOY_DOCS" || git commit -m "flask-stormpath release $RELEASE_VERSION"
+- test -z "$DEPLOY_DOCS" || git push origin source
 env:
   global:
   - secure: Q7sQSmMxZs0mfqgccUWr16rn38e+uFUbdIRaU0igYvIV24q80lXCWA5vvCwoSpa3AAVTEF4+XDaBdZl+HzD8PKjmAldljWIOi22fjoiyPtaA/+n5F9w8QbwmZ9T/pPfmHqr0yzYg89bsuGKJ7Irem1NdtOAozc2tVdfhhXI6NYM=
   - secure: CZOy1BN3piid5RgqjZRCQmYI6eZAQI+ojVb/pWA1APFFVNuQtKgAvsjI1zaQRx5xmiGFco1/BhSLBokwknh7MJcwxckpC5D7Y9Ccev4jbWG/2Gif3wjKlezBra2w6LheimcLvbkC+QKJ2n2oNI2xJxr95sBAMaQORJFXXD6Y2wg=
+matrix:
+  include:
+  - env: BUILD_DOCS=true
+    python: '3.6'
