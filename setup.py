@@ -50,7 +50,7 @@ setup(
     install_requires = [
         'Flask>=0.9.0',
         'Flask-Login==0.3.2',
-        'Flask-WTF>=0.12',
+        'Flask-WTF>=0.13.1',
         'facebook-sdk==2.0.0',
         'oauth2client==1.5.2',
         'stormpath==2.4.4',
