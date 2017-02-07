@@ -74,7 +74,7 @@ class User(Account):
         return return_value
 
     @classmethod
-    def create(self, email, password, given_name, surname, username=None, middle_name=None, custom_data=None, status='ENABLED'):
+    def create(cls, email, password, given_name, surname, username=None, middle_name=None, custom_data=None, status='ENABLED'):
         """
         Create a new User.
 
@@ -113,12 +113,12 @@ class User(Account):
             'status': status,
         })
         _user.__class__ = User
-        user_created.send(self, user=dict(_user))
+        user_created.send(cls, user=dict(_user))
 
         return _user
 
     @classmethod
-    def from_login(self, login, password):
+    def from_login(cls, login, password):
         """
         Create a new User class given a login (`email` or `username`), and
         password.
@@ -132,7 +132,7 @@ class User(Account):
         return _user
 
     @classmethod
-    def from_google(self, code):
+    def from_google(cls, code):
         """
         Create a new User class given a Google access code.
 
@@ -151,7 +151,7 @@ class User(Account):
         return _user
 
     @classmethod
-    def from_facebook(self, access_token):
+    def from_facebook(cls, access_token):
         """
         Create a new User class given a Facebook user's access token.
 
