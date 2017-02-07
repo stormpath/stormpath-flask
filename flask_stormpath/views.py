@@ -44,16 +44,20 @@ def register():
         data = form.data
         # Attempt to create the user's account on Stormpath.
         try:
-            # Since Stormpath requires both the given_name and surname
-            # fields be set, we'll just set the both to 'Anonymous' if
-            # the user has # explicitly said they don't want to collect
-            # those fields.
-            data['given_name'] = data['given_name'] or 'Anonymous'
-            data['surname'] = data['surname'] or 'Anonymous'
-
             # Create the user account on Stormpath.  If this fails, an
             # exception will be raised.
-            account = User.create(**data)
+            optional_params = {k: data[k] for k in ('username','middle_name','custom_data', 'status') if k in data}
+            account = User.create(
+                data.get('email'),
+                data.get('password'),
+                # Since Stormpath requires both the given_name and surname
+                # fields be set, we'll just set the both to 'Anonymous' if
+                # the user has # explicitly said they don't want to collect
+                # those fields.
+                data.get('given_name', 'Anonymous') or 'Anonymous',
+                data.get('surname', 'Anonymous') or 'Anonymous',
+                **optional_params
+            )
 
             # If we're able to successfully create the user's account,
             # we'll log the user in (creating a secure session using
