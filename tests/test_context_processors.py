@@ -1,8 +1,9 @@
 """Run tests against our custom context processors."""
 
 
-from flask.ext.stormpath import User, user
-from flask.ext.stormpath.context_processors import user_context_processor
+from flask_stormpath import User, user
+from flask_stormpath.context_processors import user_context_processor
+from stormpath.error import Error
 
 from .helpers import StormpathTestCase
 
@@ -22,6 +23,14 @@ class TestUserContextProcessor(StormpathTestCase):
                 email = 'r@testmail.stormpath.com',
                 password = 'woot1LoveCookies!',
             )
+
+    def tearDown(self):
+        super(TestUserContextProcessor, self).tearDown()
+        try:
+            self.user.delete()
+        except Error:
+            # Resource not found - ignore.
+            pass
 
     def test_raw_works(self):
         with self.app.test_client() as c:

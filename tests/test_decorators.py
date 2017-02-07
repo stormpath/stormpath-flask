@@ -1,8 +1,9 @@
 """Run tests against our custom decorators."""
 
 
-from flask.ext.stormpath import User
-from flask.ext.stormpath.decorators import groups_required
+from flask_stormpath import User
+from flask_stormpath.decorators import groups_required
+from stormpath.error import Error
 
 from .helpers import StormpathTestCase
 
@@ -31,6 +32,24 @@ class TestGroupsRequired(StormpathTestCase):
             self.developers = self.application.groups.create({
                 'name': 'developers',
             })
+
+    def tearDown(self):
+        super(TestGroupsRequired, self).tearDown()
+        try:
+            self.user.delete()
+        except Error:
+            # Resource not found - ignore.
+            pass
+        try:
+            self.admins.delete()
+        except Error:
+            # Resource not found - ignore.
+            pass
+        try:
+            self.developers.delete()
+        except Error:
+            # Resource not found - ignore.
+            pass
 
     def test_defaults_to_all(self):
         @self.app.route('/test')

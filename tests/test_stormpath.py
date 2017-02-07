@@ -12,7 +12,7 @@ from unittest import TestCase
 from uuid import uuid4
 
 from flask import Flask, request
-from flask.ext.stormpath import (
+from flask_stormpath import (
     StormpathManager,
     User,
     groups_required,
