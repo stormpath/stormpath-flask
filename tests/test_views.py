@@ -1,7 +1,7 @@
 """Run tests against our custom views."""
 
 
-from flask.ext.stormpath.models import User
+from flask_stormpath.models import User
 
 from .helpers import StormpathTestCase
 

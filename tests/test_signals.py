@@ -1,6 +1,6 @@
 """Run tests for signals."""
 
-from flask.ext.login import user_logged_in
+from flask_login import user_logged_in
 from flask_stormpath.models import (
     User,
     user_created,

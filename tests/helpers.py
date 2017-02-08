@@ -11,8 +11,9 @@ from unittest import TestCase
 from uuid import uuid4
 
 from flask import Flask
-from flask.ext.stormpath import StormpathManager
+from flask_stormpath import StormpathManager
 from stormpath.client import Client
+from stormpath.error import Error
 
 
 class StormpathTestCase(TestCase):
@@ -41,6 +42,19 @@ class StormpathTestCase(TestCase):
         # Clean up the directories.
         for directory in self.client.directories.search(app_name):
             directory.delete()
+
+        # Clean up API keys
+        self.delete_api_key(app_name)
+
+    def delete_api_key(self, app_name):
+        try:
+            for account in self.client.accounts.items:
+                for key in account.api_keys.items:
+                    if key.name and app_name in key.name:
+                        self.client.data_store.delete_resource(key.href)
+        except Error:
+            # Resource not found - ignore.
+            pass
 
 
 class SignalReceiver(object):
